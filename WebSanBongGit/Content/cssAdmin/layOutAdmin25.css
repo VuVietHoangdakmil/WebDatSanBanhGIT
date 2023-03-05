@@ -1,0 +1,744 @@
+:root {
+    --color_sidebar: #ffffff;
+    --color_background: #f5f5f9;
+    --color_text: #566a7f;
+    --main-color: #90e0ef;
+    --color-text-tittle: #04b0ce;
+    --color-add: green;
+    --color-remove: red;
+    --color-edit: orange;
+    --color-detail: rgb(47, 47, 241);
+}
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+}
+html{
+    box-sizing: border-box;
+}
+.grid.wideEdit{
+    max-width: 100%;
+    margin: 0 auto;
+  
+  
+}
+#mainAdmin .title-name {
+ height: 70px;   
+ display: flex;
+ align-items: center;
+ font-size: 20px;
+ position:sticky;
+ top: 0;
+ padding-left: 20px;
+ background-color: var(--color_background);
+ z-index: 1000;
+}
+#mainAdmin .side_bar{
+    width:100% ;
+    display: block;
+    background-color: var(--color_background);
+    height: 150vh;
+}
+
+
+
+.navigation{
+    color: var(--color_text);
+    font-size: 20px;
+    margin: 14px 0;
+    padding-left: 20px; 
+}
+#mainAdmin .list_manage .li{
+    list-style: none;
+    color: var(--color_text);
+    padding: 12px 0 12px 20px;
+   
+}
+#mainAdmin .list_manage .licha{
+    list-style: none;
+    color: var(--color_text);
+    padding: 14px 0 14px 16px;
+
+}
+    #mainAdmin .list_manage .licha a {
+        text-decoration: none;
+        color: var(--color_text);
+        font-size: 18px;
+        padding: 0px 109px 0px 0px;
+    }
+#mainAdmin .list_manage .licha span{
+    font-size: 16px;
+}
+#mainAdmin .list_manage li i{
+    margin-right: 16px;
+}
+#mainAdmin .list_manage li .fa-caret-left{
+    transition: all 0.2s linear;
+    /* transform: rotate(-90deg); */
+    margin-left: 24px;
+}
+#mainAdmin .list_manage li .fa-caret-left.edit{
+    margin-left: 21.2px;
+}
+.list_manage_san_child,
+.list_manage_time_child { 
+    display: block;
+  overflow: hidden;
+  height: 0;
+   transition: height 0.3s linear ;
+
+}
+.list_manage_san_child li a,
+.list_manage_time_child li a { 
+   color: var(--color_text);
+    text-decoration: none;
+    font-size: 14px;
+}
+.list_manage_san_child li a:hover,
+.list_manage_time_child li a:hover { 
+   color:black;
+    
+}
+.list_manage_san_child li,
+.list_manage_time_child li {
+    padding-top:20px;
+    padding-left: 62px;
+    
+}
+
+#mainAdmin .licha.active{
+    background-color: var(--color_sidebar);
+    filter: brightness(90%);
+    border-left: 5px solid rgb(96, 96, 235);
+    padding-left:11px ; 
+    width: 96%;
+   border-top-right-radius: 24px;
+   border-bottom-right-radius: 24px;
+  
+}
+#mainAdmin .licha:hover{
+    background-color: var(--color_sidebar);
+    filter: brightness(90%);
+    width: 96%;
+   border-top-right-radius: 24px;
+   border-bottom-right-radius: 24px;
+   cursor: pointer;
+}
+.nav_bar_menu{
+    display: flex;
+    background-color: var(--color_background);
+    position:sticky;
+    top:0;
+    width: 100%;
+    z-index: 1000;
+    height: 70px;
+    align-items: center;
+    padding: 0px 30px;
+}
+.nav-bar_menu_left{
+    display: flex;
+   flex-grow:1 ;
+   align-items: center;
+}
+.nav-bar_menu_right{
+    display: flex;
+    list-style: none;
+    align-items: center;
+   
+}
+
+
+/* // css nut tim kiem { */
+.nav-bar_menu_left form{
+    display: flex;
+    align-items: center;
+    border-radius: 6px;
+    overflow: hidden;
+    margin-left: 20px;
+    cursor: pointer;
+}
+.fas.fa-bars{
+    color: var(--color_text);
+    cursor: pointer;
+}
+.nav-bar_menu_left input,button{
+    outline: none;
+    background-color: none;
+    border: none;
+    background-color: white;
+   height: 34px;
+   color: var(--color_text);
+}
+.nav-bar_menu_left button{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    
+}
+
+.nav-bar_menu_left input{
+    width: 200px;
+    padding-left: 20px;
+}
+.nav-bar_menu_right li{
+    color: var(--color_text);
+    margin-right: 34px;
+}
+.nav-bar_menu_right li:last-child{
+    margin-right: 0;
+}
+.nav-bar_menu_right--infomation_admin{
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+.nav-bar_menu_right--infomation_admin img{
+    width: 40px;
+    height: 40px;
+    border-radius:50% ;
+    image-rendering: pixelated;
+    margin-right: 14px;
+   
+}
+.nav-bar_menu_right--infomation_admin span{
+    margin-right: 10px;
+}
+.nav-bar_menu_right--infomation_admin .fas.fa-caret-left{
+    transform: rotate(-90deg);
+}
+.nav-bar_menu_right_mail,
+.nav-bar_menu_right_notification,
+.wrap-name-icon{
+    cursor: pointer;
+}
+.nav-bar_menu_right_mail,
+.nav-bar_menu_right_notification{
+    width: 40px;
+    height: 40px;
+    background-color: var(--color_sidebar);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 5px;
+}
+.wrap-name-icon-setting{
+    position: absolute;
+    list-style: none;
+    background-color: var(--color_background);
+    top:52px;
+   border-radius: 5px;
+   box-shadow: 5px 5px 40px rgba(0, 0, 0, 0.2);
+   overflow: hidden;
+   animation:hientutu2 linear 0.3s;
+   display: none;
+}
+@keyframes hientutu2{
+    from{
+        opacity: 0.5;
+        top: 40px;
+    }
+    to{
+        opacity: 1;
+        top:52px;
+    }
+}
+@keyframes hientutu5 {
+    from {
+        opacity: 0.5;
+        transform:translateY(-200px)
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+.wrap-name-icon-setting li{
+display: flex;
+align-items: center;
+padding: 20px 0;
+padding-left: 8px;
+width: 100%;
+
+}
+.wrap-name-icon-setting li:hover{
+background-color: var( --color_sidebar);
+
+}
+.wrap-name-icon-setting li a{
+    text-decoration: none;
+    color: var(--color_text);
+    margin-left: 8px;
+   width: 100%;
+  
+}
+
+.main-panel{
+      background-color: var(--color_sidebar);  
+     /* background-color: rgb(238, 220, 220); */
+    width: 100%;
+   
+    
+}
+.grid .wide4{
+    padding: 26px 30px 0 30px;
+
+}
+
+.main-panel_colum{
+    background-color: var(--color_background);
+    height: 160px;
+    margin-right: 26px;
+    border-radius: 8px;
+}
+
+.main-panel_colum.Request-reservation{
+     margin-right:0; 
+}
+.main-panel_colum_title{
+   padding-top: 20px;
+   color: var(--color_text);
+   font-size: 30px;
+   margin-left: 30px;
+}
+.countAndIcon{
+    margin-left: 30px;
+    color: var(--color_text);
+    font-size: 24px;
+    margin-top: 30px;
+    display: flex;
+    align-items: center;
+}
+.countAndIcon span{
+    margin-right: 40px;
+}
+.countAndIcon i{
+    
+    width: 44px;
+    height: 44px;
+    border-radius: 5px;
+    text-align: center;
+    line-height: 44px;
+   
+}
+.main-panel_colum.user i{
+    background-color:rgb(182, 238, 182);
+    color: green;
+}
+.main-panel_colum.total i{
+    color: rgb(18, 126, 235);
+    background-color:rgb(165, 205, 246);
+}
+.main-panel_colum.Request-reservation i{
+    color: red;
+    background-color:rgb(241, 175, 175);
+}
+.col.edit4{
+    transition: all 0.2s linear;
+}
+.col.editcol2.lc11{
+    flex: 0 0  94%;
+    max-width: 94%;
+}
+.col.editcol1.lc1{
+    flex: 0 0  6%;
+    max-width: 6%;
+}
+.col.editcol1.lc1:hover{
+    flex: 0 0 16.66667%;
+        max-width: 16.66667%;
+}
+.col.editcol1.lc1:hover +.col.editcol2.lc11{
+    flex: 0 0 83.33333%;
+    max-width: 83.33333%;
+}
+.col.editcol1.lc1:hover .navigation,
+.col.editcol1.lc1:hover .licha span,
+.col.editcol1.lc1:hover  .list_manage_san_child,
+.col.editcol1.lc1:hover  .list_manage_time_child
+{
+   display: block;
+}
+.col.editcol1.lc1:hover .licha.click1 span{
+    margin-right: 11.6px;
+}
+.col.editcol1.lc1:hover .licha.click2 span{
+    margin-right: 8.5px;
+}
+.col.editcol1.lc1:hover .manager_san,
+.col.editcol1.lc1:hover .manager_time,
+.col.editcol1.lc1:hover .licha .fa-caret-left,
+.col.editcol1.lc1:hover .list_manage_linkA{
+    display: flex;
+}
+ .col.editcol1.lc1:hover .licha i {
+   margin-left: 0;
+}
+.col.editcol1.lc1:hover .licha.click1 .fa-caret-left{
+    align-items: center;
+  
+}
+.col.editcol1.lc1:hover .licha.click2 .fa-caret-left{
+    align-items: center;
+  
+  
+}
+.col.editcol1.lc1:hover .licha.click1 + ul,
+.col.editcol1.lc1:hover .licha.click2 + ul{
+    padding-left: 11px;
+}
+.col.editcol1.lc1 .navigation,
+.col.editcol1.lc1 .licha span,
+.col.editcol1.lc1 .licha .fa-caret-left,
+.col.editcol1.lc1 .list_manage_san_child,
+.col.editcol1.lc1 .list_manage_time_child{
+    display: none;
+    
+}
+
+.col.editcol1.lc1 .licha:hover{
+    width: 100%;
+    
+}
+ .col.editcol1.lc1 .licha.active{
+    width: 100%;
+}
+#mainAdmin .col.editcol1.lc1 .licha i{
+    margin-left: 15px ;
+}
+
+
+.licha .fa-tachometer-fast{
+    color: royalblue;
+}
+.licha .fa-user{
+    color: green;
+}
+.licha .fa-futbol{
+    color: red;
+} 
+.licha .fa-clock {
+    color: rgb(255, 145, 0);
+}
+.licha .fa-book{
+    color: rgb(23, 155, 167);
+}
+.table-Request-a-reservation{
+    background-color: var(--color_background);
+    height: 100px;
+    width: 100%;
+    border-radius: 6px;
+}
+.grid.wide5{
+    width: 100%;
+    margin: 0 auto;
+    padding: 26px 26px 0 26px;
+  
+}
+.title-table-yc{
+    background-color: var(--color_background);
+    padding: 25px 18px;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    color: var(--color_text);
+    font-size: 20px;
+}
+.table-request{
+    background-color: var(--color_background);
+   align-items: center;
+}
+.table-request-col span{
+    padding-left: 10px;
+}
+.row.table-request{
+    height: 54px;
+}
+.row.table-request.content:nth-child(odd){
+    background-color: rgb(232, 239, 239);
+}
+.row.table-request.content:last-child{
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+}
+.table-request.title{
+    color: var(--color_text);
+    font-size: 18px;
+    border-bottom: 1px solid white;
+}
+.spanedit{
+    display: flex;
+    align-items: center;
+    
+}
+.btnyc {
+    width: 52px;
+    border-radius: 5px;
+    color: #ffffff;
+    cursor: pointer;
+}
+.btnyc:hover{
+    opacity:0.5;
+}
+.btnyc.agree {
+    margin-right: 10px;
+    background-color: greenyellow;
+}
+.btnyc.refuse{
+   
+  background-color: red;
+}
+/* --------------------------- css table khach hàng------------------------------- */
+
+.table-title {
+    text-align: center;
+    padding-top: 50px;
+    font-size: 30px;
+    color: var(--color-text-tittle);
+}
+
+.table-user-title {
+    background-color: var(--main-color);
+}
+
+.table-col-user:first-child {
+    padding-left: 10px;
+}
+
+.table-user-title,
+.table-user-content {
+    border-radius: 6px;
+    height: 44px;
+    align-items: center;
+    border-radius: 8px;
+    margin: 20px 0;
+}
+
+.table-user-content {
+    background-color: var(--color_background);
+}
+
+.table-col-user {
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.table-col-user-setting {
+    display: flex;
+    align-items: center;
+}
+
+    .table-col-user-setting i {
+        cursor: pointer;
+        margin-right: 20px;
+        text-align: center;
+        font-size: 18px;
+    }
+
+        .table-col-user-setting i:hover {
+            opacity: 0.5;
+        }
+
+    .table-col-user-setting .fa-trash-alt {
+        color: var(--color-remove);
+    }
+
+    .table-col-user-setting .fa-edit {
+        color: var(--color-edit);
+    }
+
+    .table-col-user-setting .fa-file-alt {
+        color: var(--color-detail);
+    }
+
+.table_user .BTN_ADD {
+    color: var(--color-add);
+    cursor: pointer;
+    width: 42px;
+    height: 42px;
+    background-color: rgb(192, 242, 192);
+    border-radius: 50%;
+    text-align: center;
+    line-height: 42px;
+    font-size: 25px;
+    display: block;
+    margin-top:18px;
+}
+
+    .table_user .BTN_ADD:hover {
+        opacity: 0.5;
+    }
+
+.form_main_search {
+    display: flex;
+}
+
+.formTkStyle {
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    margin-right: 50px;
+}
+
+    .formTkStyle input {
+        width: 200px;
+        border: none;
+        border-bottom-left-radius: 5px;
+        border-top-left-radius: 5px;
+        padding-left: 15px;
+        outline: none;
+    }
+
+    .formTkStyle button {
+        width: 34px;
+        border-bottom-right-radius: 5px;
+        border-top-right-radius: 5px;
+    }
+
+    .formTkStyle input,
+    .formTkStyle button {
+        background-color: var(--color_background);
+        height: 34px;
+    }
+
+        .formTkStyle button:hover {
+            cursor: pointer;
+        }
+
+
+/* css form setting  */
+.formsetting {
+    background-color: var(--color_background);
+    width: 40%;
+    margin-top: 100px;
+    margin: 0 auto;
+    color: var(--color_text);
+    border-radius: 10px;
+    margin-top: 80px;
+}
+.formsetting span{
+    color:var(--main-color)
+}
+
+.formsetting h1 {
+    text-align: center;
+    color: var(--color-text-tittle);
+    font-size: 24px;
+    padding: 22px;
+}
+
+    .formsetting div {
+        display: flex;
+        margin: 30px 0 30px 92px;
+        align-items: center;
+    }
+
+        .formsetting div img {
+            margin-left: 20px;
+        }
+
+.formsettingBTN button {
+    width: 60px;
+    position: relative;
+    color: white;
+    background-color: var(--main-color);
+    border-radius: 8px;
+    margin-left: 203px;
+    cursor:pointer;
+}
+
+.formsettingBTN button:hover{
+    opacity:0.5;
+}
+.formsettingBTN a {
+    text-decoration: none;
+    color: var(--color_text);
+    cursor: pointer;
+}
+
+    .formsettingBTN a:hover {
+        color: var(--color-text-tittle);
+    }
+
+.formsettingBTN {
+    padding: 20px 0;
+}
+
+
+.formradio-con {
+    display: flex;
+}
+
+    .formradio-con a {
+        display: flex;
+        text-decoration: none;
+        color: black;
+        margin: 0 20px;
+        align-items: center;
+    }
+
+        .formradio-con a div {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            margin-right: 10px;
+            border: 1px solid black;
+        }
+
+#ChuaDa:hover {
+    color: red;
+}
+
+    #ChuaDa:hover div {
+        background-color: red;
+        border: none;
+    }
+
+#DangDa:hover {
+    color: gold
+}
+
+    #DangDa:hover div {
+        background-color: gold;
+        border: none;
+    }
+
+#DaXong:hover {
+    color: green;
+}
+
+    #DaXong:hover div {
+        background-color: green;
+        border: none;
+    }
+.table-user-title .col.l-16tb {
+    border-left: 1px solid black;
+    border-right: 1px solid black;
+}
+
+.table-user-title .col.l-16tb:first-child {
+        border-left: none;
+        border-right: 1px solid black;
+    }
+
+.table-user-title .col.l-16tb:last-child {
+        border-right: none;
+        border-left: 1px solid black;
+    }
+.l-16tb_2 .table-col-user.edit{
+    padding-left:0;
+}
+.select_all {
+    margin-right: 20px;
+   
+    height: 35px;
+    padding-left: 10px;
+    width: 70%;
+    margin-right: 20px;
+    border-radius: 6px;
+    outline: none;
+    border: none;
+    background-color: #f5f5f9;
+}

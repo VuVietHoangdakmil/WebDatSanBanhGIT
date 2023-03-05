@@ -1,0 +1,46 @@
+﻿.pagination-container {
+    margin-right: 428px;
+}
+
+#pagination .exit {
+    text-decoration: none;
+    color: var(--main-color);
+    font-size: 20px;
+}
+
+#pagination {
+    display: flex;
+    align-items: center;
+    padding: 40px 0 40px 0;
+}
+
+    #pagination .page {
+        margin-right: 35%;
+    }
+
+.pagination {
+    display: flex;
+}
+
+    .pagination li a {
+        text-decoration: none;
+        text-align: center;
+        line-height: 40px;
+        display: block;
+        color: white;
+    }
+
+    .pagination li {
+        background-color: var(--main-color);
+        width: 40px;
+        height: 40px;
+        border-radius: 6px;
+        margin: 0 10px;
+    }
+
+    .pagination .active {
+        background-color: var(--main-color);
+        filter: brightness(120%);
+        box-shadow: 5px 5px 10px rgb(0 0 0 / 50%);
+        color: black;
+    }

@@ -1,0 +1,96 @@
+#yard-list-main{
+    margin-top: 120px;
+    
+}
+#yard-list-main .context{
+     font-size: 40px;
+    text-align: center; 
+    margin-bottom: 45px;
+    color: var(--color-text); 
+   
+}
+#yard-list-main h2{
+    color: var(--color-text);
+    margin-bottom: 20px;
+    font-size: 35px;
+}
+#yard-list-main .yard-list{
+    background-color: rgb(233, 228, 228);
+    list-style: none;
+    margin-right: 20px;
+    border-radius:8px;
+    overflow:hidden;
+}
+#yard-list-main .yard-list a{
+    text-decoration: none;
+    font-size: 30px;
+    color: black;
+    width: 100%;
+    display: block;
+   padding: 20px 20px 20px 20px;  
+   
+}
+#yard-list-main .yard-list a:hover{
+    background-color: var(--main-color);
+    color: white; 
+   
+}
+#yard-list-main .yard-list span{
+    transition: all 0.4s ease-in-out;
+    
+}
+#yard-list-main .yard-list a:hover span{    
+    margin-left: 20px;
+}
+#yard-list-main .yard-list li:last-child{ 
+    border-bottom: none;
+}
+#yard-list-main .yard-list li{
+    border-bottom: solid 1px rgb(143, 131, 131);
+}
+    #yard-list-main h1, h2 {
+        color: var( --color-text);
+    }
+    .yard-list-fooball-item {
+        margin-left: 5px;
+    }
+#content-allsan {
+    text-align: center;
+    color: var(--color-text);
+}
+.yard-list-fooball-item{
+    margin-bottom: 50px;  
+    
+}
+    .yard-list-fooball-item a {
+        display: block;
+        width: 90%;
+        height: 300px;
+        background-image: url('../img/sanbongimg.png');
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: cover;
+        border-radius: 10px;
+        margin: 0 auto;
+        box-shadow: 8px 10px 15px rgb(43, 40, 40);
+    }
+.yard-list-fooball-item a:hover{
+     opacity: 0.5; 
+    
+}
+.status-san{
+    margin-top: 10px;
+    text-align: center;
+    width: 100px; 
+    margin: 10px auto;
+    border-color: 4px;
+    height: 25px;
+    line-height: 25px;
+    color: white;
+    border-radius: 6px;
+}
+.name_san{
+   text-align: center;
+   font-size: 20px;
+   margin-top: 4px;
+}

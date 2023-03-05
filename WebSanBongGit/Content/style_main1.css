@@ -1,0 +1,37 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+:root {
+    --main-color: #90e0ef;
+    --color-text: #04b0ce;
+    --color-input: rgb(225, 224, 222)
+}
+.btn{
+    background-color: var(--main-color);
+    text-align: center;
+    border-radius: 5px;
+    cursor: pointer;
+    border: none;
+}
+.btnAnimtion:before {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 0;
+    bottom: 0;
+    left: 0;
+    border-radius: 5px;
+    background-color: var(--main-color);
+    background-image: linear-gradient(315deg, var(--main-color) 0%, #57b8e1 74%);
+    transition: all 0.3s ease;
+}
+
+.btnAnimtion:hover::before {
+    top: 0;
+    height: 100%;
+    font-size: 20px;
+    color: white;
+    z-index: 2;
+}

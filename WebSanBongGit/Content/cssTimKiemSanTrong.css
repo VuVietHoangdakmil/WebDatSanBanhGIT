@@ -1,0 +1,93 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+    
+}
+html{
+    font-size: 62.5%; 
+    background-color: whitesmoke;
+}
+.title_tk{
+    text-align: center;
+    margin-top: 84px;
+    font-size: 3.9rem;
+    color: var(--color-text);
+}
+.row.edittor{
+    margin-top: 32px;
+}
+.TimKiemSanMain_col_left_action_Date,
+.TimKiemSanMain_col_left_action_Time .cssChungInput{
+    display: flex;
+    flex-direction: column;
+    margin-top: 16px;
+}
+.TimKiemSanMain_col_left_action_Date label,
+.TimKiemSanMain_col_left_action_Time label{
+    font-size: 1.6rem;
+    color: green;
+    margin-bottom: 5px;
+}
+.TimKiemSanMain_col_left_action_Date input,
+.TimKiemSanMain_col_left_action_Time input{
+    height: 38px;
+    width: 95%;
+    border-radius: 5px;
+    outline: none;
+    border: none;
+    box-shadow: 5px 8px 30px rgba(0 ,0,0,0.2);
+    padding-left: 10px;
+    background-color: white;
+}
+.btn_timKiem_sanTrong{
+    background-color: var(--main-color);
+    height: 50px;
+    width: 97.5%;
+    height: 38px;
+    margin-top: 18px;
+    border: none;
+    border-radius: 5px;
+    font-size: 2rem;
+    box-shadow: 5px 8px 30px rgba(0 ,0,0,0.2);
+    color: white;
+}
+.TimKiemSanMain_col_left_action_Time{
+    position: relative;
+}
+.TimKiemSanMain_col_left_action_Time .cssCHUNGoption{
+    position: absolute;
+    right: 16px;
+}
+.TimKiemSanMain_col_left_action_Time .cssCHUNGoption select{
+    width: 60px;
+    height: 20px;
+    outline: none;
+    font-size: 1.6rem;
+    border: none;
+    background-color: #A4BE7B;
+    border-radius: 2px;
+    color: white;
+   
+}
+.cssCHUNGoption{
+    display: none ;
+    animation:animationdelay linear 0.5s ;
+}
+@keyframes animationdelay {
+    0%{
+        opacity: 0.2;
+    }
+    50%{
+        opacity: 0.6;
+    }
+    100%{
+        opacity: 1;
+    }
+}
+.messErr{
+    font-size: 1.5rem;
+    color: red;
+    margin-top: 6px;
+}

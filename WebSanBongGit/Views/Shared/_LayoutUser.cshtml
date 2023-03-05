@@ -1,0 +1,488 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <link href="~/Content/style_main1.css" rel="stylesheet" />
+    <link href="~/Content/homePageUse4.css" rel="stylesheet" />
+    <link href="~/Content/cssListYard4.css" rel="stylesheet" />
+    <link href="~/Content/set_the_pitch9.css" rel="stylesheet" />
+    <link href="~/Content/cssmasage1.css" rel="stylesheet" />
+    <link href="~/Content/grid.css" rel="stylesheet" />
+    <link href="~/Content/cssLoad/load1.css" rel="stylesheet" />
+    <link href="~/Content/user_information3.css" rel="stylesheet" />
+    <link href="~/Content/csspagelist/csspageList_main.css" rel="stylesheet" />
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="https://code.jquery.com/jquery-latest.js"></script>
+    <title></title>
+</head>
+<body>
+    <div class="blur_quenMK">
+        <div class="form_quenmk">
+            <div class="inputform">
+                <label> Nhập SDT</label>
+                <input id="SDT_KP" type="text" placeholder="Nhập SDT" />
+            </div>
+            <div class="inputform">
+                <label> Nhập Tài Khoản email của bạn</label>
+                <input id="mail_KP" type="email" placeholder="Nhập gmail" />
+            </div>
+            <button>Khôi Phục</button>
+        </div>
+    </div>
+    <div class="main">
+        <header>
+            <div class="header__navbar">
+                <div class="grid wide">
+                    <div class="header__navbar--item">
+                        <ul class="header__navbar--titleFoolball">
+                            <li class="header__navbar--ul--item--icon"> <i class="fas fa-futbol"></i> </li>
+                            <li class="header__navbar--ul--text"> HỆ THỐNG ĐẶT SÂN</li>
+
+                        </ul>
+
+                        <ul class="header__navbar--Information--main">
+                            <a id="quayveALL" href="/WebSanBong/ListSan"> Tất cả Sân </a>
+                            <a class="timSanTrong" href="/WebSanBong/ViewTimKiemKhungGio">Tìm Sân Trống </a>
+                            <li class="header__navbar--search">
+                                <form action="/WebSanBong/ListSan" method="post" class="search">
+                                    <input type="text" placeholder="Search" id="Search" name="Search" class="search--input" required>
+                                    <button class="seaech-btn">
+                                        <i class="fas fa-search"></i>
+                                    </button>
+                                    <label for="Search"><i class="fas fa-search"></i></label>
+                                </form>
+                            </li>
+                            @if (Session["TaiKhoan"] == null)
+                            {
+                                <li class="header__navbar--item--icon--login">
+                                    <i class="fas fa-user"></i>
+                                </li>
+                            }
+                            else
+                            {
+                                <li class="header__navbar--Information--User">
+                                    <div class="notification">
+                                        <i class="fas fa-bell"></i>
+                                        <span class="number-notification">10</span>
+                                    </div>
+                                    <ul class="notification-content">
+                                        <li>
+                                            <i class="fas fa-check-circle"></i>
+                                            <span>Đặt Sân Thành Công</span>
+                                        </li>
+                                        <li>
+                                            <i class="fa-sharp fa-solid fa-circle-exclamation"></i>
+                                            <span>Đặt Sân Thất Bại</span>
+                                        </li>
+                                        <li>
+                                            <i class="fas fa-check-circle"></i>
+                                            <span>Đặt Sân Thành Công</span>
+                                        </li>
+                                        <li>
+                                            <i class="fa-sharp fa-solid fa-circle-exclamation"></i>
+                                            <span>Đặt Sân Thất Bại</span>
+                                        </li>
+
+                                    </ul>
+
+
+                                    <span class="header__navbar--User--Name"> @Session["ten-khach-hang"].ToString()</span>
+                                    @if (Session["AvatarKH"] == null)
+                                    {
+                                        <div class="header__navbar--User--Name-backgroudImg"
+                                             style="background-image: url(../img/avtar_default.jpg)">
+                                        </div>
+                                    }
+                                    else
+                                    {
+                                        <div class="header__navbar--User--Name-backgroudImg"
+                                             style="background-image: url(../img/@Session["AvatarKH"])">
+
+                                        </div>
+
+                                    }
+                                    <div class="box-chevron-down">
+                                        <i class="fas fa-chevron-down"></i>
+                                    </div>
+                                    <div class="information-user">
+
+                                        <a href="/User/TTKH/@Session["MaKH"]">
+                                            <i class="fas fa-user"></i>
+                                            Thông tin cá nhân
+                                        </a>
+                                        <a href="/WebSanBong/TT_DAT_SAN/@Session["MaKH"]">
+                                            <i class="fas fa-bell"></i>
+                                            Sân Đã Đặt
+                                        </a>
+                                        <a href="">
+                                            <i class="fas fa-bell"></i>
+                                            Thông Báo
+                                        </a>
+                                        <a href="/User/DangXuat">
+                                            <i class="fas fa-sign-out"></i>
+                                            Đăng xuất
+                                        </a>
+
+                                    </div>
+                                </li>
+                            }
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </header>
+        <div>
+            @RenderBody()
+        </div>
+    </div>
+
+
+
+    @if (Session["isKT"] != null)
+    {
+        <div class="messgerError">
+            <div class="messgerError-cha">
+                <div class="messgerError_text">
+                    <i class="fa-sharp fa-solid fa-circle-exclamation"></i>
+                    <span>Số Điện Thoại Đã Có Người Đăng Kí</span>
+                </div>
+
+                <a class="btn-close" href="/User/hidemesage"> Đã Hiểu </a>
+
+            </div>
+        </div>
+    }
+    @if (Session["isKT2"] != null)
+    {
+        <div class="messgerError">
+            <div class="messgerError-cha">
+                <div class="messgerError_text">
+                    <i class="fa-sharp fa-solid fa-circle-exclamation"></i>
+                    <span>Tài Khoản Đăng Nhập Không Đúng</span>
+                </div>
+
+                <a class="btn-close" href="/User/hidemesage"> Đã Hiểu </a>
+
+            </div>
+        </div>
+    }
+    @if (Session["isKT3"] != null)
+    {
+        <div class="messgerError">
+            <div class="messgerError-cha">
+                <div class="messgerError_text">
+                    <i class="fa-sharp fa-solid fa-circle-exclamation"></i>
+                    <span>Vui Lòng Đăng Nhập</span>
+                </div>
+
+                <a class="btn-close" href="/User/hidemesage"> Đã Hiểu </a>
+
+            </div>
+        </div>
+    }
+    <div class="blur">
+        <div id="form-register">
+            <form action="/User/DangKy" method="post" class="form-register-chidren">
+                <div class="title_register">
+                    <h1> Đăng Ký</h1>
+                    <P>Nhập Thông Tin </P>
+                </div>
+
+                <div class="form-input">
+                    <div class="form-group">
+                        <label for="Name">
+                            <i class="fas fa-file-signature"></i>
+                        </label>
+                        <input type="text" name="Name" id="Name" placeholder="Name" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="SDT">
+                            <i class="fas fa-phone-square"></i>
+                        </label>
+                        <input type="text"
+                               pattern="(\+84|0)\d{9,10}"
+                               title="nhập số điện thoại từ 10 đến 11 số"
+                               class="form-control" placeholder="Sdt"
+                               id="SDT"
+                               name="SDT"
+                               required>
+                    </div>
+                    <div class="form-group">
+                        <label for="EMAIL">
+                            <i class="fas fa-envelope"></i>
+                        </label>
+                        <input type="email" id="EMAIL" name="EMAIL" placeholder="Email" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="password">
+                            <i class="fas fa-key"></i>
+                        </label>
+                        <input type="password" id="password" name="password" class="form-control" placeholder="Password" onChange="onChange()" required
+                               minlength="6"
+                               maxlength="15" />
+                        <span class="showAndHide pasword ">
+                            <i class="far fa-eye"></i>
+                            <i class="far fa-eye-slash"></i>
+                        </span>
+
+                    </div>
+                    <div class="form-group">
+                        <label for="again-PASSWORD">
+                            <i class="fas fa-key"></i>
+                        </label>
+                        <input type="password" id="again-password" name="again-password" class="form-control" placeholder="Again password" onChange="onChange()" required
+                               minlength="6"
+                               maxlength="15" />
+                        <span class="showAndHide Againpasword ">
+                            <i class="far fa-eye"></i>
+                            <i class="far fa-eye-slash"></i>
+                        </span>
+                    </div>
+                </div>
+                <button id="btn-register">Đăng Ký</button>
+                <div class="back-to-page-login">Quay Lại?</div>
+            </form>
+        </div>
+        <div id="form-login">
+            <form action="/User/DangNhap" method="post" class="form-login-chidren">
+                <div class="title_register">
+                    <h1> Đăng Nhập</h1>
+                    <P>Nhập Thông Tin </P>
+                </div>
+
+                <div class="form-input edit">
+                    <div class="form-group">
+                        <label for="SDT-login">
+                            <i class="fas fa-phone-square"></i>
+                        </label>
+                        <input type="text"
+                               pattern="(\+84|0)\d{9,10}"
+                               title="nhập số điện thoại từ 10 đến 11 số"
+                               class="form-control" placeholder="Sdt"
+                               id="SDT-login"
+                               name="SDT-login"
+                               required>
+                    </div>
+                    <div class="form-group">
+                        <label for="PASSWORD">
+                            <i class="fas fa-key"></i>
+                        </label>
+                        <input type="password" name="PASSWORD" id="PASSWORD" class="form-control" placeholder="Password" onChange="onChange()" required>
+                        <span class="showAndHide pasword login   ">
+                            <i class="far fa-eye"></i>
+                            <i class="far fa-eye-slash"></i>
+                        </span>
+
+                    </div>
+                </div>
+                <div class="group-btn-login">
+                    <button class="btn-login1"> Đăng Nhập</button>
+                    <div class="btn-noAccount"> Bạn chưa có tài khoản ?</div>
+                </div>
+                <div class="forget-password">
+                    <a> Quên Mật Khẩu</a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+</body>
+<script>
+    const forget_password = document.querySelector('.forget-password')
+    const blurQuenMk = document.querySelector('.blur_quenMK')
+    const form_quenmk = document.querySelector('.form_quenmk')
+    const btnKhoiPhuc = document.querySelector('.form_quenmk button')
+    const sdtKp = document.querySelector('#SDT_KP')
+    const mailKP = document.querySelector('#mail_KP')
+
+    blurQuenMk.onclick = () => {
+        blurQuenMk.style.display = "none";
+        sdtKp.value = ""
+        mailKP.value = ""
+    }
+    forget_password.onclick = () => {
+        blurQuenMk.style.display = "block";
+    }
+    form_quenmk.onclick = (e) => {
+        e.stopPropagation()
+    }
+
+    btnKhoiPhuc.onclick = () => {
+        if (sdtKp.value.trim() == "" || mailKP.value.trim() == "") {
+            alert("vui lòng điền đầy đủ thông tin")
+        } else {
+
+            fetch('/User/capnhatMKQUEN', {
+                method: 'POST',
+                body: JSON.stringify({
+                    SDT: sdtKp.value.trim(),
+                    EMAIL: mailKP.value.trim(),
+                    mkrandom: RANDOM_PASS()
+                }),
+                headers: {
+                    'Content-type': 'application/json; charset=UTF-8',
+                },
+            })
+                .then((response) => response.json())
+                .then((json) => {
+                    if (json.isTK) {
+                        blurQuenMk.click()
+                        alert('Mật Khẩu đã được gửi vào email của bạn ')
+                    }
+                    else {
+                        alert("số điện thoại hoặc email chưa đc đăng ký vui lòng nhập lại")
+                    }
+                });
+        }
+    }
+    function RANDOM_PASS() {
+        let chars = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        let passwordLength = 12;
+        let password = "";
+
+        for (var i = 0; i <= passwordLength; i++) {
+            var randomNumber = Math.floor(Math.random() * chars.length);
+
+            password += chars.substring(randomNumber, randomNumber + 1);
+        }
+        return password;
+    }
+</script>
+
+<style>
+    .inputform {
+        padding: 20px;
+    }
+
+        .inputform label {
+        }
+
+        .inputform input {
+            margin-top: 9px;
+            width: 100%;
+            outline: none;
+            height: 36px;
+            padding-left: 6px;
+            border-radius: 5px;
+            border: none;
+            background-color: #6D9886;
+            color: white;
+            font-size: 16px;
+        }
+
+    .form_quenmk button {
+        margin: 20px;
+        background-color: #90e0ef;
+        width: 87%;
+        height: 40px;
+        border-radius: 5px;
+        font-size: 20px;
+    }
+
+        .form_quenmk button:hover {
+            cursor: pointer;
+            opacity: 0.4;
+        }
+
+    .form_quenmk {
+        background: white;
+        width: 312px;
+        margin-top: 120px;
+        margin-left: auto;
+        margin-right: auto;
+        border-radius: 12px;
+    }
+
+    .blur_quenMK {
+        position: fixed;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background-color: rgba(0, 0, 0, 0.4);
+        display: none;
+        z-index: 5000;
+    }
+
+    #quayveALL {
+        text-decoration: none;
+        color: black;
+        font-size: 20px;
+        background-color: white;
+        padding: 0 20px;
+        border-radius: 4px;
+        height: 40px;
+        line-height: 40px;
+        margin: 0 87px 0 0;
+    }
+
+        #quayveALL:hover {
+            opacity: 0.5;
+            cursor: pointer;
+        }
+
+    .header__navbar--Information--main .timSanTrong {
+        background-color: white;
+        margin-right: 100px;
+        width: 150px;
+        font-size: 20px;
+        height: 40px;
+        border-radius: 4px;
+        cursor: pointer;
+        text-align: center;
+        line-height: 40px;
+        text-decoration: none;
+        color: black
+    }
+
+        .header__navbar--Information--main .timSanTrong:hover {
+            opacity: 0.8;
+        }
+
+    .messgerError_text i {
+        color: red;
+    }
+
+    .messgerError {
+        background-color: white;
+        position: absolute;
+        width: 359px;
+        height: 203px;
+        top: 200px;
+        border-radius: 8px;
+        left: 39%;
+        font-size: 25px;
+        text-align: center;
+        box-shadow: 5px 5px 50px black;
+        animation: hientutrenxuong 0.3s linear;
+    }
+
+    .messgerError-cha {
+        margin-top: 36px;
+    }
+
+    .btn-close {
+        display: block;
+        text-decoration: none;
+        background: var(--main-color);
+        width: 125px;
+        margin: 27px auto;
+        color: black;
+        border-radius: 5px;
+        padding: 6px 0;
+    }
+
+        .btn-close:hover {
+            opacity: 0.5;
+        }
+
+    .messgerError_text {
+        color: red;
+    }
+</style>
+<script src="~/Scripts/homePageUse20.js"></script>
+<script src="~/Scripts/file.js"></script>
+<script src="~/Scripts/JS_RANGBUOC2.js" type="module"></script>
+</html>

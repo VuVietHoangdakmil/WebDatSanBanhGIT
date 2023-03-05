@@ -1,0 +1,32 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+.l-8tb{
+    flex: 0 0 11.1111%;
+    max-width: 11.1111%;
+}
+.l-8con {
+    flex: 0 0 8%;
+    max-width: 8%;
+}
+.l-7newtb {
+    flex: 0 0 14.28%;
+    max-width: 14.28%;
+}
+.l-11tb {
+    flex: 0 0 9.090909%;
+    max-width: 9.090909%;
+}
+.l-16tb {
+    flex: 0 0 6.25%;
+    max-width: 6.25%;
+}
+.l-16tb_2 {
+    flex: 0 0 93.75%;
+    max-width: 93.75%;
+}
+
+/*//93.75*/

@@ -1,0 +1,48 @@
+﻿.PhanTrang {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 90%;
+}
+.PTCHA {
+    display: flex;
+    align-items: center;
+}
+
+.PTCHATong {
+    display: flex;
+}
+
+    .PTCHATong span {
+        margin-right: 14px
+    }
+.PhanTrang ul {
+        display: flex;
+        list-style: none;
+    }
+
+.PhanTrang ul li {
+            width: 40px;
+            height: 40px;
+            background-color: #f5f5f9;
+            text-align: center;
+            line-height: 40px;
+            margin: 0px 10px;
+            border-radius: 6px;
+            cursor: pointer;
+            color: black;
+        }
+
+.PhanTrang ul li:hover {
+                color: white;
+                background-color: var(--main-color);
+            }
+
+.PhanTrang ul li.active {
+                color: white;
+                background-color: var(--main-color);
+            }
+
+.Giam, .Tang {
+    cursor: pointer;
+}

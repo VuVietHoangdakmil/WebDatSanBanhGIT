@@ -1,0 +1,136 @@
+#user_infomation_background{
+    
+  background-image:linear-gradient(to top, #57b8e1 112%, var(--main-color) 104%);
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    height: 720PX;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+.user_infomation_background-block{
+    display: flex;
+    flex-direction: column;
+   background-color: azure;
+   width: 50%;
+  position: relative;
+  top:100px;
+  left: 50%;
+  transform: translateX(-50%);
+border-radius: 10px;
+}
+#user_infomation_background h1{
+    text-align: center;
+    color: var(--main-color);
+    padding-top: 26px;
+  
+}
+
+.user_infomation_background-columMain{
+    margin-top: 32px;
+    margin: 0 auto;
+}
+.user_infomation--form-group{
+    display: flex;
+    flex-direction: column;
+    width: 280px;
+   margin-top: 30px;
+  
+}
+.user_infomation--form-group input{
+    height: 40px;
+    margin-top: 10px;
+    outline: none;
+    border-radius: 5px;
+    border: none;
+    padding: 10px;
+    background-color: rgb(233, 233, 227);
+}
+.user_infomation--form-group img{
+    width: 80px;
+    height: 80px;
+    border-radius: 6px;
+    margin-top: 14px;
+}
+.btn_group_update{
+
+margin-top: 20px;
+}
+.chosseFile{
+    margin-top: 10px;
+    height: 40px;
+    line-height: 36px ;
+    font-size: 20px;
+    position: relative;
+}
+
+.chosseFile:before{
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 0;
+    bottom: 0;
+    left: 0;
+    border-radius: 5px;
+    background-color: var(--main-color);
+    background-image: linear-gradient(315deg, var(--main-color) 0%, #57b8e1 74%); 
+    transition: all 0.3s ease;
+}
+.chosseFile:hover:before{
+    top: 0;  
+    height:100% ; 
+    content: "Chọn Avtar";
+    font-size: 20px;
+    color: white;
+}
+.btn_group_update button{
+    width: 120px;
+    height: 36px;
+    line-height: 36px;
+    position: relative;
+}
+.btn_group_update button::before{
+    content: "";
+    position: absolute;
+    width: 100%;
+    border-radius: 5px;
+    height: 0;
+    background-color: var(--main-color);
+    background-image: linear-gradient(315deg, var(--main-color) 0%, #57b8e1 74%); 
+    bottom: 0;
+    left: 0;
+    right: 0;
+    transition: all 0.3s ease-in-out;
+}
+.btn_group_update button:hover::before{
+    content: "Cập Nhật";
+    top: 0; 
+    height: 100%;
+    color: white;
+}
+.btn_group_update a{
+    text-decoration: none;
+    cursor: pointer;
+    font-size: 18px;
+    color: black;
+    margin-left: 20px
+    
+}
+.btn_group_update a:hover{
+    color: var(--main-color);
+ 
+}
+.user_infomation_background_columLeft {
+    margin-right:20px
+}
+.user_infomation_background_columRigth
+{
+     margin-left:20px
+}
+
+.btn_group_update {
+    padding-bottom:25px ;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

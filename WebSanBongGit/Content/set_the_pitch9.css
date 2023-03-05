@@ -1,0 +1,155 @@
+#set_the_pitch{
+   background-image: linear-gradient(to top, #57b8e1 125%, var(--main-color) 136%);
+    width: 100%;
+    height: 800px;
+    margin-top: 69px;
+    position:fixed;
+    top: 0;
+}
+.set_the_pitch_main{
+    background-color: white;
+    width: 65%;
+     margin: 50px auto 0 auto; 
+    border-radius: 8px;
+    box-shadow: 10px 10px 22px rgb(41, 40, 40);
+}
+.btn-xacnhandh{
+    position: relative;
+    height: 40PX;
+    font-size: 20PX;
+    margin-top: 25px;
+    line-height: 40px;
+}
+.btn-xacnhandh:hover::before{
+    font-size: 20PX;
+    content: "Đặt Sân";
+}
+.set_the_pitch_main form{
+    padding: 30px;
+}
+.set_the_pitch_main h1{
+color: var(--color-text);
+margin-bottom: 22px;
+text-align: center;
+font-size: 40px;
+}
+.input-group{
+    display: flex;
+    flex-direction: column;
+}
+
+.form-groupDH{
+    height: 35px;
+    width: 300px;
+}
+.form-groupDH{
+    outline: none;
+    border: none;
+    background-color: var(--color-input);
+    padding: 15px;
+    border-radius: 5px;
+    margin-bottom: 5px;
+}
+.input-group label{
+    margin-bottom: 12px;
+    
+}
+.input-group.edit{
+    display: flex;
+    flex-direction: row;
+   
+    /* margin-right: 20px; */
+}
+.input-group.edit.left{
+    flex-grow: 1;
+}
+.input-group.edit label{
+    line-height: 35px;
+    margin-right: 4px;
+}
+.group-time-EndTime{
+    margin-top:20px;
+}
+.form-groupselect {
+    height: 35px;
+    width: 136px;
+    font-size: 22px;
+    outline: none;
+    border: none;
+    background-color: var(--color-input);
+    border-radius: 5px;
+    padding: 4px;
+}
+.rowedit{
+    display: flex;
+    
+}
+.lable{
+    margin-bottom: 12px;
+    color: var(--color-text);
+}
+.col-set-the-picth_left label{
+    color: var(--color-text);
+}
+.sum-monney{
+    display: flex;
+  justify-content: center;
+   font-size: 25px;
+  margin-top: 20px;
+  
+}
+.sum-monney-text{
+   padding-right: 14px;
+   border-bottom: 2px solid var(--color-text);
+}
+.sum-monney-int{
+    border-bottom: 2px solid var(--color-text);
+ }
+ #set_the_pitch a{
+    display: block;
+    font-size: 24px;
+    margin-top: 20px;
+    text-align: center;
+    text-decoration: none;
+    color: black;
+ }
+ #set_the_pitch a:hover{
+    color: var(--color-text);
+ }
+ #set_the_pitch button{
+    width: 100%;
+ }
+
+.edit.kk {
+    display: flex;
+}
+
+#time-frame {
+    margin-top: 50px;
+    margin-left: -117px;
+    height: 340px;
+    background-color: white;
+    overflow: hidden;
+    overflow-y: scroll;
+}
+
+    #time-frame .h,.u{
+        padding: 15px 25px;
+       
+    }
+
+    #time-frame .h {
+        padding-top: 18px;
+        color: var(--color-text);
+    }
+
+    #time-frame .u {
+        list-style: circle;
+        font-size: 18px;
+        display: block;
+    }
+
+    #time-frame li {
+        margin-bottom: 12px;
+    }
+ 
