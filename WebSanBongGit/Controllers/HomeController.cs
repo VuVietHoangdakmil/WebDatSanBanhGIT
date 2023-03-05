@@ -9,6 +9,7 @@ namespace WebSanBongGit.Controllers
     public class HomeController : Controller
     {
         public ActionResult Index()
+            //.fgsdftg
         {
             return View();
         }
