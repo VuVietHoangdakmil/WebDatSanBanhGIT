@@ -1,0 +1,107 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="DATA_WEB_QUAN_LY_SAN_BONG" Class="DATA_SAN_BONGDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="WebSettings" ConnectionString="Data Source=HOANG;Initial Catalog=DATA_WEB_QUAN_LY_SAN_BONG;Persist Security Info=True;User ID=Hoang" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="DATA_WEB_QUAN_LY_SAN_BONGConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.ADMIN" Member="ADMINs">
+    <Type Name="ADMIN">
+      <Column Name="TEN_DANG_NHAP_ADM" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="MAT_KHAU_ADM" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="STT" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="MA_CHUC_VU" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="CHUC_VU_ADM_ADMIN" Member="CHUC_VU_ADM" ThisKey="MA_CHUC_VU" OtherKey="MA_CHUC_VU" Type="CHUC_VU_ADM" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.CHUC_VU_ADM" Member="CHUC_VU_ADMs">
+    <Type Name="CHUC_VU_ADM">
+      <Column Name="MA_CHUC_VU" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="TEN_CHUC_VU" Type="System.String" DbType="NVarChar(32)" CanBeNull="true" />
+      <Association Name="CHUC_VU_ADM_ADMIN" Member="ADMINs" ThisKey="MA_CHUC_VU" OtherKey="MA_CHUC_VU" Type="ADMIN" />
+    </Type>
+  </Table>
+  <Table Name="dbo.CT_DAT_SAN" Member="CT_DAT_SANs">
+    <Type Name="CT_DAT_SAN">
+      <Column Name="MA_DS" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="MA_SAN" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="NGAY_DAT" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="TONG_TIEN" Type="System.Decimal" DbType="Decimal(18,0)" CanBeNull="true" />
+      <Column Name="TINH_TRANG_THANH_TOAN" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Association Name="DON_DAT_SAN_CT_DAT_SAN" Member="DON_DAT_SAN" ThisKey="MA_DS" OtherKey="MA_DS" Type="DON_DAT_SAN" IsForeignKey="true" />
+      <Association Name="SAN_CT_DAT_SAN" Member="SAN" ThisKey="MA_SAN" OtherKey="MA_SAN" Type="SAN" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.DON_DAT_SAN" Member="DON_DAT_SANs">
+    <Type Name="DON_DAT_SAN">
+      <Column Name="MA_DS" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="MA_KH" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="NGAY_DAT" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="GIO_BAT_DAU" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="GIO_KET_THUC" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="MA_SAN" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="TONG_TIEN" Type="System.Decimal" DbType="Decimal(18,0)" CanBeNull="true" />
+      <Column Name="TONG_GIO_THUE" Type="System.String" DbType="NVarChar(6)" CanBeNull="true" />
+      <Column Name="GIA_SAN" Type="System.Decimal" DbType="Decimal(18,0)" CanBeNull="true" />
+      <Column Name="NGAY_LAP_PHIEU" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="TINH_TRANG_DON" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="GIO_KET_THUC_TEXT" Type="System.String" DbType="NVarChar(10)" CanBeNull="true" />
+      <Column Name="TRANG_THAI_XOA" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="TIME_START" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="TIME_END" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="DON_DAT_SAN_CT_DAT_SAN" Member="CT_DAT_SANs" ThisKey="MA_DS" OtherKey="MA_DS" Type="CT_DAT_SAN" />
+      <Association Name="KHACH_HANG_DON_DAT_SAN" Member="KHACH_HANG" ThisKey="MA_KH" OtherKey="MA_KH" Type="KHACH_HANG" IsForeignKey="true" />
+      <Association Name="SAN_DON_DAT_SAN" Member="SAN" ThisKey="MA_SAN" OtherKey="MA_SAN" Type="SAN" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.KHACH_HANG" Member="KHACH_HANGs">
+    <Type Name="KHACH_HANG">
+      <Column Name="MA_KH" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="TEN_KH" Type="System.String" DbType="NVarChar(30)" CanBeNull="true" />
+      <Column Name="SDT" Type="System.String" DbType="NChar(11)" CanBeNull="true" />
+      <Column Name="TEN_DN" Type="System.String" DbType="NVarChar(30)" CanBeNull="true" />
+      <Column Name="MAT_KHAU" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="EMAIL" Type="System.String" DbType="NVarChar(40)" CanBeNull="true" />
+      <Column Name="AVATAR" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Column Name="TINH_TRANG_XOA" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Association Name="KHACH_HANG_DON_DAT_SAN" Member="DON_DAT_SANs" ThisKey="MA_KH" OtherKey="MA_KH" Type="DON_DAT_SAN" />
+    </Type>
+  </Table>
+  <Table Name="dbo.LOAI_SAN" Member="LOAI_SANs">
+    <Type Name="LOAI_SAN">
+      <Column Name="MA_LOAI" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="TEN_LOAI" Type="System.String" DbType="NVarChar(10)" CanBeNull="true" />
+      <Column Name="GIA_LOAI" Type="System.Decimal" DbType="Decimal(18,0)" CanBeNull="true" />
+      <Association Name="LOAI_SAN_SAN" Member="SANs" ThisKey="MA_LOAI" OtherKey="MA_LOAI" Type="SAN" />
+    </Type>
+  </Table>
+  <Table Name="dbo.SAN" Member="SANs">
+    <Type Name="SAN">
+      <Column Name="MA_SAN" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="MA_LOAI" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="GIA_SAN" Type="System.Decimal" DbType="Decimal(18,0)" CanBeNull="true" />
+      <Column Name="TEN_SAN" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Column Name="TINH_TRANG_XOA" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Association Name="SAN_CT_DAT_SAN" Member="CT_DAT_SANs" ThisKey="MA_SAN" OtherKey="MA_SAN" Type="CT_DAT_SAN" />
+      <Association Name="SAN_DON_DAT_SAN" Member="DON_DAT_SANs" ThisKey="MA_SAN" OtherKey="MA_SAN" Type="DON_DAT_SAN" />
+      <Association Name="LOAI_SAN_SAN" Member="LOAI_SAN" ThisKey="MA_LOAI" OtherKey="MA_LOAI" Type="LOAI_SAN" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.SO_GIO" Member="SO_GIOs">
+    <Type Name="SO_GIO">
+      <Column Name="MA_SO_GIO" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="SO_GIO1" Type="System.String" DbType="NChar(10)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.THONG_KE" Member="THONG_KEs">
+    <Type Name="THONG_KE">
+      <Column Name="STT" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="MA_SAN" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="NGAY_DAT" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="NGAY_BAT_DAU" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="NGAY_KET_THUC" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="TONG_TIEN" Type="System.Decimal" DbType="Decimal(18,0)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.SO_PHUT" Member="SO_PHUTs">
+    <Type Name="SO_PHUT">
+      <Column Name="MA_SO_PHUT" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="SO_PHUT1" Type="System.String" DbType="NChar(10)" CanBeNull="true" />
+    </Type>
+  </Table>
+</Database>
