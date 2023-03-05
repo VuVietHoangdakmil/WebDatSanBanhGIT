@@ -1,0 +1,64 @@
+﻿@model WebSanBongGit.Models.KHACH_HANG
+
+@{
+    ViewBag.Title = "TTKH";
+    Layout = "~/Views/Shared/_LayoutUser.cshtml";
+}
+
+<section id="user_infomation_background">
+    <div class="user_infomation_background-block">
+        <h1>Thông Tin Cá Nhân</h1>
+
+        <form action=""
+              method="post"
+              enctype="multipart/form-data"
+              class="user_infomation_background-columMain">
+            <div class="row ">
+                <div class="col l-6">
+                    <div class="user_infomation_background_columLeft">
+                        <div class="user_infomation--form-group">
+                            <label for="SDT_iNf">
+                                SDT
+                            </label>
+                            <input value="@Model.SDT" type="text" id="SDT_iNf" name="SDT_iNf" readonly>
+                        </div>
+                        <div class="user_infomation--form-group">
+                            <label for="EMAIL_iNf">
+                                Email
+                            </label>
+                            <input type="text" value="@Model.EMAIL" id="EMAIL_iNf" name="EMAIL_iNf" required>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="col l-6">
+                    <div class="user_infomation_background_columRigth">
+                        <div class="user_infomation--form-group">
+                            <label for="NAME_iNf">
+                                Name
+                            </label>
+                            <input type="text" value="@Model.TEN_KH" id="NAME_iNf" name="NAME_iNf" required>
+                        </div>
+                        <div class="user_infomation--form-group">
+                            <label for="FILEIMG_iNf">
+                                Avtar
+                            </label>
+                            <input type="file" id="FILEIMG_iNf" name="FILEIMG_iNf" hidden>
+                            <div class="btn chosseFile">Chọn Avtar</div>
+                            <img src="~/img/@Model.AVATAR" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="btn_group_update">
+                <button class="btn"> Cập Nhật</button>
+                <a href="/User/quaylai"> Quay Lại ? </a>
+            </div>
+        </form>
+
+
+
+    </div>
+</section>
