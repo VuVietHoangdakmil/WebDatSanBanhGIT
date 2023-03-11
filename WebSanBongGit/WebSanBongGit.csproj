@@ -171,6 +171,10 @@
       <DependentUpon>DATA_SAN_BONG.dbml</DependentUpon>
     </None>
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
+    <Content Include="Scripts\file.js" />
+    <Content Include="Scripts\formatNUMBER.js" />
+    <Content Include="Scripts\formmessage.js" />
+    <Content Include="Scripts\homePageUse20.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
     <Content Include="Scripts\jquery-3.4.1.slim.js" />
@@ -180,7 +184,13 @@
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\jsADMIN\jquery3.js" />
+    <Content Include="Scripts\jsADMIN\jsTTHD.js" />
+    <Content Include="Scripts\jsADMIN\layOutAdmin14.js" />
+    <Content Include="Scripts\jsTimKiemSanTrong1.js" />
+    <Content Include="Scripts\JS_RANGBUOC2.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Scripts\password.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
