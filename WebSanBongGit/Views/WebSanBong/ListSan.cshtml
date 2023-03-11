@@ -1,0 +1,62 @@
+﻿@model PagedList.PagedList<WebSanBongGit.Models.SAN>
+@using PagedList
+@using PagedList.Mvc;
+
+@{
+    ViewBag.Title = "ListSan";
+    Layout = "~/Views/Shared/_LayoutUser.cshtml";
+}
+
+<section id="yard-list-main">
+    <h1 style="color: var(--color-text)" class="context">
+        SÂN BÓNG AE
+    </h1>
+    <div class="grid wide">
+        <div class="row">
+            <div class="col l-3">
+                <div class="yard-list-type">
+                    <h2>Loại Sân</h2>
+                    <ul class="yard-list">
+                        @Html.Action("parttialviewLOAISAN", "WebSanBong")
+                    </ul>
+                </div>
+            </div>
+
+            <div class="col l-9">
+                <h2 id="content-allsan">ALL Sân</h2>
+                <div class="row">
+
+                    @if (@ViewBag.ISKQtk == true)
+                    {
+                        <h1 style="color: red; position: relative; left: 50%; transform: translateX(-50%);"> KHÔNG CÓ KẾT QUẢ !</h1>
+                    }
+                    @foreach (var san in Model)
+                    {
+
+                        <div class="col l-3">
+                            <div class="yard-list-fooball-item">
+
+                                <a href="/WebSanBong/DatsanCHITIET/@san.MA_SAN">
+                                </a>
+                                <div class="name_san">@san.TEN_SAN</div>
+
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+        <section id="pagination" class="section-p1">
+            <div class="page">
+                Trang @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) / @Model.PageCount
+            </div>
+
+            <div>
+                @Html.PagedListPager(Model, page => Url.Action("ListSan", new { page = page }))
+            </div>
+
+
+        </section>
+    </div>
+
+</section>
