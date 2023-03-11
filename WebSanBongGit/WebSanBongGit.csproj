@@ -218,6 +218,8 @@
     <Content Include="Views\User\TTKH.cshtml" />
     <Content Include="Views\WebSanBong\ListSan.cshtml" />
     <Content Include="Views\WebSanBong\parttialviewLOAISAN.cshtml" />
+    <Content Include="Views\WebSanBong\SanTheoLoai.cshtml" />
+    <Content Include="Views\WebSanBong\DatsanCHITIET.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

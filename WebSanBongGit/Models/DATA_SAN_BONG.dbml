@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?><Database Name="DATA_WEB_QUAN_LY_SAN_BONG" Class="DATA_SAN_BONGDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
-  <Connection Mode="WebSettings" ConnectionString="Data Source=HOANG;Initial Catalog=DATA_WEB_QUAN_LY_SAN_BONG;Persist Security Info=True;User ID=Hoang" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="DATA_WEB_QUAN_LY_SAN_BONGConnectionString" Provider="System.Data.SqlClient" />
+  <Connection Mode="WebSettings" ConnectionString="Data Source=HOANG;Initial Catalog=DATA_WEB_QUAN_LY_SAN_BONG;Persist Security Info=True;User ID=hoang" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="DATA_WEB_QUAN_LY_SAN_BONGConnectionString" Provider="System.Data.SqlClient" />
   <Table Name="dbo.ADMIN" Member="ADMINs">
     <Type Name="ADMIN">
       <Column Name="TEN_DANG_NHAP_ADM" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
