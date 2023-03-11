@@ -1,0 +1,113 @@
+﻿@model IEnumerable<WebSanBongGit.Models.DON_DAT_SAN>
+
+@{
+    ViewBag.Title = "DatsanCHITIET";
+    Layout = "~/Views/Shared/_LayoutUser.cshtml";
+}
+
+<div id="loader">
+
+    <div class="wrapper">
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="shadow"></div>
+        <div class="shadow"></div>
+        <div class="shadow"></div>
+    </div> 
+    <div class="text" style="font-size:24px">Vui Lòng Đợi Trong Giây Lát ...</div>
+</div>
+<section id="set_the_pitch">
+    <div class="grid wide  edit kk">
+        <div class="set_the_pitch_main">
+
+            <form action="/WebSanBong/DatsanCHITIET2" method="post" onsubmit="loader()"  >
+                <h1>ĐẶT SÂN</h1>
+
+                <div class="row">
+                    <div class="col l-6">
+                        <div class="col-set-the-picth_left">
+                            <div class="input-group"  style="margin-bottom:25px">
+                                <label for="DATE_DH">Ngày Đặt</label>
+                                <input type="date" required id="DATE_DH" name="DATE_DH" class="form-groupDH" value="@ViewBag.timeDS" >
+                                <span class="spanmessage" style="color:red"></span>
+                            </div>
+                            <input type="text" value="@Session["MA_SAN1"]" required id="MASAN_DH" name="MASAN_DH" class="form-groupDH">
+                        </div>
+                    </div>
+                    <div class="col l-6">
+                        <div class="col-set-the-picth_rigth">
+                            <div class="group-time-startTime">
+                                <div class="lable"> Giờ Bắt Đầu</div>
+                                <div class="rowedit">
+                                    <div class="input-group edit left">
+                                        <label for="hourtStart_DH">Giờ</label>
+                                        @Html.DropDownList("hourtStart_DH", (IEnumerable<SelectListItem>)ViewBag.PriorityID, new { @class = "form-groupselect" })
+
+                                    </div>
+                                    <div class="input-group edit">
+                                        <label for="minute_DH"> Phút</label>
+
+                                        @Html.DropDownList("minute_DH", (IEnumerable<SelectListItem>)ViewBag.PriorityID, new { @class = "form-groupselect" })
+                                    </div>
+                                </div>
+                                <div class="mesageerror" style="color:red"></div>
+
+                            </div>
+                            <div class="group-time-EndTime" >
+                                <div class="lable"> Giờ Kết Thúc</div>
+
+                                <div class="rowedit">
+                                    <div class="input-group edit left">
+                                        <label for="hourtEnd_DH">Giờ</label>
+                                        @Html.DropDownList("hourtEnd_DH", (IEnumerable<SelectListItem>)ViewBag.PriorityID, new { @class = "form-groupselect" })
+                                    </div>
+                                    <div class="input-group edit">
+                                        <label for="minuteEnd_DH"> Phút</label>
+                                        @Html.DropDownList("minuteEnd_DH", (IEnumerable<SelectListItem>)ViewBag.PriorityID, new { @class = "form-groupselect" })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="sum-monney">
+                    <div class="sum-monney-int">@String.Format("{0:0,0}", @ViewBag.GIASAN)đ / 1 HOUR</div>
+                </div>
+                <button class="btn btnAnimtion btn-xacnhandh">
+                    Đặt Sân
+                </button>
+                <a href="/User/quaylai">Quay Lại</a>
+            </form>
+
+
+        </div>
+        <div id="time-frame">
+            <h1 class="h">Giờ đã được đặt</h1>
+            <ul class="u">
+                @if (ViewBag.isListTime == true)
+                {
+                    <h3 style="color: green;text-align: center;"> Giờ Trống </h3>
+                }
+                @foreach (var item in Model)
+                {
+                    
+                    <li class="l">@String.Format("{0:HH:mm}", item.GIO_BAT_DAU) - @String.Format("{0:HH:mm}", item.GIO_KET_THUC)</li>
+                    
+                }
+            </ul>
+        </div>
+        <form action="/WebSanBong/DatsanCHITIET/@Session["MA_SAN1"]" id="form_tk_time" hidden>
+            <input type="text" name="dateTKK" required>
+            <button type="submit" id="btn-loc_tk-time"></button>
+        </form>
+    </div>
+</section>
+<div id="form_mesage">
+</div>
+<script>
+    var load = document.querySelector('#loader')
+    var loader = function () {
+            load.style.display = 'flex';
+    };
+</script>
