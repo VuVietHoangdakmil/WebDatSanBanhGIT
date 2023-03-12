@@ -1,0 +1,447 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link href="~/Content/cssTimKiemSanTrong.css" rel="stylesheet" />
+    <link href="~/Content/grid.css" rel="stylesheet" />
+    <link href="~/Content/style_main1.css" rel="stylesheet" />
+    <link href="~/Content/cssLoad/load1.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery-3.4.1.js"></script>
+    <title>Document</title>
+</head>
+<body>
+    <div id="loader">
+
+        <div class="wrapper">
+            <div class="circle"></div>
+            <div class="circle"></div>
+            <div class="circle"></div>
+            <div class="shadow"></div>
+            <div class="shadow"></div>
+            <div class="shadow"></div>
+        </div>
+        <div class="text" style="font-size:24px">Vui Lòng Đợi Trong Giây Lát ...</div>
+    </div>
+    <div class="blur">
+        <div class="form_dat_san">
+
+            <div class="form_dat_san--main">
+                <div class="form_dat_san--main-title">Thông Tin Sân Đặt</div>
+                <div class="form-group-custom">
+                    <label>Mã Sân</label>
+                    <input type="text" id="PAY-MA_SAN" readonly />
+                </div>
+                <div class="form-group-custom">
+                    <label>Ngày Đá</label>
+                    <input type="date" id="PAY-NGAY_DA" readonly />
+                </div>
+                <div class="form-group-custom editS_Start">
+                    <label>Giờ Bắt Đầu</label>
+                    <div class="form_select">
+                        <select id="slect_start_hours">
+                        </select>
+                        <select id="slect_start_minute">
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group-custom editS_End">
+                    <label>Giờ Kết Thúc</label>
+                    <div class="form_select">
+                        <select id="slect_end_hours">
+                        </select>
+                        <select id="slect_end_minute">
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group-custom">
+                    <label>Giá Sân</label>
+                    <input type="text" id="PAY-GIA_SAN" readonly />
+                </div>
+                <div class="form-group-custom">
+                    <label>Loại Sân</label>
+                    <input type="text" id="PAY-LOAI_SAN" readonly />
+                </div>
+                <div class="form-group-custom">
+                    <label>Tên Sân</label>
+                    <input type="text" id="PAY-TEN_SAN" readonly />
+                </div>
+                <button id="submit_DAT_SAN">Đặt Sân</button>
+            </div>
+        </div>
+    </div>
+
+    <section id="TimKiemSanTrong">
+        <div class="TimKiemSanMain">
+            <div class="title_tk"> Tìm Kiếm Sân Trống</div>
+            <div class="grid wide">
+                <div class="row no-gutters edittor">
+                    <div class="col l-6">
+
+                        <div class="TimKiemSanMain_col_left_action">
+                            <div class="row no-gutters">
+                                <div class="col l-6">
+                                    <div class="TimKiemSanMain_col_left_action_Date">
+
+                                        <label for="TimKiemSanMain_col_left_action_type-StartDate">Ngày Bắt Đầu</label>
+                                        <input type="date" id="TimKiemSanMain_col_left_action_type-StartDate">
+                                        <span class="messErr"></span>
+
+                                    </div>
+                                </div>
+
+                                <div class="col l-6">
+                                    <div class="TimKiemSanMain_col_left_action_Date">
+                                        <label for="TimKiemSanMain_col_left_action_type-endDate">Ngày Kết Thúc</label>
+                                        <input type="date" id="TimKiemSanMain_col_left_action_type-endDate">
+                                        <span class="messErr"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row no-gutters ">
+                                <div class="col l-6">
+                                    <div class="TimKiemSanMain_col_left_action_Time">
+                                        <div class="opion_StartTime cssCHUNGoption">
+                                            <select id="opion_StartTime_hours">
+                                            </select>
+                                            <select id="opion_StartTime_minute">
+                                            </select>
+                                        </div>
+                                        <div class="cssChungInput">
+                                            <label for="TimKiemSanMain_col_left_action_type-StartTime">Giờ Bắt Đầu</label>
+                                            <input type="text" id="TimKiemSanMain_col_left_action_type-StartTime" readonly>
+                                            <span class="messErr"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col l-6">
+                                    <div class="TimKiemSanMain_col_left_action_Time">
+                                        <div class="opion_EndTime cssCHUNGoption">
+                                            <select id="opion_EndTime_hours">
+                                            </select>
+                                            <select id="opion_EndTime_minute">
+                                            </select>
+                                        </div>
+                                        <div class="cssChungInput">
+                                            <label for="TimKiemSanMain_col_left_action_type-endTime">Giờ Kết Thúc</label>
+                                            <input type="text" id="TimKiemSanMain_col_left_action_type-endTime" readonly>
+                                            <span class="messErr"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <button class="btn_timKiem_sanTrong">
+                                Tìm Kiếm
+                            </button>
+                            <a id="id_quayLai" href="/WebSanBong/ListSan">Trở Lại </a>
+                        </div>
+
+                    </div>
+                    <div class="col l-6">
+                        <div class="TimKiemSanMain_col_rigth">
+                            <div class="BOX_TimKiemSanMain_col_rigth_body">
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+
+</html>
+
+
+
+<style>
+    #id_quayLai {
+        font-size: 2rem;
+        text-decoration: none;
+        display: block;
+        margin-top: 17px;
+        color: black;
+    }
+        #id_quayLai:hover {
+            color: var(--color-text);
+        }
+    .btn_timKiem_sanTrong:hover {
+        opacity: 0.7;
+        cursor: pointer;
+    }
+    .dialog-ovelay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: rgba(0, 0, 0, 0.50);
+        z-index: 999999
+    }
+
+    .dialog-ovelay .dialog {
+            width: 400px;
+            margin: 100px auto 0;
+            background-color: #fff;
+            box-shadow: 0 0 20px rgba(0,0,0,.2);
+            border-radius: 3px;
+            overflow: hidden
+        }
+
+    .dialog-ovelay .dialog header {
+                padding: 10px 8px;
+                background-color: #f6f7f9;
+                border-bottom: 1px solid #e5e5e5
+            }
+
+    .dialog-ovelay .dialog header h3 {
+                    font-size: 14px;
+                    margin: 0;
+                    color: #555;
+                    display: inline-block
+                }
+
+    .dialog-ovelay .dialog header .fa-close {
+                    float: right;
+                    color: #c4c5c7;
+                    cursor: pointer;
+                    transition: all .5s ease;
+                    padding: 0 2px;
+                    border-radius: 1px
+                }
+
+    .dialog-ovelay .dialog header .fa-close:hover {
+                        color: #b9b9b9
+                    }
+
+    .dialog-ovelay .dialog header .fa-close:active {
+                        box-shadow: 0 0 5px #673AB7;
+                        color: #a2a2a2
+                    }
+
+    .dialog-ovelay .dialog .dialog-msg {
+                padding: 12px 10px
+            }
+
+    .dialog-ovelay .dialog .dialog-msg p {
+                    margin: 0;
+                    font-size: 15px;
+                    color: #333
+                }
+
+    .dialog-ovelay .dialog footer {
+                border-top: 1px solid #e5e5e5;
+                padding: 8px 10px
+            }
+
+    .dialog-ovelay .dialog footer .controls {
+                    direction: rtl
+                }
+
+    .dialog-ovelay .dialog footer .controls .button {
+                        padding: 5px 15px;
+                        border-radius: 3px
+                    }
+
+    .link {
+        padding: 5px 10px;
+        cursor: pointer
+    }
+    .button {
+        cursor: pointer
+    }
+    .button:hover{
+        opacity:0.7;
+    }
+    .button-default {
+        background-color: rgb(248, 248, 248);
+        border: 1px solid rgba(204, 204, 204, 0.5);
+        color: #5D5D5D;
+    }
+
+    .button-danger {
+        background-color: #f44336;
+        border: 1px solid #d32f2f;
+        color: #f5f5f5
+    }
+    *{
+        box-sizing:border-box;
+    }
+    :root {
+        --width-input: 420px;
+    }
+    .form-group-custom {
+        margin: 20px 0;
+        display: flex;
+        flex-direction: column;
+        width: var(--width-input);
+    }
+    
+    .blur {
+        
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: rgba(0, 0, 0, 0.4);
+        z-index: 1000;
+        display:none;
+    }
+   
+    .form_dat_san--main {
+        padding: 0 20px;
+    }
+    .form-group-custom input{
+        height:32px;
+        outline: none;
+        border:none;
+        border-radius:5px;
+        padding-left: 10px;
+    }
+    .form-group-custom select {
+        width: calc(var(--width-input) / 2 - 2px);
+        outline: none;
+        border: none;
+        border-radius: 5px;
+        padding-left: 10px;
+        height: 32px;
+    }
+    .form-group-custom label {
+        font-size: 1.6rem;
+        margin-bottom: 5px;
+    }
+    .form_dat_san--main-title {
+        margin-top: 20px;
+        margin-bottom: 6px;
+        font-size: 2.5rem;
+        text-align: center;
+        color: white;
+    }
+    .form_dat_san--main button {
+        margin: 10px 0 20px 0;
+        width: 100%;
+        border-radius: 5px;
+        border: none;
+        height: 34px;
+        font-size: 2rem;
+        background-color: #90e0ef;
+        color:white;
+    }
+        .form_dat_san--main button:hover{
+            opacity:0.5;
+            cursor:pointer;
+        }
+        .form_dat_san {
+            position: absolute;
+            background-color: #8BC6EC;
+            background-image: linear-gradient(135deg, #8BC6EC 0%, #9599E2 100%);
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 2000;
+            top: 18px;
+            border-radius: 10px;
+            animation :modaanimation linear 0.3s
+        }
+        @@keyframes modaanimation{
+            0%{
+                opacity:0.4
+            }
+            50% {
+                opacity: 0.7
+            }
+            100% {
+                opacity:1
+            }
+        }
+   
+    .box_childTime_null:hover {
+        cursor: pointer;
+        color: #CF0A0A;
+        display: block;
+        padding-left: 10px;
+        transition: all 0.3s linear;
+    }
+   
+    .css_nodata {
+        font-size: 4rem;
+        color: red;
+        display: flex;
+        justify-content: center;
+        margin-top: 100px
+    }
+    .css_nodata span{
+        margin-right:6px
+    }
+    .BOX_TimKiemSanMain_col_rigth_body {
+        background-color: white;
+        width: 90%;
+        margin: 0 auto;
+        height: 500px;
+        overflow: auto;
+        /*overflow: -moz-scrollbars-none;*/
+        -ms-overflow-style: none;
+        box-shadow: 3px 26px 20px rgb(0 0 0 / 32%);
+    }
+
+       /* .BOX_TimKiemSanMain_col_rigth_body::-webkit-scrollbar {
+            width: 0 !important;
+            display: none;
+        }*/
+
+    .rigth_body_title_san {
+        font-size: 2rem;
+        background-color: #FD841F;
+        display: flex;
+        color: white;
+    }
+
+    .rigth_body_title_san-left {
+        display: flex;
+        margin-left: 10px;
+        flex-grow: 1;
+    }
+
+    .rigth_body_title_san-gia_san {
+        margin-right: 5px;
+    }
+
+    .rigth_body_title_san-gach_san {
+        margin: 0 5px;
+    }
+
+    .box_item_dateAndTime_child_Date {
+        font-size: 1.8rem;
+        font-size: 1.8rem;
+        color: #FD841F;
+        margin: 7px 0 10px 20px;
+    }
+
+        .box_item_dateAndTime_child_Date span {
+            border: 2px solid #FD841F;
+            border-radius: 4px;
+            display: block;
+            width: 100px;
+            text-align: center;
+        }
+        .box_item_dateAndTime_child_Date.edit span {
+            border: 2px solid #FD841F;
+            border-radius: 4px;
+            display: block;
+            width: 220px;
+            text-align: center;
+        }
+
+    .box_item_dateAndTime_child_Time .box_childTime_null {
+        font-size: 1.6rem;
+        margin-left: 40px;
+        margin-bottom: 5px;
+    }
+</style>
