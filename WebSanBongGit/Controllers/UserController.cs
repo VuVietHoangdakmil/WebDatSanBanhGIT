@@ -9,7 +9,7 @@ using System.Text;
 using System.Web;
 using System.Web.Mvc;
 
-namespace DO_AN_CHUYEN_NGANH.Controllers
+namespace WebSanBongGit.Controllers
 {
     public class UserController : Controller
     {

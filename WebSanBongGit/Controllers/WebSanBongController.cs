@@ -1,5 +1,5 @@
 ﻿using WebSanBongGit.Models;
-//using mvcDangNhap.common;
+using mvcDangNhap.common;
 using PagedList;
 using System;
 using System.Collections.Generic;
@@ -8,7 +8,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-namespace DO_AN_CHUYEN_NGANH.Controllers
+namespace WebSanBongGit.Controllers
 {
     public class WebSanBongController : Controller
     {
@@ -16,7 +16,7 @@ namespace DO_AN_CHUYEN_NGANH.Controllers
         // GET: WebSanBong
         private List<SAN> allSan()
         {
-            return data.SANs.Where(n => n.TINH_TRANG_XOA == false).OrderByDescending(n => n.MA_SAN).ToList();
+            return data.SANs.Where(n=>n.TINH_TRANG_XOA== false).OrderByDescending(n => n.MA_SAN).ToList();
         }
         public ActionResult ListSan(int? page, string Search = "")
         {
@@ -39,7 +39,7 @@ namespace DO_AN_CHUYEN_NGANH.Controllers
             }
             else
             {
-
+                
                 var listSan = allSan();
                 return View(listSan.ToPagedList(pagenum, pagesize));
             }
@@ -85,8 +85,8 @@ namespace DO_AN_CHUYEN_NGANH.Controllers
                 {
 
                     ViewBag.timeDS = dateTKK;
-                    var tkSDT = from datsan in data.DON_DAT_SANs where datsan.NGAY_DAT == DateTime.Parse(dateTKK) && datsan.MA_SAN == id && datsan.TRANG_THAI_XOA == false select datsan;
-
+                    var tkSDT = from datsan in data.DON_DAT_SANs where datsan.NGAY_DAT == DateTime.Parse(dateTKK) && datsan.MA_SAN == id && datsan.TRANG_THAI_XOA == false  select datsan;
+                   
                     return View(tkSDT.OrderBy(n => n.GIO_BAT_DAU));
                 }
 
@@ -103,26 +103,26 @@ namespace DO_AN_CHUYEN_NGANH.Controllers
             {
                 KHACH_HANG khSession = (KHACH_HANG)Session["Taikhoan"];
                 var KH = from kh4 in data.KHACH_HANGs where kh4.MA_KH == khSession.MA_KH select kh4;
-
+                
                 var masan = collection["MASAN_DH"];
                 var san = from san1 in data.SANs where san1.MA_SAN == int.Parse(masan) select san1.GIA_SAN;
                 var ngayday = String.Format("{0:MM/dd/yyyy}", collection["DATE_DH"]).Trim();
 
                 var giobd = collection["hourtStart_DH"];
                 var phutbd = collection["minute_DH"];
-                var Sgiobd = giobd + ":" + phutbd;
+                var Sgiobd = giobd+":"+phutbd;
                 var checkSgiobd = giobd.Trim() + "" + phutbd.Trim();
 
                 var gioKT = collection["hourtEnd_DH"];
                 var phutKT = collection["minuteEnd_DH"];
-                var Sgiokt = gioKT + ":" + phutKT;
+                var Sgiokt = gioKT+":"+phutKT;
                 var checkSgiokt = gioKT.Trim() + "" + phutKT.Trim();
                 var Sgiobd2 = gioKT.Trim() + ":" + phutKT.Trim();
-
+                
                 // tinh tong tien nha
                 int sumGio;
                 int sumPHUT;
-
+                
 
 
 
@@ -149,7 +149,7 @@ namespace DO_AN_CHUYEN_NGANH.Controllers
                     if (int.Parse(checkSgiobd) >= 1800 || int.Parse(checkSgiokt) > 1800)
                     {
                         dds.TONG_TIEN = (decimal)moneyGIO + moneyphut + tiensan;
-
+                     
                     }
                     else
                     {
@@ -212,8 +212,8 @@ namespace DO_AN_CHUYEN_NGANH.Controllers
 
                 dds.MA_KH = khSession.MA_KH;
                 dds.NGAY_DAT = DateTime.Parse(ngayday);
-                dds.GIO_BAT_DAU = DateTime.Parse(String.Format("{0:HH:mm}", Sgiobd));
-                dds.GIO_KET_THUC = DateTime.Parse(String.Format("{0:HH:mm}", Sgiokt));
+                dds.GIO_BAT_DAU = DateTime.Parse( String.Format("{0:HH:mm}", Sgiobd));
+                dds.GIO_KET_THUC = DateTime.Parse( String.Format("{0:HH:mm}", Sgiokt));
                 dds.GIO_KET_THUC_TEXT = Sgiobd2;
                 dds.MA_SAN = int.Parse(masan);
                 dds.GIA_SAN = tiensan;
@@ -236,29 +236,29 @@ namespace DO_AN_CHUYEN_NGANH.Controllers
 
                 // gui mail
                 string content = System.IO.File.ReadAllText(Server.MapPath("~/content/temlate/mailcontent.html"));
-                content = content.Replace("{{CustomerName}}", KH.Single().TEN_KH);
+                content = content.Replace("{{CustomerName}}",KH.Single().TEN_KH);
                 content = content.Replace("{{Phone}}", KH.Single().SDT);
                 content = content.Replace("{{Email}}", KH.Single().EMAIL);
                 content = content.Replace("{{NGAY_DAT}}", String.Format("{0:dd/MM/yyyy}", dds.NGAY_DAT));
-                content = content.Replace("{{TIME_DAT}}", String.Format("{0:HH:mm}", dds.GIO_BAT_DAU) + '-' + String.Format("{0:HH:mm}", dds.GIO_KET_THUC));
+                content = content.Replace("{{TIME_DAT}}", String.Format("{0:HH:mm}", dds.GIO_BAT_DAU) +'-'+ String.Format("{0:HH:mm}",dds.GIO_KET_THUC));
                 content = content.Replace("{{Total}}", String.Format("{0:0,0}", dds.TONG_TIEN));
                 var toEmail = ConfigurationManager.AppSettings["ToEmailAddress"].ToString();
-                //new MailHelper().SendMail(KH.Single().EMAIL, "Sân mới đặt từ Sân Bóng AE", content);
-                //new MailHelper().SendMail(toEmail, "Sân mới đặt từ Sân Bóng AE", content);
+                new MailHelper().SendMail(KH.Single().EMAIL, "Sân mới đặt từ Sân Bóng AE", content);
+                new MailHelper().SendMail(toEmail, "Sân mới đặt từ Sân Bóng AE", content);
 
             }
             return RedirectToAction("ListSan", "WebSanBong");
         }
         [HttpPost]
-        public JsonResult TienHanhDatSan(string MA_SAN, string DATE_DA, string HoursStart, string minuteStart, string HoursEnd, string minuteEnd, DON_DAT_SAN dds, CT_DAT_SAN ctds)
+        public JsonResult TienHanhDatSan(string MA_SAN,string DATE_DA,string HoursStart, string minuteStart, string HoursEnd, string minuteEnd, DON_DAT_SAN dds, CT_DAT_SAN ctds)
         {
             try
             {
-                Boolean DN;
+                Boolean DN ;
                 if (Session["TaiKhoan"] == null)
                 {
                     //return RedirectToAction("ListSan", "WebSanBong");
-                    DN = false;
+                    DN = false ;
                 }
                 else
                 {
@@ -369,7 +369,7 @@ namespace DO_AN_CHUYEN_NGANH.Controllers
                         {
                             dds.TONG_GIO_THUE = sumGio + ":" + Math.Abs(sumPHUT);
                         }
-
+                      
                     }
 
 
@@ -406,13 +406,13 @@ namespace DO_AN_CHUYEN_NGANH.Controllers
                     content = content.Replace("{{TIME_DAT}}", String.Format("{0:HH:mm}", dds.GIO_BAT_DAU) + '-' + String.Format("{0:HH:mm}", dds.GIO_KET_THUC));
                     content = content.Replace("{{Total}}", String.Format("{0:0,0}", dds.TONG_TIEN));
                     var toEmail = ConfigurationManager.AppSettings["ToEmailAddress"].ToString();
-                    //new MailHelper().SendMail(KH.Single().EMAIL, "Sân mới đặt từ Sân Bóng AE", content);
-                    //new MailHelper().SendMail(toEmail, "Sân mới đặt từ Sân Bóng AE", content);
+                    new MailHelper().SendMail(KH.Single().EMAIL, "Sân mới đặt từ Sân Bóng AE", content);
+                    new MailHelper().SendMail(toEmail, "Sân mới đặt từ Sân Bóng AE", content);
 
                 }
 
 
-                return Json(new { code = 200, ISlogin = DN }, JsonRequestBehavior.AllowGet);
+                return Json(new { code = 200,ISlogin=DN}, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
             {
@@ -426,26 +426,26 @@ namespace DO_AN_CHUYEN_NGANH.Controllers
         [HttpPost]
         public JsonResult ListDDS(string NGAY_BD, string NGAY_KT)
         {
-
+            
             try
             {
-
+               
                 var dsDon = (from ds in data.DON_DAT_SANs
-                           .Where(n => n.TRANG_THAI_XOA == false && n.NGAY_DAT >= DateTime.Parse(NGAY_BD) && n.NGAY_DAT <= DateTime.Parse(NGAY_KT))
-                             select new
-                             {
-                                 MA_DS = ds.MA_DS,
-                                 GIO_BD = ds.GIO_BAT_DAU,
-                                 MA_SAN = ds.MA_SAN,
-                                 NGAY_DA = ds.NGAY_DAT,
-                                 TEN_SAN = ds.SAN.TEN_SAN,
-                                 GIA_SAN = ds.GIA_SAN,
-                                 TIME_START = ds.TIME_START,
-                                 TIME_END = ds.TIME_END,
-                                 LOAI_SAN = ds.SAN.LOAI_SAN.TEN_LOAI,
+                           .Where(n=> n.TRANG_THAI_XOA == false &&  n.NGAY_DAT >= DateTime.Parse(NGAY_BD) && n.NGAY_DAT <= DateTime.Parse(NGAY_KT))
+                         select new
+                         {
+                             MA_DS = ds.MA_DS,
+                             GIO_BD = ds.GIO_BAT_DAU,
+                             MA_SAN =ds.MA_SAN,
+                             NGAY_DA = ds.NGAY_DAT,
+                             TEN_SAN = ds.SAN.TEN_SAN,
+                             GIA_SAN = ds.GIA_SAN,
+                             TIME_START = ds.TIME_START,
+                             TIME_END = ds.TIME_END,
+                             LOAI_SAN = ds.SAN.LOAI_SAN.TEN_LOAI,
 
-                             }).OrderBy(n => n.GIO_BD).ToList();
-
+                         }).OrderBy(n => n.GIO_BD).ToList();
+                
 
                 return Json(new { code = 200, dsDon = dsDon }, JsonRequestBehavior.AllowGet);
             }
@@ -488,13 +488,13 @@ namespace DO_AN_CHUYEN_NGANH.Controllers
             try
             {
                 var dsTime = (from ds in data.SO_GIOs
+                           
+                             select new
+                             {
+                                 MA_SO_GIO = ds.MA_SO_GIO,
+                                 SO_GIO = ds.SO_GIO1
 
-                              select new
-                              {
-                                  MA_SO_GIO = ds.MA_SO_GIO,
-                                  SO_GIO = ds.SO_GIO1
-
-                              }).ToList();
+                             }).ToList();
 
 
                 return Json(new { code = 200, dsTime = dsTime }, JsonRequestBehavior.AllowGet);
@@ -526,13 +526,13 @@ namespace DO_AN_CHUYEN_NGANH.Controllers
                 return Json(new { code = 500, msg = "lay ko thanh cong" + ex.Message, JsonRequestBehavior.AllowGet });
             }
         }
+        
 
-
-        public ActionResult TT_DAT_SAN(int id, int? page)
+        public ActionResult TT_DAT_SAN(int id,int? page)
         {
             int pagesize = 8;
             int pagenum = (page ?? 1);
-            var dsDon1 = data.DON_DAT_SANs.Where(n => n.TRANG_THAI_XOA == false && n.MA_KH == id).ToList();
+            var dsDon1 = data.DON_DAT_SANs.Where(n => n.TRANG_THAI_XOA == false&& n.MA_KH == id).ToList();
             return View(dsDon1.OrderByDescending(n => n.MA_DS).ToPagedList(pagenum, pagesize));
         }
 
