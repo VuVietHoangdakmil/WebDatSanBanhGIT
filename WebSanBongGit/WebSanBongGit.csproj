@@ -234,6 +234,7 @@
     <Content Include="Views\WebSanBong\SanTheoLoai.cshtml" />
     <Content Include="Views\WebSanBong\DatsanCHITIET.cshtml" />
     <Content Include="Views\WebSanBong\ViewTimKiemKhungGio.cshtml" />
+    <Content Include="Views\WebSanBong\TT_DAT_SAN.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

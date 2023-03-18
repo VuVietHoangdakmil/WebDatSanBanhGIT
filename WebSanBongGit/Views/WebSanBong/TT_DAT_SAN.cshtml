@@ -1,0 +1,216 @@
+﻿@using PagedList
+@model PagedList.PagedList<WebSanBongGit.Models.DON_DAT_SAN>
+@using PagedList.Mvc;
+@{
+    ViewBag.Title = "TT_DAT_SAN";
+    Layout = "~/Views/Shared/_LayoutUser.cshtml";
+}
+<link href="~/Content/cssAdmin/layOutAdmin25.css" rel="stylesheet" />
+<link href="~/Content/cssAdmin/customcssTable6.css" rel="stylesheet" />
+
+
+
+<div class="table-main TT_DON_KHACH">
+    <div class="table-title">Thông Tin Đơn Hàng Đã Đặt</div>
+    <div class="table_user">
+        <div class="grid wide5">
+            <div class="row no-gutters table-user-title">
+                <div class="col l-7newtb">
+                    <div class="table-col-user">
+                        Ngày Đá
+                    </div>
+                </div>
+                <div class="col l-7newtb">
+                    <div class="table-col-user">
+                        Giờ Bắt Đầu
+                    </div>
+                </div>
+                <div class="col l-7newtb">
+                    <div class="table-col-user">
+                        Giờ Kết Thúc
+                    </div>
+                </div>
+                <div class="col l-7newtb">
+                    <div class="table-col-user">
+                        Tên Sân
+                    </div>
+                </div>
+                <div class="col l-7newtb">
+                    <div class="table-col-user">
+                        Giá Sân
+                    </div>
+                </div>
+                <div class="col l-7newtb">
+                    <div class="table-col-user">
+                        Tổng Tiền
+                    </div>
+                </div>
+                <div class="col l-7newtb">
+                    <div class="table-col-user">
+                        Trạng Thái
+                    </div>
+                </div>
+
+
+            </div>
+
+            @foreach (var item in Model)
+            {
+                <div class="row no-gutters table-user-content">
+                    <div class="col l-7newtb">
+                        <div class="table-col-user">
+                            @string.Format("{0:dd/MM/yyyy}", item.NGAY_DAT)
+                        </div>
+                    </div>
+                    <div class="col l-7newtb">
+                        <div class="table-col-user">
+                            @string.Format("{0:HH:mm}", item.GIO_BAT_DAU)
+                        </div>
+                    </div>
+                    <div class="col l-7newtb">
+                        <div class="table-col-user">
+                            @string.Format("{0:HH:mm}", item.GIO_KET_THUC)
+                        </div>
+                    </div>
+                    <div class="col l-7newtb">
+                        <div class="table-col-user">
+                            @item.SAN.TEN_SAN
+                        </div>
+                    </div>
+                    <div class="col l-7newtb">
+                        <div class="table-col-user">
+                            @string.Format("{0:0,0}", item.GIA_SAN)đ
+                        </div>
+                    </div>
+                    <div class="col l-7newtb">
+                        <div class="table-col-user">
+                            @string.Format("{0:0,0}", item.TONG_TIEN)đ
+                        </div>
+                    </div>
+                    <div class="col l-7newtb">
+                        <div class="table-col-user">
+                            @if (item.TINH_TRANG_DON == null)
+                            {
+                                <div style="color: red;">
+                                    <span>Chưa đá</span>
+                                    <i class="fas fa-exclamation-circle"></i>
+                                </div>
+                            }
+                            else if (item.TINH_TRANG_DON == true)
+                            {
+                                <div style="color: green">
+                                    <span>Đá xong</span>
+                                    <i class="fas fa-check-circle"></i>
+                                </div>
+                            }
+                            else
+                            {
+                                <div style="color:gold">
+                                    <span>Đang đá</span>
+                                    <i class="fas fa-exclamation-circle"></i>
+                                </div>
+                            }
+                        </div>
+                    </div>
+
+                </div>
+            }
+
+            <section id="pagination" class="section-p1">
+                <div class="page">
+                    Trang @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) / @Model.PageCount
+                </div>
+
+                <div>
+                    @Html.PagedListPager(Model, page => Url.Action("TT_DAT_SAN", new { page = page }))
+                </div>
+
+                <a class="exit" href="/WebSanBong/ListSan">
+                    Quay Lại
+                </a>
+            </section>
+        </div>
+    </div>
+
+</div>
+<script>
+    editALL_DAXONG()
+    editALL_CHUADA()
+    editALL_DANGDA()
+    function editALL_DAXONG() {
+        fetch('/adminLayout/UPDATEALLDAXONG', {
+            method: 'POST',
+            body: JSON.stringify({
+                TimeHT: gettimeHienTaiINT(),
+                dateHT: getDateHienTaiINT()
+            }),
+            headers: {
+                'Content-type': 'application/json; charset=UTF-8',
+            },
+        })
+            .then((response) => response.json())
+            .then((json) => {
+
+            });
+    }
+    function editALL_CHUADA() {
+        fetch('/adminLayout/UPDATEALLCHUADA', {
+            method: 'POST',
+            body: JSON.stringify({
+                TimeHT: gettimeHienTaiINT(),
+                dateHT: getDateHienTaiINT()
+            }),
+            headers: {
+                'Content-type': 'application/json; charset=UTF-8',
+            },
+        })
+            .then((response) => response.json())
+            .then((json) => {
+
+            });
+    }
+    function editALL_DANGDA() {
+        fetch('/adminLayout/UPDATEALLDANGDA', {
+            method: 'POST',
+            body: JSON.stringify({
+                TimeHT: gettimeHienTaiINT(),
+                dateHT: getDateHienTaiINT()
+            }),
+            headers: {
+                'Content-type': 'application/json; charset=UTF-8',
+            },
+        })
+            .then((response) => response.json())
+            .then((json) => {
+
+            });
+    }
+    function gettimeHienTaiINT() {
+        var timefomat = new Date()
+        var time
+        if (timefomat.getMinutes() < 10 && timefomat.getHours() < 10) {
+            time = `${timefomat.getHours()}0${timefomat.getMinutes()}`
+        }
+        else if (timefomat.getMinutes() < 10) {
+            time = `${timefomat.getHours()}0${timefomat.getMinutes()}`
+        }
+        else if (timefomat.getHours() < 10) {
+            time = `${timefomat.getHours()}${timefomat.getMinutes()}`
+        }
+        else {
+            time = `${timefomat.getHours()}${timefomat.getMinutes()}`
+        }
+        return time
+    }
+    function getDateHienTaiINT() {
+        var today = new Date()
+        return `${today.getFullYear()}-${today.getMonth() + 1}-${today.getDate()}`
+    }
+</script>
+
+<style>
+
+    .table-main.TT_DON_KHACH {
+        margin-top: 50px;
+    }
+</style>

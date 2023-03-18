@@ -54,8 +54,11 @@ C:\Users\Admin\Desktop\WebDatSanBanhGIT-main\WebDatSanBanhGIT\WebSanBongGit\bin\
 C:\Users\Admin\Desktop\WebDatSanBanhGIT-main\WebDatSanBanhGIT\WebSanBongGit\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
 C:\Users\Admin\Desktop\WebDatSanBanhGIT-main\WebDatSanBanhGIT\WebSanBongGit\bin\Microsoft.Web.Infrastructure.dll
 C:\Users\Admin\Desktop\WebDatSanBanhGIT-main\WebDatSanBanhGIT\WebSanBongGit\bin\Newtonsoft.Json.dll
+<<<<<<< HEAD
+=======
 C:\Users\Admin\Desktop\WebDatSanBanhGIT-main\WebDatSanBanhGIT\WebSanBongGit\bin\PagedList.dll
 C:\Users\Admin\Desktop\WebDatSanBanhGIT-main\WebDatSanBanhGIT\WebSanBongGit\bin\PagedList.Mvc.dll
+>>>>>>> 27c05087c15600b30cc02ce6399587b44f2482e8
 C:\Users\Admin\Desktop\WebDatSanBanhGIT-main\WebDatSanBanhGIT\WebSanBongGit\bin\System.Web.Helpers.dll
 C:\Users\Admin\Desktop\WebDatSanBanhGIT-main\WebDatSanBanhGIT\WebSanBongGit\bin\System.Web.Mvc.dll
 C:\Users\Admin\Desktop\WebDatSanBanhGIT-main\WebDatSanBanhGIT\WebSanBongGit\bin\System.Web.Optimization.dll
