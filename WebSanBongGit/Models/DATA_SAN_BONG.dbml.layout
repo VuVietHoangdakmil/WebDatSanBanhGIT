@@ -33,7 +33,7 @@
         <elementListCompartment Id="6c5a6742-a196-495f-907c-0aa114bfed05" absoluteBounds="4.89, 3.085, 1.9700000000000002, 3.1339111328125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <associationConnector edgePoints="[(6.03125 : 3.075); (6.03125 : 3.6); (3.625 : 3.6)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+    <associationConnector edgePoints="[(5.875 : 3.075); (5.875 : 3.6); (3.625 : 3.6)]" fixedFrom="Algorithm" fixedTo="Algorithm">
       <AssociationMoniker Name="/DATA_SAN_BONGDataContext/DON_DAT_SAN/DON_DAT_SAN_CT_DAT_SAN" />
       <nodes>
         <classShapeMoniker Id="e4aaa464-317b-4a31-a49f-0d262b2fa1aa" />
@@ -65,7 +65,7 @@
         <elementListCompartment Id="cd5e3a31-3956-45c2-9b3b-6f8944f81d02" absoluteBounds="0.515, 1.835, 1.9700000000000002, 1.2108968098958333" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <associationConnector edgePoints="[(0.53125 : 1.825); (0.53125 : 3.6); (1.625 : 3.6)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(0.53125 : 1.825); (0.53125 : 3.6); (1.625 : 3.6)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/DATA_SAN_BONGDataContext/SAN/SAN_CT_DAT_SAN" />
       <nodes>
         <classShapeMoniker Id="cd26f90d-ba7b-4d4d-9418-ac1711b53d2f" />
@@ -79,7 +79,7 @@
         <classShapeMoniker Id="e4aaa464-317b-4a31-a49f-0d262b2fa1aa" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(1.5625 : 2.75); (1.5625 : 1.825)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(1.5625 : 2.75); (1.5625 : 1.825)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/DATA_SAN_BONGDataContext/LOAI_SAN/LOAI_SAN_SAN" />
       <nodes>
         <classShapeMoniker Id="9f58f5e7-0012-42f3-9ed9-f984948f1fd9" />
