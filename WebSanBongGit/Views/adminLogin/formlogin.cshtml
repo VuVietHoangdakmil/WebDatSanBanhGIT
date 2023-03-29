@@ -1,0 +1,645 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <link href="~/Content/bootstrap-theme.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/core.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/md5.js"></script>
+    <title>formlogin</title>
+</head>
+<body>
+    <a id="DASHVTRI"style="display:none" href="/adminLayout/Dashboard">ádasdasd</a>
+    <div class="blur">
+        <div class="login-box">
+            <div class="remove-Register">
+                <i class="fas fa-times"></i>
+            </div>
+            <h2>Register Admin</h2>
+            <div class="form-dky">
+                <div class="user-box">
+                    <input type="text" name="" required="" id="tai_khoan_dky">
+                    <span style="color:red"></span>
+                    <label>Tên Đăng Nhập</label>
+                </div>
+                <div class="user-box">
+                    <input type="password" name="" required="" id="password_dky">
+                    <label>Mật Khẩu</label>
+                    <span style="color:red"></span>
+                    <span class="password_dky_hide">
+                        <i class="fas fa-eye"></i>
+                        <i class="fas fa-eye-slash"></i>
+                    </span>
+                </div>
+                <div class="user-box">
+                    <input type="password" name="" required="" id="password_nhap_lai_dky">
+                    <label>Nhập Lại Mật Khẩu</label>
+                    <span style="color:red"></span>
+                    <span class="password_nhap_lai_dky_hide">
+                        <i class="fas fa-eye"></i>
+                        <i class="fas fa-eye-slash"></i>
+                    </span>
+                </div>
+                <div>
+                    <button class="dky-admin-tk">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        Đăng Ký
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="key-passWord-regetry">
+        <div class="box-Key">
+            <span class="remove-from-key">
+                <i class="fas fa-times"></i>
+            </span>
+            <div class="active_key">
+                <input type="password" id="key_regettry" placeholder="nhập mật khẩu để đến trang đăng kí" />
+                <button>Đi Tới</button>
+            </div>
+        </div>
+    </div>
+    <div class="login-box">
+        <h2>Login Admin</h2>
+        <div class="form-login">
+            <div class="user-box">
+                <input type="text" name="" required="" id="tai_khoan">
+                <label>Tên Đăng Nhập</label>
+            </div>
+            <div class="user-box">
+                <input type="password" name="" required="" id="password">
+                <label>Mật Khẩu</label>
+                <span class="pasword-login">
+                    <i class="fas fa-eye"></i>
+                    <i class="fas fa-eye-slash"></i>
+                </span>
+            </div>
+            <div>
+                <button class="DangNhapAdmin">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    Đăng Nhập
+                </button>
+                <button class="dky-admin">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    Đăng Ký
+                </button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+<style>
+    .remove-Register{
+        display:flex;
+        flex-direction:row-reverse;
+        cursor:pointer;
+        
+    }
+    .remove-Register i {
+        color:white;
+        font-size:24px;
+    }
+    .box-title {
+        display: flex;
+    }
+    .dky-admin {
+        padding-left: 4px
+    }
+    .active_key {
+        display: flex;
+        flex-direction: column;
+        padding: 15px 10px 20px 10px
+    }
+        .active_key input {
+            width: 250px;
+            height: 35px;
+            border: none;
+            outline: none;
+            border-radius: 5px;
+            background-color: #f5f5f9;
+            padding-left:5px;
+            margin-bottom:10px;
+        }
+        .active_key button {
+            border: none;
+            background-color: #90e0ef;
+            color:white;
+            border-radius:5px;
+            height:35px;
+            cursor:pointer;
+            font-size:20px;
+        }
+            .active_key button:hover{
+                opacity:0.6;
+            }
+            .remove-from-key {
+                display: flex;
+                flex-direction: row-reverse;
+                margin-right: 5px;
+                margin-top: 3px;
+                color: #ff0000;
+                font-size: 20px;
+                cursor: pointer;
+                border-radius: 8px;
+               
+            }
+    .key-passWord-regetry {
+        background-color: white;
+        position: fixed;
+        left: 50%;
+        transform: translateX(-50%) ;
+        margin-top:176px;
+        z-index:2000;
+        border-radius:5px;
+        display:none;
+        animation:show linear 0.5s;
+    }
+    @@keyframes show{
+        0%{
+            opacity:0.4
+        }
+        50%{
+            opacity:0.7
+        }
+        100%{
+            opacity:1
+        }
+    }
+    .blur {
+        background-color: #1f3249;
+        position: fixed;
+        z-index: 100;
+        top: 0;
+        right: 0;
+        left: 0;
+        bottom: 0;
+        display: none;
+    }
+    #password{
+        position:relative
+    }
+    .user-box span{
+        position:absolute;
+        top:14px;
+        right:0;
+        color:white;
+        cursor:pointer
+    }
+    span .fas.fa-eye-slash {
+        display: none;
+    }
+    span .fas.fa-eye-slash.active {
+        display: block;
+    }
+        span .fas.fa-eye.active {
+            display: none;
+        }
+    html {
+        height: 100%;
+    }
+
+body {
+  margin:0;
+  padding:0;
+  font-family: sans-serif;
+  background: linear-gradient(#141e30, #243b55);
+}
+
+.login-box {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 400px;
+  padding: 40px;
+  transform: translate(-50%, -50%);
+  background: rgba(0,0,0,.5);
+  box-sizing: border-box;
+  box-shadow: 0 15px 25px rgba(0,0,0,.6);
+  border-radius: 10px;
+}
+
+.login-box h2 {
+  margin: 0 0 30px;
+  padding: 0;
+  color: #fff;
+  text-align: center;
+}
+
+.login-box .user-box {
+  position: relative;
+}
+
+.login-box .user-box input {
+  width: 100%;
+  padding: 10px 0;
+  font-size: 16px;
+  color: #fff;
+  margin-bottom: 30px;
+  border: none;
+  border-bottom: 1px solid #fff;
+  outline: none;
+  background: transparent;
+}
+.login-box .user-box label {
+  position: absolute;
+  top:0;
+  left: 0;
+  padding: 10px 0;
+  font-size: 16px;
+  color: #fff;
+  pointer-events: none;
+  transition: .5s;
+}
+
+.login-box .user-box input:focus ~ label,
+.login-box .user-box input:valid ~ label {
+  top: -20px;
+  left: 0;
+  color: #03e9f4;
+  font-size: 12px;
+}
+
+    .login-box .form-login button,
+    .login-box .form-dky button {
+        position: relative;
+        display: inline-block;
+        padding: 10px 20px;
+        color: #03e9f4;
+        font-size: 16px;
+        background-color: transparent;
+        text-transform: uppercase;
+        overflow: hidden;
+        transition: .5s;
+        margin-top: 40px;
+        letter-spacing: 4px;
+        border: none
+    }
+
+.login-box button:hover {
+  background: #03e9f4;
+  color: #fff;
+  border:none;
+  border-radius: 5px;
+  box-shadow: 0 0 5px #03e9f4,
+              0 0 25px #03e9f4,
+              0 0 50px #03e9f4,
+              0 0 100px #03e9f4;
+}
+
+.login-box button span {
+  position: absolute;
+ 
+}
+
+.login-box button span:nth-child(1) {
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #03e9f4);
+  animation: btn-anim1 1s linear infinite;
+}
+
+@@keyframes btn-anim1 {
+  0% {
+    left: -100%;
+  }
+  50%,100% {
+    left: 100%;
+  }
+}
+
+.login-box button span:nth-child(2) {
+  top: -100%;
+  right: 0;
+  width: 2px;
+  height: 100%;
+  background: linear-gradient(180deg, transparent, #03e9f4);
+  animation: btn-anim2 1s linear infinite;
+  animation-delay: .25s
+}
+
+@@keyframes btn-anim2 {
+  0% {
+    top: -100%;
+  }
+  50%,100% {
+    top: 100%;
+  }
+}
+
+.login-box button span:nth-child(3) {
+  bottom: 0;
+  right: -100%;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(270deg, transparent, #03e9f4);
+  animation: btn-anim3 1s linear infinite;
+  animation-delay: .5s
+}
+
+@@keyframes btn-anim3 {
+  0% {
+    right: -100%;
+  }
+  50%,100% {
+    right: 100%;
+  }
+}
+
+.login-box button span:nth-child(4) {
+  bottom: -100%;
+  left: 0;
+  width: 2px;
+  height: 100%;
+  background: linear-gradient(360deg, transparent, #03e9f4);
+  animation: btn-anim4 1s linear infinite;
+  animation-delay: .75s
+}
+
+@@keyframes btn-anim4 {
+  0% {
+    bottom: -100%;
+  }
+  50%,100% {
+    bottom: 100%;
+  }
+}
+</style>
+<script type="module" >
+    import pass,{md5} from '../Scripts/password.js'
+    const passWord = pass().passWord
+    const $ = document.querySelector.bind(document)
+    const hidepass = document.querySelector(".pasword-login .fas.fa-eye-slash")
+    const showpass = document.querySelector(".pasword-login .fas.fa-eye")
+    const inputPassWord = document.querySelector("#password")
+    const Dky = $(".dky-admin")
+    const keyPassWordRegetry = $('.key-passWord-regetry')
+    const removeKeyPassWordRegetry = $('.remove-from-key')
+    const buttonditoi = $('.active_key button')
+    const key_regettry = $('#key_regettry')
+    const blur = $('.blur')
+    const login_box = $('.login-box')
+    const remove_Register = $('.remove-Register')
+    const password_dky_show = $('.password_dky_hide .fas.fa-eye')
+    const password_dky_hide = $('.password_dky_hide .fa-eye-slash')
+    const password_dky = $('#password_dky')
+    const password_nhap_lai_dky_show = $('.password_nhap_lai_dky_hide .fa-eye ')
+    const password_nhap_lai_dky_hide = $('.password_nhap_lai_dky_hide .fa-eye-slash ')
+    const password_nhap_lai_dky = $('#password_nhap_lai_dky')
+    const dky_admin_tk =  $(".dky-admin-tk")
+    const text_ten_dn = $("#tai_khoan_dky")
+    const TenDnAdmin = $("#tai_khoan")
+    const passwordAdmin = $('#password')
+    const DangNhapAdmin = $('.DangNhapAdmin')
+   
+    password_nhap_lai_dky_show.onclick = () => {
+        password_nhap_lai_dky_show.style.display = "none";
+        password_nhap_lai_dky_hide.style.display = "block";
+        password_nhap_lai_dky.type="text"
+    }
+    password_nhap_lai_dky_hide.onclick = ()=> {
+        password_nhap_lai_dky_show.style.display = "block";
+        password_nhap_lai_dky_hide.style.display = "none";
+        password_nhap_lai_dky.type = "password"
+    }
+    password_dky_show.onclick = () => {
+        password_dky_show.style.display = "none";
+        password_dky_hide.style.display = "block";
+        password_dky.type="text"
+    }
+    password_dky_hide.onclick = () => {
+        password_dky_show.style.display = "block";
+        password_dky_hide.style.display = "none";
+        password_dky.type = "password"
+    }
+    showpass.onclick = (e) => {
+        showpass.classList.add("active")
+        hidepass.classList.add("active")
+        inputPassWord.type = "text"
+    }
+    hidepass.onclick = (e) => {
+        showpass.classList.remove("active")
+        hidepass.classList.remove("active")
+        inputPassWord.type = "password"
+    }
+    Dky.onclick = (e) => {
+        e.preventDefault()
+        keyPassWordRegetry.style = "display:block"
+        key_regettry.focus()
+    }
+    removeKeyPassWordRegetry.onclick = () => {
+        keyPassWordRegetry.style = "display:none"
+        key_regettry.value =""
+    }
+    blur.onclick = () => {
+        blur.style.display = "none";
+        resettext()
+    }
+    buttonditoi.onclick = () => {
+        if (md5(key_regettry.value) == passWord) {
+            blur.style.display = "block"
+            removeKeyPassWordRegetry.click()
+        }
+        else {
+            alert("Mật Khẩu Đăng Nhập Không Đúng")
+        }
+    }
+    login_box.onclick = (e) => {
+        e.stopPropagation()
+    }
+    remove_Register.onclick = () => {
+        blur.click()
+
+    }
+    function IsPassWordMatch() {
+        console.log('onChange')
+        const password = $('#password_dky');
+        const confirm = $('#password_nhap_lai_dky');
+        if (confirm.value === password.value) {
+            confirm.setCustomValidity('');
+        } else {
+            confirm.setCustomValidity('Mật Khẩu Không Trùng Nhau');
+        }
+    }
+   
+    password_dky.oninput = () => {
+        IsPassWordMatch()
+    }
+    password_nhap_lai_dky.oninput = () => {
+        IsPassWordMatch()
+    }
+    function addError (input,span,text) {
+        input.style = "border-bottom:2px red solid"
+        span.innerText = text
+    }
+    function reomveError(input, span) {
+        input.style = "border-bottom: 1px white soild"
+        span.innerText = ""
+    }
+
+
+    app()
+    function app() {
+        handlerdKY()
+        handletDangNhap()
+    }
+    function handlerdKY() {
+       
+        dky_admin_tk.onclick = (e) => {
+            if (text_ten_dn.value.trim() == "") {
+                addError(text_ten_dn, $('#tai_khoan_dky ~ span '), "Vui Lòng Điền Thông Tin")
+            } else if (password_dky.value.trim() == "") {
+                addError(password_dky, $('#password_dky ~ span '), "Vui Lòng Điền Thông Tin")
+            } else if (password_nhap_lai_dky.value.trim() == "") {
+                addError(password_nhap_lai_dky, $('#password_nhap_lai_dky ~ span '), "Vui Lòng Điền Thông Tin")
+            } else if (password_dky.value.trim() != password_nhap_lai_dky.value.trim()) {
+                alert("vui lòng nhập trùng pass")
+            }
+            else {
+                
+                fetch('/adminLogin/DangKyAdmin', {
+                            method: 'POST',
+                            body: JSON.stringify({
+                                TEN_DN: text_ten_dn.value,
+                                MK_DN: password_dky.value
+                            }),
+                            headers: {
+                                'Content-type': 'application/json; charset=UTF-8',
+                            },
+                        })
+                        .then((response) => response.json())
+                        .then((json) => {
+                                if (!json.IsSuccess) {
+                                    alert("Tên Đăng Nhập Đã Có Người Đăng Ký")
+                                    resettext()
+                                }
+                                else {
+                                    alert("Đăng Ký Thành Công")
+                                    resettext()
+                                }
+                          });
+                }
+        }
+
+
+        text_ten_dn.oninput = () => {
+            if (text_ten_dn.value.trim() == "") {
+                addError(text_ten_dn, $('#tai_khoan_dky ~ span '), "Vui Lòng Điền Thông Tin")
+            } else {
+                reomveError(text_ten_dn, $('#tai_khoan_dky ~ span '))
+            }
+        }
+        password_dky.oninput = () => {
+            if (password_dky.value.trim() == "") {
+                addError(password_dky, $('#password_dky ~ span '), "Vui Lòng Điền Thông Tin")
+            }
+            else if (password_dky.value.trim() != "" && password_dky.value.trim() == password_nhap_lai_dky.value.trim()) {
+                reomveError(password_dky, $('#password_dky ~ span '))
+                reomveError(password_nhap_lai_dky, $('#password_nhap_lai_dky ~ span '))
+            }
+            else if (password_dky.value.trim() != password_nhap_lai_dky.value.trim()) {
+                addError(password_dky, $('#password_dky ~ span '), "Vui Lòng Nhập Trùng Pass")
+            }
+            else {
+                reomveError(password_dky, $('#password_dky ~ span '))
+                reomveError(password_nhap_lai_dky, $('#password_nhap_lai_dky ~ span '))
+            }
+
+
+
+        }
+        password_nhap_lai_dky.oninput = () => {
+            if (password_nhap_lai_dky.value.trim() == "") {
+                addError(password_nhap_lai_dky, $('#password_nhap_lai_dky ~ span '), "Vui Lòng Điền Thông Tin")
+            }
+            else if (password_nhap_lai_dky.value.trim() != "" && password_dky.value.trim() == password_nhap_lai_dky.value.trim()) {
+                reomveError(password_nhap_lai_dky, $('#password_nhap_lai_dky ~ span '))
+                reomveError(password_dky, $('#password_dky ~ span '))
+            }
+            else if (password_dky.value.trim() != password_nhap_lai_dky.value.trim()) {
+                addError(password_nhap_lai_dky, $('#password_nhap_lai_dky ~ span '), "Vui Lòng Nhập Trùng Pass")
+            }
+            else {
+                reomveError(password_dky, $('#password_nhap_lai_dky ~ span '))
+                reomveError(password_dky, $('#password_dky ~ span '))
+            }
+        }
+    }
+    function handletDangNhap() {
+        DangNhapAdmin.onclick = () => {
+            if (TenDnAdmin.value.trim() == "") {
+                alert("Vui lòng nhập tên đăng nhập");
+                resettextlogin()
+            }
+            else if (passwordAdmin.value.trim() == "") {
+                alert("Vui lòng nhập mật khẩu");
+                resettextlogin()
+            } else {
+                fetch('/adminLogin/DangNhapAdmin', {
+                    method: 'POST',
+                    body: JSON.stringify({
+                        TEN_DN: TenDnAdmin.value.trim(),
+                        MK_DN: passwordAdmin.value.trim()
+                    }),
+                    headers: {
+                        'Content-type': 'application/json; charset=UTF-8',
+                    },
+                })
+                    .then((response) => response.json())
+                    .then(({ IsSuccess, TkAdm}) => {
+                        if (!IsSuccess) {
+                            alert("Tên Đăng Nhập Hoặc Tài Khoản Không Đúng")
+                            TenDnAdmin.focus();
+                        } else {
+
+                            const id_maCV = TkAdm.MA_CHUC_VU
+                            const dataAdmin = {
+                               MA_CHUC_VU : TkAdm.MA_CHUC_VU,
+                               TEN_MK_DN: TkAdm.TEN_MK_DN,
+                                D_TK_ADMIN: TkAdm.ID_TK_ADMIN
+                            }
+                            sessionStorage.setItem('dataADMIN', JSON.stringify(dataAdmin));
+                            resettextlogin();
+                            $("#DASHVTRI").click();
+                        }
+                    });
+            }
+        }
+    }
+
+    function resettext() {
+        text_ten_dn.focus();
+        password_dky.value = "";
+        text_ten_dn.value = "";
+        password_nhap_lai_dky.value = "";
+        reomveError(password_dky, $('#password_dky ~ span '))
+        reomveError(password_nhap_lai_dky, $('#password_nhap_lai_dky ~ span '))
+        reomveError(text_ten_dn, $('#tai_khoan_dky ~ span '))
+    }
+    function resettextlogin() {
+        TenDnAdmin.value = ""
+        passwordAdmin.value = ""
+        TenDnAdmin.focus();
+    }
+       
+    
+   
+
+</script>
