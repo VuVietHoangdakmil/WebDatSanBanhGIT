@@ -1,0 +1,431 @@
+﻿
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link href="~/Content/cssAdmin/gridADM.css" rel="stylesheet" />
+    <link href="~/Content/cssModal.css" rel="stylesheet" />
+    <link href="~/Content/csspagelist/csspages5.css" rel="stylesheet" />
+    <link href="~/Content/cssAdmin/customcssTable6.css" rel="stylesheet" />
+    <link href="~/Content/cssAdmin/layOutAdmin25.css" rel="stylesheet" />
+    <link href="~/Content/csspagelist/csspage.css" rel="stylesheet" />
+
+    <title>Document</title>
+</head>
+<body>
+    <a style="display:none" class="dangxuatadmin" href="/adminLogin/formlogin"></a>
+    <div class="modal-edit DDH">
+        <div class="modal-edit-context">
+            <div class="form_group edit">
+                <label for="SDT-DDS">SDT</label>
+                <input type="text" placeholder="SDT" id="SDT-DDS" />
+            </div>
+            <div class="form_group edit">
+                <label for="NGAY_LAP-DDS">ngày lập</label>
+                <input type="text" placeholder="Ngày Lập" id="NGAY_LAP-DDS" />
+            </div>
+            <div class="form_group edit">
+                <label for="NGAY_DA-DDS">Ngày Đá</label>
+                <input type="text" placeholder="Ngày Đá" id="NGAY_DA-DDS" />
+            </div>
+            <div class="form_group edit">
+                <label for="SAN_DA">Sân Đá</label>
+                <input type="text" placeholder="Sân Đá" id="SAN_DA-DDS" />
+            </div>
+            <div class="form_group edit">
+                <label for="GIO_BD-DDS">Giờ-BĐ</label>
+                <input type="text" placeholder="SDT" id="GIO_BD-DDS" />
+            </div>
+            <div class="form_group edit">
+                <label for="GIO_KT-DDS">Giờ-KT</label>
+                <input type="text" placeholder="SDT" id="GIO_KT-DDS" />
+            </div>
+            <div class="form_group edit">
+                <label for="GIA_SAN-DDS">Giá Sân</label>
+                <input type="text" placeholder="SDT" id="GIA_SAN-DDS" />
+            </div>
+            <div class="form_group edit">
+                <label for="TONG_GIO-DDS">Tổng Giờ</label>
+                <input type="text" placeholder="SDT" id="TONG_GIO-DDS" />
+            </div>
+            <div class="form_group edit">
+                <label for="TONG_TIEN-DDS">Tổng Tiền</label>
+                <input type="text" placeholder="SDT" id="TONG_TIEN-DDS" />
+            </div>
+
+            <div class="form_group edit">
+                <div style="margin-right:44px;margin-left:20px">Trạng Thái</div>
+                <span class="TRANG_THAI-DDS"> </span>
+            </div>
+            <div class="content_ThanhToan">
+                <i class="fas"></i>
+                <span> </span>
+            </div>
+            <div class="form_group editTT_cha">
+                <div class="editTT ChuaDa" style="background-color:red">
+                    Chưa Đá
+                </div>
+                <div class="editTT DangDa">
+                    Đang Đá
+                </div>
+                <div class="editTT DaXong" style="background-color: green">
+                    Đá Xong
+                </div>
+
+                <div class="editTT deleteDDS" style="background-color: #90e0ef">
+                    Xóa
+                </div>
+                <div class="editTT ChuaThanhToan" style="background-color: red">
+                    <span>Chưa Thanh Toán</span>
+                </div>
+                <div class="editTT DaThanhToan" style="background-color: green">
+                    <span>Đã Thanh Toán</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-edit TT_USER">
+        <div class="modal-edit-context">
+            <div class="form_group edit">
+                <label for="SDT-DDS">Tên KH</label>
+                <input type="text" id="TEN_KH-TT_USER" />
+            </div>
+            <div class="form_group edit">
+                <label for="NGAY_LAP-DDS">SDT</label>
+                <input type="text" placeholder="Ngày Lập" id="SDT-TT_USER" />
+            </div>
+            <div class="form_group edit">
+                <label for="NGAY_DA-DDS">Tên Đăng Nhập</label>
+                <input type="text" placeholder="Ngày Đá" id="TENDN-TT_USER" />
+            </div>
+            <div class="form_group edit">
+                <label for="SAN_DA">Mật Khẩu</label>
+                <input type="text" placeholder="Sân Đá" id="MK-TT_USER" />
+            </div>
+            <div class="form_group edit">
+                <label for="GIO_BD-DDS">Email</label>
+                <input type="text" placeholder="SDT" id="EMAIL-TT_USER" />
+            </div>
+            <div class="form_group edit">
+                <div style="padding:0 74px 0 21px" for="GIO_KT-DDS">Avatar</div>
+                <img src="" style="border-radius:10px" width="140px" />
+
+            </div>
+            <div class="form_group editTT_cha">
+                <div class="editTT deleteTT_USER" style="background-color: #90e0ef">
+                    Xóa
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-edit TT_LISTSAN">
+        <div class="modal-edit-context">
+            <div class="form_group edit">
+                <label for="LISTLOAI-TT_LISTSAN">Loại Sân</label>
+                <select class="select_all" id="LISTLOAI-TT_LISTSAN">
+                </select>
+            </div>
+
+            <div class="form_group edit">
+                <label for="TEN_SAN-TT_LISTSAN">Tên Sân</label>
+                <input type="text" placeholder="Nhập Tên Sân" id="TEN_SAN-TT_LISTSAN" />
+            </div>
+            <span class="text-error TEN_SAN-TT_LISTSAN " style="color: red; font-size: 14px">  </span>
+
+            <div class="form_group edit">
+                <label for="GIA_SAN-TT_LISTSAN">Giá Sân</label>
+                <input type="text" id="GIA_SAN-TT_LISTSAN" readonly />
+            </div>
+
+            <div class="form_group editTT_cha">
+                <div class="editTT deleteTT_USER" style="background-color: #90e0ef">
+                    Xóa
+                </div>
+                <div class="editTT addTT_USER" style="background-color: #90e0ef">
+                    Thêm
+                </div>
+                <div class="editTT editTT_USER" style="background-color: #90e0ef">
+                    Cập Nhật
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-edit TT_TKADMIN">
+        <div class="modal-edit-context">
+
+            <div class="form_group edit">
+                <label for="TEN_DN-TT_TKADMIN">Tên Đăng Nhập</label>
+                <input type="text" id="TEN_DN-TT_TKADMIN" placeholder="Nhập Tên Đăng Nhập" />
+            </div>
+
+            <div class="form_group edit">
+                <label for="MAT_KHAU-TT_TKADMIN">Mật Khẩu</label>
+                <input type="text" placeholder="Nhập Mật Khẩu" id="MAT_KHAU-TT_TKADMIN" />
+            </div>
+            @*<span class="text-error TEN_SAN-TT_LISTSAN " style="color: red; font-size: 14px">  </span>*@
+
+            <div class="form_group edit">
+                <label for="LISTQUYEN-TT_TKADMIN">Quyền</label>
+                <select class="select_all" id="LISTQUYEN-TT_TKADMIN">
+                    <option value="">Chọn Quyền</option>
+                </select>
+            </div>
+
+            <div class="form_group editTT_cha">
+                <div class="editTT delete" style="background-color: #90e0ef">
+                    Xóa
+                </div>
+                <div class="editTT add" style="background-color: #90e0ef">
+                    Thêm
+                </div>
+                <div class="editTT edit" style="background-color: #90e0ef">
+                    Cập Nhật
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-edit TT_LISTLOAISAN">
+        <div class="modal-edit-context">
+
+            <div class="form_group edit">
+                <label for="TEN_LOAI-TT_LISTLOAISAN">Tên Loại</label>
+                <input type="text" id="TEN_LOAI-TT_LISTLOAISAN" placeholder="Nhập Tên Loại Sân" />
+            </div>
+
+            <div class="form_group edit">
+                <label for="GIA_LOAI-TT_LISTLOAISAN">Giá Loại</label>
+                <input type="number" placeholder="Nhập Giá" id="GIA_LOAI-TT_LISTLOAISAN" />
+            </div>
+
+            <div class="form_group editTT_cha">
+                <div class="editTT delete" style="background-color: #90e0ef">
+                    Xóa
+                </div>
+                <div class="editTT add" style="background-color: #90e0ef">
+                    Thêm
+                </div>
+                <div class="editTT edit" style="background-color: #90e0ef">
+                    Cập Nhật
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="grid wideEdit">
+        <section id="mainAdmin">
+            <div class="row no-gutters ">
+                <!-- colum1 -->
+                <div class="col edit4  l-2 editcol1 ">
+                    <div class="mainAdmin_col1">
+                        <nav class="side_bar">
+                            <div class="title-name">
+                                <h1> AE</h1>
+                            </div>
+                            <div class="navigation">Navigation</div>
+                            <ul class="list_manage">
+                                <li class="licha  edits">
+                                    <a class="list_manage_linkA" href="/adminLayout/Dashboard">
+                                        <i class="fas fa-tachometer-fast"></i>
+                                        <span>Dashboard</span>
+                                    </a>
+                                </li>
+                                <li class="licha edits IsTkADM">
+                                    <a class="list_manage_linkA" href="/adminLayout/QLTK_ADMIN">
+                                        <i class="fas fa-user-shield" style="color:#10A19D"></i>
+                                        <span>Admin</span>
+                                    </a>
+                                </li>
+                                <li class="licha edits nhanvienUser">
+                                    <a class="list_manage_linkA" href="/adminLayout/THONTINUSER">
+                                        <i class="fas fa-user"></i>
+                                        <span>User</span>
+                                    </a>
+                                </li>
+
+
+                                <li class="licha  click1 ">
+                                    <div class="manager_san">
+                                        <i class="fas fa-futbol"></i>
+                                        <span>Yard manager</span>
+                                        <i class="fas fa-caret-left"></i>
+                                    </div>
+                                </li>
+                                <ul class="list_manage_san_child">
+                                    <li>
+                                        <a id="activeOpenTTS" class="list_manage_linkA" href="/adminLayout/ViewSan">
+                                            <span>Tình Trạng Sân</span>
+                                        </a>
+                                    </li>
+                                    <li class="sanNhanVienli">
+                                        <a id="activeOpenLISTSAN" class="  list_manage_linkA" href="/adminLayout/ViewListSan">
+                                            <span>Sân</span>
+                                        </a>
+                                    </li>
+                                    <li class="LsanNhanVienli">
+                                        <a class="list_manage_linkA" id="activeOpenLISTLOAISAN" href="/adminLayout/ListLoaiSan">
+                                            <span>Loại Sân</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a id="activeOpenDDS" class="list_manage_linkA" href="/adminLayout/ThongTinDH">
+                                            <span>Đơn Đặt Sân</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                                <li class="licha click2">
+                                    <div class="manager_time">
+                                        <i class="fa-solid fa-clock"></i>
+                                        <span>Time manager</span>
+                                        <i class="fas fa-caret-left edit"></i>
+                                    </div>
+
+                                </li>
+                                <ul class="list_manage_time_child">
+                                    <li>
+                                        <a class="list_manage_linkA" href="#">
+                                            <span>Giờ</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="list_manage_linkA" href="#">
+                                            <span>Phút</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                                <li class="licha edits">
+                                    <a class="list_manage_linkA" href="/adminLayout/THONGKE">
+                                        <i class="fa-solid fa-book"></i>
+                                        <span>Thống Kê</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+
+                <!-- colum2 -->
+                <div class="col edit4  l-10 editcol2">
+
+                    <div class="mainAdmin_col2">
+                        <nav class="nav_bar_menu">
+                            <div class="nav-bar_menu_left">
+                                <i class="fas fa-bars"></i>
+                                <form action="" class="search">
+                                    <input type="text" placeholder="Search" id="Search" name="Search" class="search--input" required>
+                                    <button class="seaech-btn">
+                                        <i class="fas fa-search"></i>
+                                    </button>
+                                </form>
+                            </div>
+                            <ul class="nav-bar_menu_right">
+                                <li class="nav-bar_menu_right_mail">
+                                    <i class="far fa-envelope"></i>
+                                </li>
+                                <li class="nav-bar_menu_right_notification">
+                                    <i class="fas fa-bell"></i>
+                                </li>
+                                <li class="nav-bar_menu_right--infomation_admin">
+                                    <img src="~/imgADMIN/user_2.png" alt="">
+                                    <div class="wrap-name-icon">
+                                        <span class="nav-bar_menu_right--infomation_admin-name"></span>
+                                        <i class="fas fa-caret-left"></i>
+                                    </div>
+                                    <ul class="wrap-name-icon-setting">
+                                        <li>
+
+                                            <a href="">
+                                                <i class="fas fa-user"></i>
+                                                <span>Thông tin cá nhân</span>
+
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="">
+                                                <i class="fas fa-cog"></i>
+                                                <span>Cài đặt</span>
+                                            </a>
+                                        </li>
+                                        <li>
+
+                                            <a onclick="dangxuat()">
+                                                <i class="fas fa-sign-out-alt"></i>
+                                                <span>Đăng xuất</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </nav>
+                        @RenderBody()
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    @Scripts.Render("https://code.jquery.com/jquery-3.3.1.min.js")
+    @RenderSection("scripts", required: false)
+    <script src="~/Scripts/jsADMIN/layOutAdmin14.js"></script>
+    <script>
+        const mainAdmin1 = document.querySelector('#mainAdmin')
+        const nhanvienUser1 = document.querySelector(".licha.edits.nhanvienUser")
+        const nhanvienSanBong1 = document.querySelector(".sanNhanVienli")
+        const LsanNhanVien1 = document.querySelector(".LsanNhanVienli")
+        const DangXuatAdmin1 = document.querySelector(".dangxuatadmin")
+        const nameADMIN1 = document.querySelector('.nav-bar_menu_right--infomation_admin-name')
+        const IsTkADM1 = document.querySelector('.IsTkADM')
+        let dataADMIN1 = JSON.parse(sessionStorage.getItem('dataADMIN'))
+
+        if (dataADMIN1) {
+            nameADMIN1.innerText = dataADMIN1.TEN_MK_DN
+            if (dataADMIN1.MA_CHUC_VU == null) {
+                mainAdmin1.style.display = "none";
+            }
+            if (dataADMIN1.MA_CHUC_VU == 2) {
+                IsUI(nhanvienUser1, nhanvienSanBong1, LsanNhanVien1, IsTkADM1)
+            }
+
+            function IsUI(...elment) {
+                elment.forEach(item => {
+                    item.remove()
+                })
+            }
+        } else {
+            mainAdmin1.style.display = "none";
+        }
+        function dangxuat() {
+            sessionStorage.setItem('dataADMIN', 'null');
+            DangXuatAdmin1.click()
+        }
+    </script>
+</body>
+<style>
+    .wrap-name-icon-setting li {
+        cursor: pointer;
+    }
+
+    .wrap-name-icon-setting {
+        position: absolute;
+        list-style: none;
+        background-color: var(--color_background);
+        top: 52px;
+        right: -203px;
+        margin-right: 200px;
+        border-radius: 5px;
+        box-shadow: 5px 5px 40px rgb(0 0 0 / 20%);
+        overflow: hidden;
+        animation: hientutu2 linear 0.3s;
+        display: none;
+        width: 174px;
+</style>
+
+</html>

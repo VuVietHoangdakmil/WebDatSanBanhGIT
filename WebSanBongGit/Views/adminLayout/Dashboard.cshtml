@@ -1,0 +1,187 @@
+﻿@model IEnumerable<WebSanBongGit.Models.DON_DAT_SAN>
+
+@{
+    ViewBag.Title = "Dashboard";
+    Layout = "~/Views/Shared/_LayoutADMIN.cshtml";
+}
+
+<div class="main-panel">
+    <div class="grid wide4">
+        <div class="row">
+
+            <div class="col l-4">
+                <div class="main-panel_colum user">
+                    <div class="main-panel_colum_title">
+                        Thành Viên
+                    </div>
+                    <div class="countAndIcon">
+                        <span> @ViewBag.SLuser</span>
+                        <i class="fas fa-users"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="col l-4  ">
+                <div class="main-panel_colum total">
+                    <div class="main-panel_colum_title">
+                        Doanh Thu
+                    </div>
+                    <div class="countAndIcon">
+                        <span>   @String.Format("{0:0,0}", ViewBag.TONGTIENS)đ</span>
+                        <i class="fas fa-money-bill-alt"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="col l-4 ">
+                <div class="main-panel_colum  Request-reservation">
+                    <div class="main-panel_colum_title">
+                        Đơn Đặt Sân
+                    </div>
+                    <div class="countAndIcon">
+                        <span> 200</span>
+                        <i class="fas fa-bell"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="table">
+    <div class="grid wide5">
+        <div class="title-table-yc"> Đơn Đặt Sân</div>
+        <form action="" method="post" class="formyc">
+            @if (ViewBag.listDDS != 0)
+            {
+                <div class="row no-gutters  table-request title">
+                    <div class="col l-8tb  ">
+                        <div class="table-request-col m1">
+                            <span> SDT</span>
+                        </div>
+                    </div>
+                    <div class="col l-8tb  ">
+                        <div class="table-request-col">
+                            <span> Mã Sân</span>
+                        </div>
+
+                    </div>
+                    <div class="col l-8tb  ">
+                        <div class="table-request-col">
+                            <span>Ngày Đá</span>
+                        </div>
+
+                    </div>
+                    <div class="col l-8tb ">
+                        <div class="table-request-col">
+                            <span>Giờ Bắt Đầu</span>
+                        </div>
+
+                    </div>
+                    <div class="col l-8tb ">
+                        <div class="table-request-col">
+                            <span> Giờ Kết Thúc</span>
+                        </div>
+
+                    </div>
+                    <div class="col l-8tb ">
+                        <div class="table-request-col">
+                            <span> Tổng Giờ</span>
+                        </div>
+
+                    </div>
+
+                    <div class="col l-8tb  ">
+                        <div class="table-request-col">
+                            <span> Giá Sân</span>
+                        </div>
+
+                    </div>
+                    <div class="col l-8tb  ">
+                        <div class="table-request-col">
+                            <span> Tổng Tiền</span>
+                        </div>
+
+                    </div>
+                    <div class="col l-8tb  ">
+                        <div class="table-request-col">
+                            <span> Ngày Lập</span>
+                        </div>
+
+                    </div>
+
+                </div>
+            }
+
+            <form action="" class="formyc" method="post">
+                @foreach (var item in Model)
+                {
+                        <div class="row no-gutters  table-request content">
+                            <div class="col l-8tb  ">
+                                <div class="table-request-col m1">
+                                    <span> @item.KHACH_HANG.SDT</span>
+                                </div>
+                            </div>
+                            <div class="col l-8tb  ">
+                                <div class="table-request-col">
+                                    <span> @item.MA_SAN</span>
+                                </div>
+
+                            </div>
+                            <div class="col l-8tb  ">
+                                <div class="table-request-col">
+                                    <span>@String.Format("{0:dd/MM/yyyy}", item.NGAY_DAT)</span>
+                                </div>
+
+                            </div>
+                            <div class="col l-8tb ">
+                                <div class="table-request-col">
+                                    <span>@String.Format("{0:HH:mm}", item.GIO_BAT_DAU)</span>
+                                </div>
+
+                            </div>
+                            <div class="col l-8tb ">
+                                <div class="table-request-col">
+                                    <span> @String.Format("{0:HH:mm}", item.GIO_KET_THUC)</span>
+                                </div>
+
+                            </div>
+                            <div class="col l-8tb  ">
+                                <div class="table-request-col">
+                                    <span> @item.TONG_GIO_THUE</span>
+                                </div>
+
+                            </div>
+
+                            <div class="col l-8tb  ">
+                                <div class="table-request-col">
+                                    <span> @String.Format("{0:0,0}", @item.GIA_SAN)đ</span>
+                                </div>
+
+                            </div>
+                            <div class="col l-8tb  ">
+                                <div class="table-request-col">
+                                    <span>  @String.Format("{0:0,0}", item.TONG_TIEN)đ</span>
+                                </div>
+
+                            </div>
+                            <div class="col l-8tb  ">
+                                <div class="table-request-col">
+                                    <!--<span class="spanedit">-->
+                                    @*<button class="btnyc agree" formaction="/adminLayout/chapthaunycDatSan/@item.MA_DS">
+            <i class="fas fa-check"></i>
+        </button>
+        <button class="btnyc refuse" formaction="/adminLayout/tuchoinycDatSan/@item.MA_DS">
+            <i class="far fa-trash-alt"></i>
+        </button>*@
+                                    <!--</span>-->
+                                    <div class="table-request-col">
+                                        <span>   @String.Format("{0:dd/MM/yyyy}", item.NGAY_LAP_PHIEU)</span>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                }
+            </form>
+
+    </div>
+</div>
