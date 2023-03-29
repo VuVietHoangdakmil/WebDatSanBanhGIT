@@ -236,11 +236,11 @@ namespace WebSanBongGit.Controllers
 
                 // gui mail
                 string content = System.IO.File.ReadAllText(Server.MapPath("~/content/temlate/mailcontent.html"));
-                content = content.Replace("{{CustomerName}}",KH.Single().TEN_KH);
+                content = content.Replace("{{CustomerName}}", KH.Single().TEN_KH);
                 content = content.Replace("{{Phone}}", KH.Single().SDT);
                 content = content.Replace("{{Email}}", KH.Single().EMAIL);
                 content = content.Replace("{{NGAY_DAT}}", String.Format("{0:dd/MM/yyyy}", dds.NGAY_DAT));
-                content = content.Replace("{{TIME_DAT}}", String.Format("{0:HH:mm}", dds.GIO_BAT_DAU) +'-'+ String.Format("{0:HH:mm}",dds.GIO_KET_THUC));
+                content = content.Replace("{{TIME_DAT}}", String.Format("{0:HH:mm}", dds.GIO_BAT_DAU) + '-' + String.Format("{0:HH:mm}", dds.GIO_KET_THUC));
                 content = content.Replace("{{Total}}", String.Format("{0:0,0}", dds.TONG_TIEN));
                 var toEmail = ConfigurationManager.AppSettings["ToEmailAddress"].ToString();
                 new MailHelper().SendMail(KH.Single().EMAIL, "Sân mới đặt từ Sân Bóng AE", content);
@@ -397,7 +397,7 @@ namespace WebSanBongGit.Controllers
                     data.CT_DAT_SANs.InsertOnSubmit(ctds);
                     data.SubmitChanges();
 
-                    // gui mail
+                    //// gui mail
                     string content = System.IO.File.ReadAllText(Server.MapPath("~/content/temlate/mailcontent.html"));
                     content = content.Replace("{{CustomerName}}", KH.Single().TEN_KH);
                     content = content.Replace("{{Phone}}", KH.Single().SDT);
