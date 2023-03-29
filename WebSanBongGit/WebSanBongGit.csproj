@@ -127,6 +127,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\adminLoginController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Controllers\WebSanBongController.cs" />
@@ -235,10 +236,10 @@
     <Content Include="Views\WebSanBong\DatsanCHITIET.cshtml" />
     <Content Include="Views\WebSanBong\ViewTimKiemKhungGio.cshtml" />
     <Content Include="Views\WebSanBong\TT_DAT_SAN.cshtml" />
+    <Content Include="Views\adminLogin\formlogin.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\adminLogin\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
