@@ -240,6 +240,7 @@
     <Content Include="Views\adminLogin\formlogin.cshtml" />
     <Content Include="Views\adminLayout\Dashboard.cshtml" />
     <Content Include="Views\Shared\_LayoutADMIN.cshtml" />
+    <Content Include="Views\adminLayout\QLTK_ADMIN.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

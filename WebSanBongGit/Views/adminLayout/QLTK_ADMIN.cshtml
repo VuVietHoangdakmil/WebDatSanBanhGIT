@@ -1,0 +1,386 @@
+﻿
+@{
+    ViewBag.Title = "QLTK_ADMIN";
+    Layout = "~/Views/Shared/_LayoutADMIN.cshtml";
+}
+<div id="TABLE_TT_TK_ADM"></div>
+<div class="table-main TK_ADMIN">
+    <div class="table-title">QUẢN LÝ ADMIN</div>
+    <div class="table_user">
+
+        <div class="grid wide5">
+
+            <div class="form_main_search">
+                <div class="formTkStyle form_tk_name_user">
+                    <input type="text" placeholder="Name" id="Name_TK_ADM" name="search_nameUser">
+                    <button>
+                        <i class="fas fa-search"></i>
+                    </button>
+                </div>
+                <div class="formTkStyle form_tk_SDT_user">
+                    <select id="TK_QUYEN_ADM" >
+                        <option value="">Chọn Quyền Muốn Tìm</option>
+                    </select>
+                    
+                </div>
+            </div>
+            <a class="BTN_ADD add-LISTADMIN">
+                <i class="fas fa-plus"></i>
+            </a>
+            <div class="row no-gutters table-user-title">
+                <div class="col l-2-4">
+                    <div class="table-col-user">
+                        STT
+                    </div>
+                </div>
+                <div class="col l-2-4">
+                    <div class="table-col-user">
+                        Tên Đăng Nhập
+                    </div>
+                </div>
+                <div class="col l-2-4">
+                    <div class="table-col-user">
+                        Mật Khẩu
+                    </div>
+                </div>
+                <div class="col l-2-4">
+                    <div class="table-col-user">
+                        Quyền
+                    </div>
+                </div>
+                <div class="col l-2-4">
+                    <div class="table-col-user">
+                        Công Cụ
+                    </div>
+                </div>
+
+
+            </div>
+
+            <div id="box_item-tkADM">
+             
+            </div>
+
+        </div>
+    </div>
+</div>
+<script>
+    const S = document.querySelector.bind(document)
+
+    const boxItemADM = S('#box_item-tkADM')
+    const modalTT_tkADM = S(".modal-edit.TT_TKADMIN")
+    const addADMIN = S('.TT_TKADMIN .add')
+    const deleteADMIN = S('.TT_TKADMIN .delete')
+    const detailADMIN = S('.TT_TKADMIN .editTT.edit')
+    const HienFormADD = S('.BTN_ADD.add-LISTADMIN')
+    const modal_edit_context = S('.TT_TKADMIN .modal-edit-context')
+    const inputTEN_DN = S('#TEN_DN-TT_TKADMIN')
+    const inputMK_DN = S('#MAT_KHAU-TT_TKADMIN')
+    const slectListQuyen = S('#LISTQUYEN-TT_TKADMIN')
+   
+    var TEN_DN = ""
+    var QUYEN = ""
+    app()
+
+
+    function app() {
+        LoadSelectQuyen()
+        LoadListTk_ADM()
+        handlerADD()
+        TK()
+    }
+    function TK() {
+        S('#Name_TK_ADM').oninput = () => {
+            TEN_DN = S('#Name_TK_ADM').value.trim()
+            LoadListTk_ADM(TEN_DN, QUYEN)
+        }
+        S('#TK_QUYEN_ADM').oninput = () => {
+            QUYEN = S('#TK_QUYEN_ADM').value.trim()
+            LoadListTk_ADM(TEN_DN, QUYEN)
+        }
+    }
+    function handlerADD() {
+        // xu ly hien form
+        HienFormADD.onclick = () => {
+            modalTT_tkADM.style.display = "block";
+            hideBTN(detailADMIN, deleteADMIN, addADMIN)
+            focus(inputTEN_DN)
+            readonly(false, inputTEN_DN, inputMK_DN, slectListQuyen)
+        }
+
+        // xu ly them du lieu 
+        addADMIN.onclick = () => {
+            if (inputTEN_DN.value.trim() == "") {
+                alert("Vui Lòng Nhập Tên Đăng Nhập")
+                focus(inputTEN_DN)
+            }
+            else if (inputMK_DN.value.trim() == "") {
+                alert("Vui Lòng Nhập Mật Khẩu")
+                focus(inputMK_DN)
+            }
+            else if (slectListQuyen.value.trim() == "") {
+                alert("Vui Lòng Chọn Quyền")
+                focus(slectListQuyen)
+            }
+            else {
+                fetch('/adminLayout/ADD_Admin', {
+                    method: 'POST',
+                    body: JSON.stringify({
+                        TEN_DN: inputTEN_DN.value.trim(),
+                        MK_DN: inputMK_DN.value.trim(),
+                        QUYEN: slectListQuyen.value.trim(),
+                    }),
+                    headers: {
+                        'Content-type': 'application/json; charset=UTF-8',
+                    },
+                })
+                    .then((response) => response.json())
+                    .then(({ IsSuccess }) => {
+                        if (IsSuccess) {
+                            alert("Thêm Tài Khoản Thành Công")
+                            LoadListTk_ADM()
+                            resetInput(inputTEN_DN, inputMK_DN, slectListQuyen)
+                        } else {
+                            alert("Tên Đăng Nhập Đã Có Vui Lòng Nhập Lại")
+                            focus(inputTEN_DN)
+                        }
+                    });
+                        
+            }
+        }
+
+    }
+    function resetInput(...element) {
+        element.forEach(item => {
+            item.value = "";
+        })
+        element[0].focus();
+    }
+    function focus(element) {
+        element.focus();
+    }
+    function hideBTN(btnHIDE, btn2HIDE, btnHIEN , type="") {
+        btn2HIDE.style.display = "none"
+        btnHIDE.style.display = "none"
+        btnHIEN.style.display = "block"
+        if (type == "detail") {
+            btnHIEN.style.display = "none"
+        }
+        
+    }
+    function readonly(isReadonly,...element) {
+        if (isReadonly) {
+            element.forEach(item => {
+                item.setAttribute('readonly', 'readonly')
+            })
+            element[2].setAttribute('disabled', 'disabled')
+        } else {
+            element.forEach(item => {
+                item.removeAttribute('readonly')
+            })
+            element[2].removeAttribute('disabled')
+        }
+        console.log(isReadonly, element)
+    }
+    function LoadSelectQuyen() {
+        fetch("/adminLayout/ListQuyen")
+            .then(reponse => reponse.json())
+            .then(({ ListQuyen }) => {
+                const ListOptionHTML = ListQuyen.map(item => `<option value = "${item.MA_QUYEN}">${item.TEN_QUYEN}</option>`).join('')
+                slectListQuyen.insertAdjacentHTML('beforeend', ListOptionHTML)
+                S('#TK_QUYEN_ADM').insertAdjacentHTML('beforeend', ListOptionHTML)
+            })
+    }
+    function LoadListTk_ADM(TEN_DN = "", QUYEN="") {
+        fetch('/adminLayout/ListTKADM', {
+            method: 'POST',
+            body: JSON.stringify({
+                TEN_DN,
+                QUYEN
+            }),
+            headers: {
+                'Content-type': 'application/json; charset=UTF-8',
+            },
+        })
+            .then((response) => response.json())
+            .then(({ ListADMIN }) => {
+                const htmlListTK_ADM =  ListADMIN.map(item =>`<div class="row no-gutters table-user-content">
+                    <div class="col l-2-4">
+                        <div class="table-col-user">
+                            ${item.MA_TK_ADM}
+                        </div>
+                    </div>
+                    <div class="col l-2-4">
+                        <div class="table-col-user">
+                           ${item.TEN_DN_ADM}
+                        </div>
+                    </div>
+                    <div class="col l-2-4">
+                        <div class="table-col-user">
+                             ${item.MK_ADM}
+                        </div>
+                    </div>
+                    <div class="col l-2-4">
+                        <div class="table-col-user">
+                             ${item.TEN_QUYEN}
+                        </div>
+                    </div>
+
+                    <div class="col l-2-4">
+                        <div class="table-col-user">
+                            <div class="table-col-user-setting">
+
+                                <a onclick="LoadDteail(${item.MA_TK_ADM},'delete')">
+                                    <i class="fas fa-trash-alt"></i>
+                                </a>
+                                <a onclick="LoadDteail(${item.MA_TK_ADM},'edit')" >
+                                    <i class="fas fa-edit"></i>
+                                </a>
+                                <a onclick="LoadDteail(${item.MA_TK_ADM},'detail')">
+                                    <i class="far fa-file-alt"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>`).join('')
+                boxItemADM.innerHTML = htmlListTK_ADM
+            })
+            
+    }
+    function LoadDteail(id, type ) {
+        fetch('/adminLayout/TKADM_DETAIL', {
+            method: 'POST',
+            body: JSON.stringify({
+                id
+            }),
+            headers: {
+                'Content-type': 'application/json; charset=UTF-8',
+            },
+        })
+            .then((response) => response.json())
+            .then(({ ADMIN_detail }) => {
+                modalTT_tkADM.style.display = "block";
+                loaddataInput(ADMIN_detail)
+                switch (type) {
+                    case "detail":
+                        hideBTN(detailADMIN, deleteADMIN, addADMIN, "detail")
+                        readonly(true, inputTEN_DN, inputMK_DN, slectListQuyen)
+                        break;
+                    case "delete":
+                        hideBTN(addADMIN, detailADMIN, deleteADMIN)
+                        readonly(true, inputTEN_DN, inputMK_DN, slectListQuyen)
+                        break;
+                    case 'edit':
+                        hideBTN(addADMIN, deleteADMIN, detailADMIN)
+                        readonly(false, inputTEN_DN, inputMK_DN, slectListQuyen)
+                        break;
+                    default:
+                        alert("ko co kq")
+                }
+            })
+            .then(() => {
+                //click edit
+                detailADMIN.onclick = () => {
+                    if (inputTEN_DN.value.trim() == "") {
+                        alert("Vui Lòng Nhập Tên Đăng Nhập")
+                        focus(inputTEN_DN)
+                    }
+                    else if (inputMK_DN.value.trim() == "") {
+                        alert("Vui Lòng Nhập Mật Khẩu")
+                        focus(inputMK_DN)
+                    }
+                    else if (slectListQuyen.value.trim() == "") {
+                        alert("Vui Lòng Chọn Quyền")
+                        focus(slectListQuyen)
+                    }
+                    else {
+                        editADM(id)
+                    }
+                }
+
+                // click delte
+                deleteADMIN.onclick = () => {
+                    if (confirm("Bạn Có Thật Sự Muốn Xóa Tài Khoản Này")) {
+                        delelteADM(id)
+                        modalTT_tkADM.click()
+                    }
+                }
+            })
+        
+
+    }
+    function delelteADM(id) {
+        fetch('/adminLayout/delete_ADM', {
+            method: 'POST',
+            body: JSON.stringify({
+                id: id,
+                
+            }),
+            headers: {
+                'Content-type': 'application/json; charset=UTF-8',
+            },
+        })
+            .then((response) => response.json())
+            .then(() => {
+                LoadListTk_ADM(TEN_DN, QUYEN)
+                    alert("Xóa Thành Công")
+                   
+                    
+            });
+    }
+    function editADM(id) {
+        fetch('/adminLayout/editTK_ADM', {
+            method: 'POST',
+            body: JSON.stringify({
+                id:id,
+                TEN_DN: inputTEN_DN.value.trim(),
+                MK_DN: inputMK_DN.value.trim(),
+                QUYEN: slectListQuyen.value.trim(),
+            }),
+            headers: {
+                'Content-type': 'application/json; charset=UTF-8',
+            },
+        })
+            .then((response) => response.json())
+            .then(({ IsSuccess }) => {
+                if (IsSuccess) {
+                    alert("Cập Nhật Thành Công")
+                    LoadListTk_ADM(TEN_DN, QUYEN)
+                    resetInput(inputTEN_DN, inputMK_DN, slectListQuyen)
+                } else {
+                    alert("Tên Đăng Nhập Đã Có Vui Lòng Nhập Lại")
+                    focus(inputTEN_DN)
+                }
+            });
+    }
+    function loaddataInput(data) {
+        inputTEN_DN.value = data.TEN_DN_ADM
+        inputMK_DN.value = data.MK_ADM
+        slectListQuyen.value = data.MA_QUYEN
+    }
+
+    modalTT_tkADM.onclick = () => {
+        modalTT_tkADM.style.display = "none";
+        resetInput(inputTEN_DN, inputMK_DN, slectListQuyen)
+    }
+    modal_edit_context.onclick = (e) => {
+       
+        e.stopPropagation()
+    }
+</script>
+
+<style>
+    #TK_QUYEN_ADM {
+        height: 34px;
+        border: none;
+        width: 215px;
+        background-color: var(--color_background);
+        outline: none;
+        border-radius: 5px
+    }
+    #box_item-tkADM {
+        height: 400px;
+        overflow-y: scroll;
+    }
+</style>
+
