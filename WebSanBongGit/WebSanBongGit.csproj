@@ -127,6 +127,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\adminLayoutController.cs" />
     <Compile Include="Controllers\adminLoginController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\UserController.cs" />
@@ -237,6 +238,8 @@
     <Content Include="Views\WebSanBong\ViewTimKiemKhungGio.cshtml" />
     <Content Include="Views\WebSanBong\TT_DAT_SAN.cshtml" />
     <Content Include="Views\adminLogin\formlogin.cshtml" />
+    <Content Include="Views\adminLayout\Dashboard.cshtml" />
+    <Content Include="Views\Shared\_LayoutADMIN.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
