@@ -1,0 +1,1220 @@
+﻿
+@{
+    ViewBag.Title = "ThongTinDH";
+    Layout = "~/Views/Shared/_LayoutADMIN.cshtml";
+}
+<div id="IS_TT-DDS"></div>
+<div class="table-main usertb">
+    <div class="table-title"> THÔNG TIN ĐƠN ĐẶT SÂN</div>
+    <div class="table_user">
+
+        <div class="grid wide5">
+            <!-- <a class="add-user">
+        <i class="fas fa-plus"></i>
+    </a> -->
+            <div class="formradio" style="margin-bottom: 40px; ">
+                <div class="formradio-con-edit">
+                    <div class=" form-radio">
+                        <label for="ra_chuaThanhToan">Chưa Thanh Toán</label>
+                        <input type="radio"    value="False" id="ra_chuaThanhToan" name="TinhTrangTT" />
+                    </div>
+                    <div class=" form-radio">
+                        <label for="ra_DaThanhToan">Đã Thanh Toán</label>
+                        <input type="radio"  value="True" id="ra_DaThanhToan" name="TinhTrangTT" />
+                    </div>
+                </div>
+            
+                <div class="formradio-con" style="justify-content: center;">
+
+                    <a id="ChuaDa">
+                        <div class="ChuaDa"></div>
+                        <span>Chưa Đá</span>
+                    </a>
+                    <a id="DangDa">
+                        <div class="Dangda"></div>
+                        <span>Đang Đá</span>
+                    </a>
+                    <a id="DaXong">
+                        <div class="DaXong"></div>
+                        <span>Đá xong</span>
+                    </a>
+                </div>
+            </div>
+            <div class="form_main_search">
+                <div action="" class="formTkStyle">
+                    <input type="text" placeholder="Phone Number" id="search_SDT" name="search_SDT">
+                    <input type="text" placeholder="Tên Sân" id="search_tensan" name="search_tensan">
+                    <input type="date" name="search_date" id="search_date">
+                    <input type="text" name="trang_thai" id="trang_thai" hidden>
+                    <div class="formslect">
+                        <div class="input-group edit left">
+                            <label for="hourtStart_DH">Giờ</label>
+                            @Html.DropDownList("hourtStart_DH", (IEnumerable<SelectListItem>)ViewBag.PriorityID, new { @class = "form-groupselect" })
+                        </div>
+                        <div class="input-group edit">
+                            <label for="minute_DH"> Phút</label>
+                            @Html.DropDownList("minuteEnd_DH", (IEnumerable<SelectListItem>)ViewBag.PriorityID, new { @class = "form-groupselect" })
+                        </div>
+                    </div>
+
+                </div>
+                <div class="EDIT_ALL">
+                    <button id="btn_chuaDa">Chưa Đá</button>
+                    <button id="btn_DangDa">Đang Đá</button>
+                    <button id="btn_DaXong">Đá Xong</button>
+                </div>
+                <style>
+                    .form-groupselect {
+                        outline: none;
+                        border-radius: 8px;
+                        border: none;
+                        height: 34px;
+                        margin-right: 10px;
+                        height: 34px;
+                        color: #90e0ef;
+                        background-color: #f5f5f9;
+                    }
+
+                    .formslect {
+                        display: flex;
+                        align-items: center;
+                    }
+
+                    .form_main_search {
+                        display: block;
+                    }
+
+                    .formTkStyle {
+                        display: flex;
+                        justify-content: space-around;
+                    }
+
+                        .formTkStyle input {
+                            border-radius: 8px;
+                        }
+
+                        .formTkStyle button {
+                            border-radius: 8px;
+                        }
+
+                    [name=search_date], [search_time] {
+                        padding-right: 8px
+                    }
+                </style>
+            </div>
+            <div class="row no-gutters table-user-title">
+                <div class="col l-11tb">
+                    <div class="table-col-user">
+                        SDT
+                    </div>
+                </div>
+                <div class="col l-11tb">
+                    <div class="table-col-user">
+                        NGÀY LẬP
+                    </div>
+                </div>
+                <div class="col l-11tb">
+                    <div class="table-col-user">
+                        NGÀY ĐÁ
+                    </div>
+                </div>
+                <div class="col l-11tb">
+                    <div class="table-col-user">
+                        SÂN ĐÁ
+                    </div>
+                </div>
+                <div class="col l-11tb">
+                    <div class="table-col-user">
+                        GIỜ BĐ
+                    </div>
+                </div>
+                <div class="col l-11tb">
+                    <div class="table-col-user">
+                        GIỜ KT
+                    </div>
+                </div>
+                <div class="col l-11tb">
+                    <div class="table-col-user">
+                        GIÁ SÂN
+                    </div>
+                </div>
+                <div class="col l-11tb">
+                    <div class="table-col-user">
+                        TỔNG GIỜ
+                    </div>
+                </div>
+                <div class="col l-11tb">
+                    <div class="table-col-user">
+                        TỔNG TIỀN
+                    </div>
+                </div>
+                <div class="col l-11tb">
+                    <div class="table-col-user">
+                        TRẠNG THÁI
+                    </div>
+                </div>
+                <div class="col l-11tb">
+                    <div class="table-col-user">
+                        CÔNG CỤ
+                    </div>
+                </div>
+            </div>
+            <div class="col-item">
+
+            </div>
+            <div class="PTCHA">
+                <div class="PTCHATong" >
+                    <span>Trang</span>
+                    <div class="TongSoTrang"></div>
+                </div>
+                <div class="PhanTrang">
+                    <div class="Giam"><i class="fas fa-chevron-left"></i></div>
+                    <ul class="ul-Trang">
+                    </ul>
+                    <div class="Tang">
+                        <i class="fas fa-chevron-right"></i><div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+@section scripts{
+<script>
+
+    const modal_edit = document.querySelector(".modal-edit.DDH");
+    const modal_edit_context = document.querySelector(".modal-edit-context")
+    var L = document.querySelector.bind(document)
+    var LL = document.querySelectorAll.bind(document)
+    let SDT = ""
+    let TENSAN = ""
+    let NGAYDA = ""
+    let TimeEnd = ""
+    let trangThai = ""
+    let IsChuaDa = false;
+    let IsDangDa = false;
+    let IsDaXong = false;
+    let IsThanhToan
+    let IsCheckDaTT = false;
+    let IsCheckChuaTT = false;
+    var Trang = 1;
+
+
+    loadjs(SDT, TENSAN, NGAYDA, TimeEnd, trangThai, Trang, IsThanhToan)
+
+    function loadjs(SDT, TENSAN, NGAYDA, TimeEnd, trangThai, Trang, IsThanhToan="") {
+        var http = new XMLHttpRequest();
+        var url = `/adminLayout/DsDonDatSan?NGAYDA=${NGAYDA}&SDT=${SDT}&TENSAN=${TENSAN}&TimeEnd=${TimeEnd}&trangThai=${trangThai}&Trang=${Trang}&IsThanhToan=${IsThanhToan}`;
+        var params = 'orem=ipsum&name=binny';
+        http.open('GET', url, true);
+
+        //Send the proper header information along with the request
+        http.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+
+        http.onreadystatechange = function () {//Call a function when the state changes.
+            if (http.readyState == 4 && http.status == 200) {
+                var data = JSON.parse(http.responseText)
+
+                $(".col-item").innerHTML = ""
+                var ds = data.dsDon
+
+                    .map(item => `  <div class="row no-gutters table-user-content" style="${item.TINH_TRANG_THANH_TOAN ? 'box-shadow: 4px 4px 9px #68B984' : 'box-shadow: 4px 4px 9px #E97777'}">
+                        <div class="col l-11tb">
+                            <div class="table-col-user SDT" onclick=showTT_ThanhToan(${item.MA_DS},${Trang})>
+                                ${item.SDT_KH}
+                            </div>
+                        </div>
+                        <div class="col l-11tb">
+                            <div class="table-col-user">
+                               ${formatDate(cutDATE(item.NGAY_LAP_PHIEU))}
+                            </div>
+                        </div>
+                        <div class="col l-11tb">
+                            <div class="table-col-user">
+                                 ${formatDate(cutDATE(item.NGAY_DA))}
+                            </div>
+                        </div>
+                        <div class="col l-11tb">
+                            <div class="table-col-user">
+                                 ${item.TEN_SAN}
+
+                            </div>
+                        </div>
+                        <div class="col l-11tb">
+                            <div class="table-col-user">
+
+                                 ${formatTime(cutDATE(item.GIO_BD))}
+                            </div>
+                        </div>
+                        <div class="col l-11tb">
+                            <div class="table-col-user">
+                                 ${formatTime(cutDATE(item.GIO_KT))}
+                            </div>
+                        </div>
+                        <div class="col l-11tb">
+                            <div class="table-col-user">
+                                 ${addCommas(item.GIA_SAN)} đ
+                            </div>
+                        </div>
+                        <div class="col l-11tb">
+                            <div class="table-col-user">
+                                ${item.TONG_GIO_THUE}
+                            </div>
+                        </div>
+                        <div class="col l-11tb">
+                            <div class="table-col-user">
+                                ${addCommas(item.TONG_TIEN)} đ
+                            </div>
+                        </div>
+                        <div class="col l-11tb">
+                            <div class="table-col-user">
+
+                                    <div style="color: red;" class="${item.TINH_TRANG_DON == null ? '' : 'activeNone'}">
+                                        <span>Chưa đá</span>
+                                        <i class="fas fa-exclamation-circle"></i>
+                                    </div>
+                                    <div style="color: green"  class="${item.TINH_TRANG_DON == true ? '' : 'activeNone'}">
+                                        <span>Đá xong</span>
+                                        <i class="fas fa-check-circle"></i>
+                                    </div>
+
+                                    <div style="color:gold"  class="${item.TINH_TRANG_DON == false ? '' : 'activeNone'}">
+                                        <span>Đang đá</span>
+                                        <i class="fas fa-exclamation-circle"></i>
+                                    </div>
+
+
+                            </div>
+                        </div>
+                        <div class="col l-11tb">
+                            <div class="table-col-user-setting">
+                                <a onclick=deletedds(${item.MA_DS},${Trang})>
+                                    <i class="fas fa-trash-alt"></i>
+                                </a>
+                                <a class="domAlink" id="${item.MA_DS}" onclick=DETAIL(${item.MA_DS},${Trang})>
+                                    <i class="far fa-file-alt" ></i>
+                                </a>
+                                <a >
+                                    <i class="fas fa-edit" onclick=Edit(${item.MA_DS},${Trang})></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>`)
+                
+                
+                $(".col-item").innerHTML = ds.join("")
+
+                //load ui TRANG
+                L(".ul-Trang").innerHTML = "";
+                let item = ""
+                for (var i = 1; i <= data.SoTrang; i++) {
+                         item += `<li>
+                                        <span>${i}</span>
+                                </li>`
+                    }
+                L(".ul-Trang").innerHTML = item
+                L(".TongSoTrang").innerHTML =`${Trang} / ${data.SoTrang}`
+
+                // Phan Trang
+                LL(".PhanTrang ul li")[Trang - 1].classList.add('active')
+                LL(".ul-Trang li").forEach((item, index) => {
+
+                        item.onclick = () => {
+                            Trang = index + 1;
+                            loadjs(SDT, TENSAN, NGAYDA, TimeEnd, trangThai, Trang, IsThanhToan)
+                           
+                        }
+                    })
+            }
+        }
+        http.send(params);
+      
+    }
+
+    function deletedds(id, Trang) {
+        var http = new XMLHttpRequest();
+        var url = `/adminLayout/detailDDS/${id}`
+
+        http.open('GET', url, true);
+
+        //Send the proper header information along with the request
+        http.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+
+        http.onreadystatechange = function () {//Call a function when the state changes.
+            if (http.readyState == 4 && http.status == 200) {
+
+                let data = JSON.parse(http.responseText)
+                let { dsDondtail, msg } = data
+
+                L("#SDT-DDS").value = dsDondtail.SDT_KH;
+                L("#NGAY_LAP-DDS").value = formatDate(cutDATE(dsDondtail.NGAY_LAP_PHIEU));
+                L("#NGAY_DA-DDS").value = formatDate(cutDATE(dsDondtail.NGAY_DA));
+                L("#SAN_DA-DDS").value = dsDondtail.TEN_SAN;
+                L("#GIO_BD-DDS").value = formatTime(cutDATE(dsDondtail.GIO_BD));
+                L("#GIO_KT-DDS").value = formatTime(cutDATE(dsDondtail.GIO_KT));
+                L("#GIA_SAN-DDS").value = addCommas(dsDondtail.GIA_SAN);
+                L("#TONG_GIO-DDS").value = dsDondtail.TONG_GIO_THUE;
+                L("#TONG_TIEN-DDS").value = addCommas(dsDondtail.TONG_TIEN);
+                if (dsDondtail.TINH_TRANG_DON == null) {
+                    $('.TRANG_THAI-DDS').style.color = "red";
+                    $('.TRANG_THAI-DDS').innerText = 'Chưa Đá';
+                }
+                else if (dsDondtail.TINH_TRANG_DON == true) {
+                    $('.TRANG_THAI-DDS').style.color = "green";
+                    $('.TRANG_THAI-DDS').innerText = 'Đá xong';
+                }
+                else {
+                    $('.TRANG_THAI-DDS').style.color = "gold";
+                    $('.TRANG_THAI-DDS').innerText = 'Đang Đá';
+                }
+
+                modal_edit.style.display = "block";
+                LL('.editTT').forEach(item => {
+                    item.style.display = "none";
+                })
+                L('.editTT.deleteDDS').style.display = "block";
+                var arrayinput = document.querySelectorAll(".modal-edit.DDH .form_group input")
+                arrayinput.forEach(item => {
+                    item.setAttribute('readonly', 'readonly')
+                })
+
+            }
+        }
+        http.send();
+
+        L('.editTT.deleteDDS').onclick = () => {
+            if (confirm("Bạn Có Chắc Muốn Xóa Dữ Liệu Này ?")) {
+                let http = new XMLHttpRequest();
+                let url = `/adminLayout/deleteDDSDaXong/${id}`
+
+                http.open('POST', url, true);
+
+                //Send the proper header information along with the request
+                http.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+
+                http.onreadystatechange = function () {//Call a function when the state changes.
+                    if (http.readyState == 4 && http.status == 200) {
+                        alert("xóa thành Công")
+                        loadjs(SDT, TENSAN, NGAYDA, TimeEnd, trangThai, Trang)
+                        modal_edit.style.display = "none";
+                    }
+                }
+                http.send();
+            }
+        }
+    }
+    function DETAIL(id, Trang) {
+     
+        var http = new XMLHttpRequest();
+        var url = `/adminLayout/detailDDS/${id}`
+       
+        http.open('GET', url, true);
+
+        //Send the proper header information along with the request
+        http.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+
+        http.onreadystatechange = function () {//Call a function when the state changes.
+            if (http.readyState == 4 && http.status == 200) {
+
+                let data = JSON.parse(http.responseText)
+                let { dsDondtail, msg } = data
+                
+                L("#SDT-DDS").value = dsDondtail.SDT_KH;
+                L("#NGAY_LAP-DDS").value = formatDate(cutDATE(dsDondtail.NGAY_LAP_PHIEU));
+                L("#NGAY_DA-DDS").value = formatDate(cutDATE(dsDondtail.NGAY_DA));
+                L("#SAN_DA-DDS").value = dsDondtail.TEN_SAN;
+                L("#GIO_BD-DDS").value = formatTime(cutDATE(dsDondtail.GIO_BD));
+                L("#GIO_KT-DDS").value = formatTime(cutDATE(dsDondtail.GIO_KT));
+                L("#GIA_SAN-DDS").value = addCommas(dsDondtail.GIA_SAN);
+                L("#TONG_GIO-DDS").value = dsDondtail.TONG_GIO_THUE;
+                L("#TONG_TIEN-DDS").value = addCommas(dsDondtail.TONG_TIEN);
+                if (dsDondtail.TINH_TRANG_DON == null) {
+                    $('.TRANG_THAI-DDS').style.color = "red";
+                    $('.TRANG_THAI-DDS').innerText = 'Chưa Đá';
+                }
+                else if (dsDondtail.TINH_TRANG_DON == true) {
+                    $('.TRANG_THAI-DDS').style.color = "green";
+                    $('.TRANG_THAI-DDS').innerText = 'Đá xong';
+                }
+                else {
+                    $('.TRANG_THAI-DDS').style.color = "gold";
+                    $('.TRANG_THAI-DDS').innerText = 'Đang Đá';
+                }
+                
+                modal_edit.style.display = "block";
+                LL('.editTT').forEach(item => {
+                    item.style.display = "none";
+                })
+                var arrayinput = document.querySelectorAll(".modal-edit.DDH .form_group input")
+                arrayinput.forEach(item => {
+                    item.setAttribute('readonly', 'readonly')
+                })
+                
+            }
+        }
+        http.send();
+       
+    }
+
+    function Edit(id,Trang) {
+
+        var http = new XMLHttpRequest();
+        var url = `/adminLayout/editDDS/${id}`
+
+        http.open('GET', url, true);
+
+        //Send the proper header information along with the request
+        http.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+
+        http.onreadystatechange = function () {//Call a function when the state changes.
+            if (http.readyState == 4 && http.status == 200) {
+
+                let data = JSON.parse(http.responseText)
+                let { dsDondtail, msg } = data
+
+                L("#SDT-DDS").value = dsDondtail.SDT_KH;
+                L("#NGAY_LAP-DDS").value = formatDate(cutDATE(dsDondtail.NGAY_LAP_PHIEU));
+                L("#NGAY_DA-DDS").value = formatDate(cutDATE(dsDondtail.NGAY_DA));
+                L("#SAN_DA-DDS").value = dsDondtail.TEN_SAN;
+                L("#GIO_BD-DDS").value = formatTime(cutDATE(dsDondtail.GIO_BD));
+                L("#GIO_KT-DDS").value = formatTime(cutDATE(dsDondtail.GIO_KT));
+                L("#GIA_SAN-DDS").value = addCommas(dsDondtail.GIA_SAN);
+                L("#TONG_GIO-DDS").value = dsDondtail.TONG_GIO_THUE;
+                L("#TONG_TIEN-DDS").value = addCommas(dsDondtail.TONG_TIEN);
+                if (dsDondtail.TINH_TRANG_DON == null) {
+                    $('.TRANG_THAI-DDS').style.color = "red";
+                    $('.TRANG_THAI-DDS').innerText = 'Chưa Đá';
+                }
+                else if (dsDondtail.TINH_TRANG_DON == true) {
+                    $('.TRANG_THAI-DDS').style.color = "green";
+                    $('.TRANG_THAI-DDS').innerText = 'Đá xong';
+                }
+                else {
+                    $('.TRANG_THAI-DDS').style.color = "gold";
+                    $('.TRANG_THAI-DDS').innerText = 'Đang Đá';
+                }
+
+                modal_edit.style.display = "block";
+                LL('.editTT').forEach(item => {
+                    item.style.display = "block";
+                })
+                L('.editTT.deleteDDS').style.display = "none";
+                L('.editTT.ChuaThanhToan').style.display = "none"
+                L('.editTT.DaThanhToan').style.display = "none"
+                var arrayinput = document.querySelectorAll(".modal-edit.DDH .form_group input")
+                arrayinput.forEach(item => {
+                    item.setAttribute('readonly', 'readonly')
+                })
+
+            }
+        }
+        http.send();
+
+
+        L('.editTT.ChuaDa').onclick = () => {
+            var http = new XMLHttpRequest();
+            var url = `/adminLayout/editDDS/${id}`
+            http.open('GET', url, true);
+
+            //Send the proper header information along with the request
+            http.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+
+            http.onreadystatechange = function () {//Call a function when the state changes.
+                if (http.readyState == 4 && http.status == 200) {
+                    let datacha = JSON.parse(http.responseText)
+                    const { NGAY_DA, GIO_KT, GIO_BD} = datacha.dsDondtail
+
+                    let DATE_csld = new Date(formatDatesosanh(cutDATE(NGAY_DA))).getTime()
+                    let time_csld = parseInt(formatTimesosanh(cutDATE(GIO_BD)))
+                    let time_hienTai = parseInt(gettimeHienTai())
+                    if (DATE_csld >= getDateHienTai()) {
+                        if (DATE_csld == getDateHienTai()) {
+                            if (time_csld > time_hienTai) {
+                                if (confirm("Bạn Có Chắc Muốn Sửa")) {
+                                    let http1 = new XMLHttpRequest();
+                                    let url1 = `/adminLayout/editDDSchuada/${id}`
+                                    http1.open('POST', url1, true);
+
+                                    //Send the proper header information along with the request
+                                    http1.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+
+                                    http1.onreadystatechange = function () {//Call a function when the state changes.
+                                        if (http1.readyState == 4 && http1.status == 200) {
+                                            let data = JSON.parse(http1.responseText)
+                                            loadjs(SDT, TENSAN, NGAYDA, TimeEnd, trangThai, Trang)
+                                            alert(`${data.msg}`)
+                                            modal_edit.style.display = "none";
+                                        }
+                                    }
+                                    http1.send();
+                                }
+                            }
+                            else {
+                                alert("Không hợp lệ")
+                            }
+                        }
+                        else {
+                            if (confirm("Bạn Có Chắc Muốn Sửa")) {
+                                let http2 = new XMLHttpRequest();
+                                let url2 = `/adminLayout/editDDSchuada/${id}`
+                                http2.open('POST', url2, true);
+
+                                //Send the proper header information along with the request
+                                http2.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+
+                                http2.onreadystatechange = function () {//Call a function when the state changes.
+                                    if (http2.readyState == 4 && http2.status == 200) {
+                                        
+                                        let data = JSON.parse(http2.responseText)
+                                        loadjs(SDT, TENSAN, NGAYDA, TimeEnd, trangThai, Trang)
+                                        alert(`${data.msg}`)
+                                        modal_edit.style.display = "none";
+                                    }
+                                }
+                                http2.send();
+                            }
+                        }
+                    }
+                    else {
+                        alert("Không hợp lệ")
+                    }
+                }
+            }
+            http.send();
+        }
+      
+        L('.editTT.DaXong').onclick = () => {
+            
+            var http = new XMLHttpRequest();
+            var url = `/adminLayout/editDDS/${id}`
+            http.open('GET', url, true);
+
+            //Send the proper header information along with the request
+            http.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+
+            http.onreadystatechange = function () {//Call a function when the state changes.
+                if (http.readyState == 4 && http.status == 200) {
+                    let datacha = JSON.parse(http.responseText)
+                    const { NGAY_DA, GIO_KT } = datacha.dsDondtail
+
+                    let DATE_csld = new Date(formatDatesosanh(cutDATE(NGAY_DA))).getTime()
+                    let time_csld = parseInt(formatTimesosanh(cutDATE(GIO_KT)))
+                    let time_hienTai = parseInt(gettimeHienTai())
+
+                    if (DATE_csld <= getDateHienTai()  ) {
+                        if (DATE_csld == getDateHienTai()) {
+                            if (time_hienTai > time_csld) {
+                                if (confirm("Bạn Có Chắc Muốn Sửa")) {
+
+                                    var http1 = new XMLHttpRequest();
+                                    var url1 = `/adminLayout/editDDSDaXong/${id}`
+                                    http1.open('POST', url1, true);
+
+                                    //Send the proper header information along with the request
+                                    http1.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+
+                                    http1.onreadystatechange = function () {//Call a function when the state changes.
+                                        if (http1.readyState == 4 && http1.status == 200) {
+
+                                            data = JSON.parse(http1.responseText)
+
+                                            loadjs(SDT, TENSAN, NGAYDA, TimeEnd, trangThai, Trang);
+                                            alert(`${data.msg}`)
+                                            modal_edit.style.display = "none";
+                                        }
+                                    }
+                                    http1.send();
+                                }
+                            } else {
+                                alert("Không hợp lệ")
+                            }
+                        }
+                        else {
+                            if (confirm("Bạn Có Chắc Muốn Sửa")) {
+
+                                var http1 = new XMLHttpRequest();
+                                var url1 = `/adminLayout/editDDSDaXong/${id}`
+                                http1.open('POST', url1, true);
+
+                                //Send the proper header information along with the request
+                                http1.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+
+                                http1.onreadystatechange = function () {//Call a function when the state changes.
+                                    if (http1.readyState == 4 && http1.status == 200) {
+
+                                        data = JSON.parse(http1.responseText)
+
+                                        loadjs(SDT, TENSAN, NGAYDA, TimeEnd, trangThai, Trang);
+                                        alert(`${data.msg}`)
+                                        modal_edit.style.display = "none";
+                                    }
+                                }
+                                http1.send();
+                            }
+                        }
+                    }
+                    else {
+                        alert("Không hợp lệ")
+                    }
+                }
+            }
+            http.send();
+         
+        }
+
+        L('.editTT.DangDa').onclick=()=> {
+            fetch(`/adminLayout/editDDS/${id}`)
+                .then(reponsive => reponsive.json())
+                .then(({ dsDondtail }) => {
+                    const { NGAY_DA, GIO_KT, GIO_BD } = dsDondtail
+                    let DATE_csld = new Date(formatDatesosanh(cutDATE(NGAY_DA))).getTime()
+                    let timeBD_csld = parseInt(formatTimesosanh(cutDATE(GIO_BD)))
+                    let timeKT_csld = parseInt(formatTimesosanh(cutDATE(GIO_KT)))
+                    let time_hienTai = parseInt(gettimeHienTai())
+                    if (getDateHienTai() == DATE_csld && time_hienTai >= timeBD_csld && time_hienTai <= timeKT_csld) {
+                        if (confirm('Bạn Có Muốn Cập Nhật')) {
+                            fetch(`/adminLayout/editDDSDangDa/${id}`, {
+                                method: 'POST',
+                                body: JSON.stringify({
+
+                                }),
+                                headers: {
+                                    'Content-type': 'application/json; charset=UTF-8',
+                                },
+                            })
+                            .then((response) => response.json())
+                            .then(data => {
+                                loadjs(SDT, TENSAN, NGAYDA, TimeEnd, trangThai, Trang);
+                                alert(`${data.msg}`)
+                                modal_edit.style.display = "none";
+                            });
+                        }
+                    }
+                    else {
+                        alert('Không Hợp Lệ')
+                    }
+                })
+        }
+
+    }
+
+    function showTT_ThanhToan(id, Trang) {
+        
+        modal_edit.style.display = "block";
+        LL('.editTT').forEach(item => {
+            item.style.display = "none";
+        })
+        L('.editTT.ChuaThanhToan').style.display = "block"
+        L('.editTT.DaThanhToan').style.display = "block"
+        L('.content_ThanhToan').style.display="flex"
+        LL('.modal-edit-context .form_group.edit').forEach(item => {
+            item.style.display = "none"
+        })
+        loadTT_THANH_TOAN(id)
+
+        L('.editTT.DaThanhToan').onclick = () => {
+            if (confirm("Bạn Có Chắc Muốn Cập Nhật ?"))
+            {
+                let http = new XMLHttpRequest();
+                let url = `/adminLayout/EditDaThanhToan/${id}`;
+
+                http.open('POST', url, true);
+
+                //Send the proper header information along with the request
+                http.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+
+                http.onreadystatechange = function () {//Call a function when the state changes.
+                    if (http.readyState == 4 && http.status == 200) {
+                        alert("Cập Nhật Thành Công")
+                        loadTT_THANH_TOAN(id)
+                        loadjs(SDT, TENSAN, NGAYDA, TimeEnd, trangThai, Trang, IsThanhToan)
+                    }
+                }
+                http.send();
+            }
+            
+        }
+        L('.editTT.ChuaThanhToan').onclick = () => {
+            if (confirm("Bạn Có Chắc Muốn Cập Nhật ?")) {
+                let http = new XMLHttpRequest();
+                let url = `/adminLayout/EditChuaThanhToan/${id}`;
+
+                http.open('POST', url, true);
+
+                //Send the proper header information along with the request
+                http.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+
+                http.onreadystatechange = function () {//Call a function when the state changes.
+                    if (http.readyState == 4 && http.status == 200) {
+                        alert("Cập Nhật Thành Công")
+                        loadTT_THANH_TOAN(id)
+                        loadjs(SDT, TENSAN, NGAYDA, TimeEnd, trangThai, Trang, IsThanhToan)
+                    }
+                }
+                http.send();
+            }
+
+        }
+    }
+
+    function loadTT_THANH_TOAN(id) {
+        let http = new XMLHttpRequest();
+        let url = `/adminLayout/ShowTTtinhTien/${id}`;
+        let params = 'orem=ipsum&name=binny';
+        http.open('GET', url, true);
+
+        //Send the proper header information along with the request
+        http.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+
+        http.onreadystatechange = function () {//Call a function when the state changes.
+            if (http.readyState == 4 && http.status == 200) {
+                const date = JSON.parse(http.responseText)
+                const { TINH_TRANG_THANH_TOAN } = date
+                if (TINH_TRANG_THANH_TOAN == false) {
+                    L(".content_ThanhToan span").innerText = "Chưa Thanh Toán"
+                    L(".content_ThanhToan i").classList.add("fa-money-bill-alt")
+                    L(".content_ThanhToan").style.color = "red"
+                } else {
+                    L(".content_ThanhToan span").innerText = "Đã Thanh Toán"
+                    L(".content_ThanhToan i").classList.add("fa-money-bill-alt")
+                    L(".content_ThanhToan").style.color = "Green"
+                }
+            }
+        }
+        http.send(params);
+    }
+    // tim kiem
+   
+    
+    L("#ra_chuaThanhToan").onclick = () => {
+        IsCheckChuaTT = !IsCheckChuaTT
+        IsCheckDaTT = false
+        if (IsCheckChuaTT) {
+            L("#ra_chuaThanhToan").checked = true
+            IsThanhToan = L("#ra_chuaThanhToan").value
+            loadjs(SDT, TENSAN, NGAYDA, TimeEnd, trangThai, Trang, IsThanhToan)
+        }
+        else {
+            L("#ra_chuaThanhToan").checked = false
+            IsThanhToan = ""
+            loadjs(SDT, TENSAN, NGAYDA, TimeEnd, trangThai, Trang, IsThanhToan)
+        }
+    }
+    L("#ra_DaThanhToan").onclick = () => {
+        IsCheckDaTT = !IsCheckDaTT
+        IsCheckChuaTT = false
+        if (IsCheckDaTT) {
+            L("#ra_DaThanhToan").checked = true
+            IsThanhToan = L("#ra_DaThanhToan").value
+            loadjs(SDT, TENSAN, NGAYDA, TimeEnd, trangThai, Trang, IsThanhToan)
+        }
+        else {
+            L("#ra_DaThanhToan").checked = false
+            IsThanhToan = ""
+            loadjs(SDT, TENSAN, NGAYDA, TimeEnd, trangThai, Trang, IsThanhToan)
+        }
+    }
+    L("#search_SDT").oninput = () => {
+        SDT = L("#search_SDT").value.trim()
+        TENSAN = L("#search_tensan").value.trim()
+        NGAYDA = L("#search_date").value.trim()
+        loadjs(SDT, TENSAN, NGAYDA, TimeEnd, trangThai, Trang);
+    }
+    L("#search_tensan").oninput = () => {
+        SDT = L("#search_SDT").value.trim()
+        TENSAN = L("#search_tensan").value.trim()
+        NGAYDA = L("#search_date").value.trim()
+        loadjs(SDT, TENSAN, NGAYDA, TimeEnd, trangThai, Trang);
+    }
+    L("#search_date").onchange = () => {
+        SDT = L("#search_SDT").value.trim()
+        TENSAN = L("#search_tensan").value.trim()
+        NGAYDA = L("#search_date").value.trim()
+        trangThai = L("#trang_thai").value.trim()
+        loadjs(SDT, TENSAN, NGAYDA, TimeEnd, trangThai, Trang);
+    }
+    L("#hourtStart_DH").oninput= () => {
+        SDT = L("#search_SDT").value.trim()
+        TENSAN = L("#search_tensan").value.trim()
+        NGAYDA = L("#search_date").value.trim()
+        hourtStart_DH = L("#hourtStart_DH").value.trim()
+        minuteEnd_DH = L("#minuteEnd_DH").value.trim()
+        TimeEnd = `${hourtStart_DH}:${minuteEnd_DH}`
+        trangThai = L("#trang_thai").value.trim()
+        loadjs(SDT, TENSAN, NGAYDA, TimeEnd, trangThai, Trang);
+    }
+    L("#minuteEnd_DH").oninput = () => {
+        SDT = L("#search_SDT").value.trim()
+        TENSAN = L("#search_tensan").value.trim()
+        NGAYDA = L("#search_date").value.trim()
+        hourtStart_DH = L("#hourtStart_DH").value.trim()
+        minuteEnd_DH = L("#minuteEnd_DH").value.trim()
+        trangThai = L("#trang_thai").value.trim()
+        TimeEnd = `${hourtStart_DH}:${minuteEnd_DH}`
+        loadjs(SDT, TENSAN, NGAYDA, TimeEnd, trangThai, Trang);
+    }
+    
+    L("#ChuaDa").onclick = () => {
+        IsChuaDa = !IsChuaDa
+        if (IsChuaDa) {
+            IsDaXong =false
+            IsDangDa = false
+
+            L("#ChuaDa").classList.add("backgroudactiveRED")
+            L("#DaXong").classList.remove("backgroudactiveGREEN")
+            L("#DangDa").classList.remove("backgroudactiveGOLD")
+            L("#trang_thai").value = "null"
+
+            trangThai = L("#trang_thai").value.trim()
+
+        } else {
+            L("#ChuaDa").classList.remove("backgroudactiveRED")
+            L("#trang_thai").value = ""
+            trangThai = L("#trang_thai").value.trim()
+        }
+        loadjs(SDT, TENSAN, NGAYDA, TimeEnd, trangThai, Trang)
+    }
+   
+    L("#DaXong").onclick = () => {
+        IsDaXong = !IsDaXong
+        if (IsDaXong) {
+            IsDangDa = false
+            IsChuaDa =false
+            L("#DaXong").classList.add("backgroudactiveGREEN")
+            L("#ChuaDa").classList.remove("backgroudactiveRED")
+            L("#DangDa").classList.remove("backgroudactiveGOLD")
+            L("#trang_thai").value = "true"
+            trangThai = L("#trang_thai").value.trim()
+        } else {
+            L("#DaXong").classList.remove("backgroudactiveGREEN")
+            L("#trang_thai").value = ""
+            trangThai = L("#trang_thai").value.trim()
+        }
+        loadjs(SDT, TENSAN, NGAYDA, TimeEnd, trangThai, Trang)
+    }
+
+    L("#DangDa").onclick = () => {
+        IsDangDa = !IsDangDa
+        if (IsDangDa) {
+            IsDaXong = false
+            IsChuaDa = false
+            L("#DangDa").classList.add("backgroudactiveGOLD")
+            L("#DaXong").classList.remove("backgroudactiveGREEN")
+            L("#ChuaDa").classList.remove("backgroudactiveRED")
+            L("#trang_thai").value = "false"
+            trangThai = L("#trang_thai").value.trim()
+        } else {
+            L("#DangDa").classList.remove("backgroudactiveGOLD")
+            L("#trang_thai").value = ""
+            trangThai = L("#trang_thai").value.trim()
+        }
+        loadjs(SDT, TENSAN, NGAYDA, TimeEnd, trangThai, Trang)
+    }
+    // end
+
+    L("#btn_DaXong").onclick = () => {
+        if (confirm('Bạn có muốn cập nhật ?')) {
+            fetch('/adminLayout/UPDATEALLDAXONG', {
+                method: 'POST',
+                body: JSON.stringify({
+                    TimeHT: gettimeHienTaiINT(),
+                    dateHT: getDateHienTaiINT()
+                }),
+                headers: {
+                    'Content-type': 'application/json; charset=UTF-8',
+                },
+            })
+                .then((response) => response.json())
+                .then((json) => {
+                    alert("cập nhật tạng thái thành công")
+                    loadjs(SDT, TENSAN, NGAYDA, TimeEnd, trangThai, Trang);
+                });
+        }
+        
+    }
+    L("#btn_chuaDa").onclick = () => {
+        if (confirm('Bạn có muốn cập nhật ?')) {
+            fetch('/adminLayout/UPDATEALLCHUADA', {
+                method: 'POST',
+                body: JSON.stringify({
+                    TimeHT: gettimeHienTaiINT(),
+                    dateHT: getDateHienTaiINT()
+                }),
+                headers: {
+                    'Content-type': 'application/json; charset=UTF-8',
+                },
+            })
+                .then((response) => response.json())
+                .then((json) => {
+                    alert("cập nhật tạng thái thành công")
+                    loadjs(SDT, TENSAN, NGAYDA, TimeEnd, trangThai, Trang);
+                });
+        }
+
+    }
+    L("#btn_DangDa").onclick = () => {
+        if (confirm('Bạn có cập nhật ?')) {
+            fetch('/adminLayout/UPDATEALLDANGDA', {
+                method: 'POST',
+                body: JSON.stringify({
+                    TimeHT: gettimeHienTaiINT(),
+                    dateHT: getDateHienTaiINT()
+                }),
+                headers: {
+                    'Content-type': 'application/json; charset=UTF-8',
+                },
+            })
+                .then((response) => response.json())
+                .then((json) => {
+                    alert("cập nhật tạng thái thành công")
+                    loadjs(SDT, TENSAN, NGAYDA, TimeEnd, trangThai, Trang);
+                });
+        }
+
+    }
+   
+    // hide modal
+    modal_edit.onclick = (e) => {
+        modal_edit.style.display = "none";
+        LL('.modal-edit-context .form_group.edit').forEach(item => {
+            item.style.display = "flex"
+        })
+        L('.content_ThanhToan').style.display = "none"
+    }
+    // dung noi bot
+    modal_edit_context.addEventListener("click", (e) => {
+        e.stopPropagation();
+    })
+// XU LY TU DONG EDIT ALL
+    editALL_DAXONG()
+    editALL_CHUADA()
+    editALL_DANGDA()
+    function editALL_DAXONG() {
+        fetch('/adminLayout/UPDATEALLDAXONG', {
+            method: 'POST',
+            body: JSON.stringify({
+                TimeHT: gettimeHienTaiINT(),
+                dateHT: getDateHienTaiINT()
+            }),
+            headers: {
+                'Content-type': 'application/json; charset=UTF-8',
+            },
+        })
+            .then((response) => response.json())
+            .then((json) => {
+               
+                loadjs(SDT, TENSAN, NGAYDA, TimeEnd, trangThai, Trang);
+            });
+    }
+    function editALL_CHUADA() {
+        fetch('/adminLayout/UPDATEALLCHUADA', {
+            method: 'POST',
+            body: JSON.stringify({
+                TimeHT: gettimeHienTaiINT(),
+                dateHT: getDateHienTaiINT()
+            }),
+            headers: {
+                'Content-type': 'application/json; charset=UTF-8',
+            },
+        })
+            .then((response) => response.json())
+            .then((json) => {
+                loadjs(SDT, TENSAN, NGAYDA, TimeEnd, trangThai, Trang);
+            });
+    }
+    function editALL_DANGDA() {
+        fetch('/adminLayout/UPDATEALLDANGDA', {
+            method: 'POST',
+            body: JSON.stringify({
+                TimeHT: gettimeHienTaiINT(),
+                dateHT: getDateHienTaiINT()
+            }),
+            headers: {
+                'Content-type': 'application/json; charset=UTF-8',
+            },
+        })
+            .then((response) => response.json())
+            .then((json) => {
+               
+                loadjs(SDT, TENSAN, NGAYDA, TimeEnd, trangThai, Trang);
+            });
+    }
+// XU LY TU DONG EIT ALL
+
+
+    const addCommas = value => {
+        const stringFormat = `${value}`;
+        const x = stringFormat.split('.');
+        let x1 = x[0];
+        const x2 = x.length > 1 ? `.${x[1]}` : '';
+        const regex = /(\d+)(\d{3})/;
+        while (regex.test(x1)) {
+            x1 = x1.replace(regex, '$1,$2');
+        }
+        return x1 + x2;
+    };
+    function cutDATE(cut) {
+        var cutstring = cut.slice(6, 19)
+        var date2 = parseInt(cutstring)
+        var date = new Date(date2)
+        return date
+    }
+    function formatTime(timefomat) {
+        var time
+        if (timefomat.getMinutes() < 10 && timefomat.getHours() < 10) {
+            time = `0${timefomat.getHours()}:0${timefomat.getMinutes()}`
+        }
+        else if (timefomat.getMinutes() < 10) {
+
+            time = `${timefomat.getHours()}:0${timefomat.getMinutes()}`
+
+        }
+        else if (timefomat.getHours() < 10) {
+
+            time = `0${timefomat.getHours()}:${timefomat.getMinutes()}`
+        }
+        else {
+            time = `${timefomat.getHours()}:${timefomat.getMinutes()}`
+        }
+        return time
+    }
+    function formatDate(dateformar) {
+        var date = dateformar.getDate() + '/' + (dateformar.getMonth() + 1) + '/' + dateformar.getFullYear();
+        return date
+    }
+    // ham fomat tim de so sanh
+    function formatTimesosanh(timefomat) {
+        var time
+        if (timefomat.getMinutes() < 10 && timefomat.getHours() < 10) {
+            time = `0${timefomat.getHours()}0${timefomat.getMinutes()}`
+        }
+        else if (timefomat.getMinutes() < 10) {
+
+            time = `${timefomat.getHours()}0${timefomat.getMinutes()}`
+
+        }
+        else if (timefomat.getHours() < 10) {
+
+            time = `0${timefomat.getHours()}${timefomat.getMinutes()}`
+        }
+        else {
+            time = `${timefomat.getHours()}${timefomat.getMinutes()}`
+        }
+        return time
+    }
+    function formatDatesosanh(dateformar) {
+        var date = `${dateformar.getFullYear()}-${dateformar.getMonth() + 1}-${dateformar.getDate()}`
+        
+        return date
+    }
+    //ham lay ngay gio hien tai
+    function gettimeHienTaiINT() {
+        var timefomat = new Date()
+        var time
+        if (timefomat.getMinutes() < 10 && timefomat.getHours() < 10) {
+            time = `${timefomat.getHours()}0${timefomat.getMinutes()}`
+        }
+        else if (timefomat.getMinutes() < 10) {
+
+            time = `${timefomat.getHours()}0${timefomat.getMinutes()}`
+
+        }
+        else if (timefomat.getHours() < 10) {
+
+            time = `${timefomat.getHours()}${timefomat.getMinutes()}`
+        }
+        else {
+            time = `${timefomat.getHours()}${timefomat.getMinutes()}`
+        }
+        return time
+    }
+    function getDateHienTaiINT() {
+        var today = new Date()
+        return `${today.getFullYear()}-${today.getMonth() + 1}-${today.getDate()}`
+    }
+    function gettimeHienTai() {
+        var timefomat = new Date()
+        var time
+        if (timefomat.getMinutes() < 10 && timefomat.getHours() < 10) {
+            time = `0${timefomat.getHours()}0${timefomat.getMinutes()}`
+        }
+        else if (timefomat.getMinutes() < 10) {
+
+            time = `${timefomat.getHours()}0${timefomat.getMinutes()}`
+
+        }
+        else if (timefomat.getHours() < 10) {
+
+            time = `0${timefomat.getHours()}${timefomat.getMinutes()}`
+        }
+        else {
+            time = `${timefomat.getHours()}${timefomat.getMinutes()}`
+        }
+        return time
+    }
+    function getDateHienTai() {
+        var today = new Date()
+        return new Date(`${today.getFullYear()}-${today.getMonth() + 1}-${today.getDate()}`).getTime()
+    }
+
+    console.log(getDateHienTaiINT())
+    console.log(gettimeHienTaiINT())
+    
+</script>
+}
+
+<style>
+    
+    .formradio-con{
+        margin-left:25%;
+        
+    }
+    .formradio {
+        display: flex;
+        align-items: center;
+    }
+    .formradio-con-edit {
+    }
+    .form-radio {
+        margin-top: 10px;
+    }
+        .form-radio input,
+        .form-radio label {
+            cursor: pointer;
+        }
+    .editTT.DangDa {
+        background-color: gold;
+    }
+    #btn_chuaDa {
+        background-color: red;
+    }
+    #btn_DangDa{
+        background-color:gold;
+    }
+    #btn_DaXong{
+        background-color:green;
+    }
+    .EDIT_ALL{
+        display:flex;
+        align-items:center;
+        justify-content:center;
+    }
+        .EDIT_ALL button {
+            margin: 35px 10px 10px 10px;
+            border-radius: 18px;
+            width: 95px;
+            height: 36px;
+            color: white;
+            cursor: pointer;
+            text-align: center;
+            line-height: 36px;
+            font-size: 16px;
+        }
+    .EDIT_ALL button:hover{
+        opacity:0.5;
+    }
+    .nav-bar_menu_left input, button {
+        outline: none;
+    }
+</style>
