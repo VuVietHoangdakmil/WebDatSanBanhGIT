@@ -1,0 +1,764 @@
+﻿
+@{
+    ViewBag.Title = "THONGKE";
+    Layout = "~/Views/Shared/_LayoutADMIN.cshtml";
+}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<div id="IS_THONGke"></div>
+<div class="table-main THong_KE">
+    <div class="table-title"> THỐNG KÊ THU NHẬP</div>
+    <div class="table_user">
+
+        <div class="grid wide5">
+            <div class="form_main_search">
+                <div class="formTkStyle form_tk_name_user">
+                    <input type="date" id="search_THong_KE_date">
+
+                </div>
+                <div class="formTkStyle ">
+                    <select class="select_all" id="LISTLOAI-TT_THONGKE">
+                        <option value="">--Chọn Loại Mốn Tìm--</option>
+                    </select>
+                </div>
+                <div class="formTkStyle ">
+                    <select class="select_all" id="LISTSAN-TT_THONGKE">
+                        <option value="">--Tìm Tổng Số Tiền--</option>
+                    </select>
+                </div>
+                <div>
+                    <div class="formTkStyle ">
+                        <label>Ngày Bắt Đầu</label>
+                        <input type="date" id="search_THong_KE_date_start">
+
+                    </div>
+                    <div class="  errormsg startTime_error"></div>
+                </div>
+                <div>
+                    <div class="formTkStyle form_tk_name_user data_end">
+                        <label>Ngày Kết Thúc</label>
+                        <input type="date" id="search_THong_KE_date_end">
+                    </div>
+                    <div class=" errormsg endTime_error"></div>
+                </div>
+            </div>
+           
+            <div class="grid wide5">
+                <div class="row edit3">
+                    @*MyChart*@
+                    <div class="col l-6 ">
+                        <div class="boxcharjs_parent">
+                            <div id="boxcharjs">
+                                <canvas id="myChart" width="150" height="150"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col l-6 ">
+                        <div class="SUMMONEY_parent">
+                            <div class="DOANHTHU_ALL">
+                                <div class=" grid wide">
+                                    <div class="row">
+                                        <div class="col l-6">
+                                            <div class="csschung TongDoanhThu ">
+                                                <span class="title"> Tổng Doanh Thu  </span>
+                                                <span class="doanhThu"> </span>
+                                            </div>
+                                        </div>
+                                        <div class="col l-6">
+                                            <div class="csschung DoanhThu_MAX">
+                                                <span class="title"> Sân Có Doanh Thu Cao Nhất </span>
+                                                <div>
+                                                    <span class="doanhThucao_name">  </span>
+                                                    <span class="doanhthuMinMax doanhThucao_monney">  </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row row2edit">
+                                        <div class="col l-6">
+                                            <div class="csschung DoanhThu_MAX">
+                                                <span class="title"> Sân Có Doanh Số Thấp Nhất </span>
+                                                <div>
+                                                    <span class="doanhThuthap_name"> </span>
+                                                    <span class="doanhthuMinMax doanhThuthap_monney"> </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col l-6">
+                                            <div class="csschung DoanhThu_conLai">
+                                                <span class="title"> Doanh Số Các Sân Còn Lại </span>
+                                                <div>
+                                                    <span class="doanhThuconLai_name"> </span>
+                                                    <span class="doanhthuMinMax doanhThuconLai_monney"> </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col l-6 ">
+                        <div class="boxcharjs_parent edit">
+                            <div id="boxcharjsCOT">
+                                <canvas id="myChartcot" width="150" height="100"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+           
+
+
+
+        </div>
+    </div>
+</div>
+<script>
+    const S = document.querySelector.bind(document)
+    const SS = document.querySelectorAll.bind(document)
+    var date_TK = ""
+    var LOAI_SAN = ""
+    var NGAY_BD = ""
+    var NGAY_KT = ""
+    var MA_SAN = ""
+
+
+    APP_START()
+
+    function APP_START() {
+        loadTongDoanhThu(date_TK, LOAI_SAN, NGAY_BD, NGAY_KT, MA_SAN)
+        LoadDoanhThu_MIN_MAX(NGAY_BD, NGAY_KT, LOAI_SAN, date_TK)
+        LoadOptionLoaiSan()
+        LoadOptionSAN()
+        loadListctdonCOT(NGAY_BD, NGAY_KT)
+    }
+    function loadListctdonCOT(NGAY_BD,NGAY_KT) {
+        fetch(`/adminLayout/LoadCTSAN_THONGKE_bieudo_cot`, {
+            method: 'POST',
+            body: JSON.stringify({
+                NGAY_BD,
+                NGAY_KT,
+            }),
+            headers: {
+                'Content-type': 'application/json; charset=UTF-8',
+            },
+        })
+            .then(response => response.json())
+            .then(({ ListThongKe }) => {
+                
+                const ListThongkeFormatDate = ListThongKe.map(item => ({
+                    MA_DS: item.MA_DS,
+                    MA_LOAI: item.MA_LOAI,
+                    MA_SAN: item.MA_SAN,
+                    NGAY_DAT: formatNewDate(cutDATE(item.NGAY_DAT)),
+                    TEN_LOAI: item.TEN_LOAI,
+                    TEN_SAN: item.TEN_SAN,
+                    TONG_TIEN: item.TONG_TIEN
+                }))
+                const isMaSanArr = [...IsArray(ListThongkeFormatDate)]
+                const isDATE_MONTH = IsDATE_MONTH(ListThongkeFormatDate)
+                const ListThongKE1 = LoadDataDoanhThu(ListThongkeFormatDate, isDATE_MONTH)
+                const ListThongKeSUM = ListThongKE1.map(item => ({
+                    NGAY_DA: item.NGAY_DA,
+                    SUM_MONNEY: sum(item.listDoanhThu)
+                }))
+                const ListThonKeSumLay5 = getdateSL(ListThongKeSUM , 5)
+                console.log(ListThonKeSumLay5)
+                console.log(ListThongKeSUM)
+                loadchartcot(ListThonKeSumLay5)
+               
+            })
+
+    }
+    function getdateSL(data, SL) {
+        return data.filter((item, index) =>
+            index >= data.length - SL && index <= data.length - 1
+        )
+    }
+    function sum(ListSum) {
+       return ListSum.reduce((sum, item) => sum+item)
+    }
+    function LoadDataDoanhThu(ListThongkeFormatDate, isDATE_MONTH) {
+        let newarr2 = []
+        isDATE_MONTH.forEach((item, index) => {
+            newarr2.push({
+                NGAY_DA: item,
+                listDoanhThu: []
+            })
+            ListThongkeFormatDate.forEach(item2 => {
+                const dateNew = new Date(item2.NGAY_DAT)
+                const Month = dateNew.getMonth() + 1
+                const year = dateNew.getFullYear()
+               
+                if (item.Month == Month && item.Year == year) {
+                    newarr2[index].listDoanhThu.push(item2.TONG_TIEN)
+                }
+            })
+        })
+        return newarr2
+    }
+    function IsDATE_MONTH(data) {
+        let arrMonth = data.map(item => {
+            let date = new Date(item.NGAY_DAT)
+            let Month = date.getMonth() + 1
+            let year = date.getFullYear()
+            return {
+                Month: Month,
+                Year: year,
+            }
+        })
+       
+        let setArr = [] 
+        arrMonth.forEach(item => {
+           
+            is = setArr.some(item2 => {
+                return item.Month == item2.Month && item.Year == item2.Year
+            })
+            if (!is) {
+                setArr.push({
+                    Month: item.Month,
+                    Year: item.Year,
+                })
+            }
+        })
+           
+        return setArr
+        
+    }
+    function loadchart(MAX, MIN, CENTER) {
+        //xóa chart ban đầu nếu có
+        let chartStatus = Chart.getChart("myChart")
+        if (chartStatus != undefined) {
+            chartStatus.destroy();
+        }
+
+        let ctx = document.getElementById('myChart');
+        function data(MAX, MIN, CENTER) {
+            let data = {
+                labels: [
+                    'Doanh Thu Cao Nhất',
+                    'Doanh Thu Thấp Nhất',
+                    'Doanh Thu còn Lại'
+                ],
+                datasets: [{
+                    label: 'My First Dataset',
+                    data: [MAX, MIN, CENTER],
+                    backgroundColor: [
+                        '#C8FFD4 ',
+                        '#FDFDBD',
+                        '#B8E8FC'
+                    ],
+                    hoverOffset: 4
+                }]
+            };
+            return data
+        }
+        var myChart = new Chart(ctx, {
+            type: 'pie',
+            data: data(MAX, MIN, CENTER),
+        });
+
+    }
+    function loadchartcot(dataCOT) {
+       
+        let datangay = dataCOT.map(item => `T${item.NGAY_DA.Month}/${item.NGAY_DA.Year}`)
+        let dataMoney = dataCOT.map(item => item.SUM_MONNEY)
+        let datacolor = dataCOT.map(item => random_rgba())
+        let rgbaList = datacolor.map(item => item.rgba)
+        let rgbList = datacolor.map(item => item.rgb)
+         //xóa chart ban đầu nếu có
+        let chartStatus = Chart.getChart("myChartcot")
+        if (chartStatus != undefined) {
+            chartStatus.destroy();
+        }
+        /////////////////////////////////
+
+        let ctx = document.getElementById('myChartcot');
+        const data = {
+            labels: datangay,
+            datasets: [{
+                label:"Tổng Doanh Thu" ,
+                data: dataMoney,
+                backgroundColor: rgbaList,
+                borderColor: rgbList,
+                borderWidth: 1
+            }]
+        };
+        const config = {
+            type: 'bar',
+            data: data,
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                },
+            },
+            //plugins: {
+            //    tooltip: {
+                    
+            //        callbacks: {
+            //            // custom label khi hover
+            //            label: (context) => `Total: ${context.formattedValue} users`,
+            //        },
+            //    },
+            //},
+            //datalabels: {
+            //    font: { size: 18 },
+            //    formatter: function (value, context) {
+            //        return value; // custom hiển thị label tại đây
+            //    },
+            //}
+        };
+        var myChartcot = new Chart(ctx, config);
+
+    }
+    function LoadDoanhThu_MIN_MAX(NGAY_BD, NGAY_KT, LOAI_SAN, date_TK) {
+        fetch(`/adminLayout/THONGKE_MIN_MAX`, {
+            method: 'POST',
+            body: JSON.stringify({
+                NGAY_BD: NGAY_BD,
+                NGAY_KT: NGAY_KT,
+                LOAI_SAN: LOAI_SAN,
+                date_TK: date_TK,
+            }),
+            headers: {
+                'Content-type': 'application/json; charset=UTF-8',
+            },
+        })
+            .then((response) => response.json())
+            .then(({ ListThongKe }) => {
+                //loc ra cac ma san khong trung
+               
+
+                if (ListThongKe == undefined || ListThongKe.length == 0) {
+                    // trường hợp mảng trống
+                    S('.doanhThuthap_monney').innerHTML = `<span style="color:red">Không có dữ liệu !</span>`
+                    S(".doanhThuthap_name").innerHTML = ""
+                    S('.doanhThuconLai_monney').innerHTML = `<span style="color:red">Không có dữ liệu !</span>`
+                    S(".doanhThucao_name").innerHTML = ''
+                    S('.doanhThucao_monney').innerHTML = `<span style="color:red">Không có dữ liệu !</span>`
+                    loadchart(0, 0, 0)
+                }
+                else {
+                    let IS_ARRAY = [...IsArray(ListThongKe)]
+                    let ListDON_THEO_MA = arrayTheoMaSan(IS_ARRAY, ListThongKe)
+
+                    // tong doanh Thu
+                    let MoneySUM = ListThongKe.reduce((LTRU, item) => LTRU + item.TONG_TIEN, 0)
+
+
+                    // load MAX
+                    var MoneyMAX = TimMAX(ListDON_THEO_MA)
+                    var PhanTramMAX = MoneyMAX / MoneySUM * 100
+                    let ListSanMONEY_MAX = ListDON_THEO_MA.filter(item => item.SumMoney == MoneyMAX)
+                    let htmlMoneyMax = ListSanMONEY_MAX.map((item, index) => {
+                        if (index == 0) {
+                            return `<span style=color:#FD841F>#${item.id}</span>/${item.ListCT_DON[0].TEN_SAN}`
+                        } else {
+                            return ` ,<span style=color:#FD841F>#${item.id}</span>/${item.ListCT_DON[0].TEN_SAN}`
+                        }
+
+                    }).join('')
+                    S(".doanhThucao_name").innerHTML = htmlMoneyMax
+                    S('.doanhThucao_monney').innerHTML = (`(<span  >${addCommas(MoneyMAX)} đ</span> / <span  class="PTMONEY">${Number.parseFloat(PhanTramMAX.toFixed(2))}%</span>)`)
+
+                    //load MIN
+                    var MoneyMIN = TimMIN(ListDON_THEO_MA)
+                    var PhanTramMIN = MoneyMIN / MoneySUM * 100
+                    let ListSanMONEY_MIN = ListDON_THEO_MA.filter(item => item.SumMoney == MoneyMIN)
+                    let htmlMoneyMin = ListSanMONEY_MIN.map((item, index) => {
+                        if (index == 0) {
+                            return `<span style=color:#FD841F>#${item.id}</span>/${item.ListCT_DON[0].TEN_SAN}`
+                        } else {
+                            return ` ,<span style=color:#FD841F>#${item.id}</span>/${item.ListCT_DON[0].TEN_SAN}`
+                        }
+
+                    }).join('')
+
+                    if (MoneyMAX == MoneyMIN) {
+                        S('.doanhThuthap_monney').innerHTML = ``
+                        S(".doanhThuthap_name").innerHTML = ""
+                        PhanTramMIN = 0
+
+                    }
+                    else {
+                        S('.doanhThuthap_monney').innerHTML = (`(<span >${addCommas(MoneyMIN)} đ</span> / <span  class="PTMONEY">${Number.parseFloat(PhanTramMIN.toFixed(2))}%</span>)`)
+                        S(".doanhThuthap_name").innerHTML = htmlMoneyMin
+                    }
+
+                    //load doanh thu con lai
+                    var MoneyConLai = MoneySUM - (MoneyMAX + MoneyMIN)
+                    var letPhanTramConLai = MoneyConLai / MoneySUM * 100
+
+                    if (MoneyMAX == MoneyMIN) {
+                        S('.doanhThuconLai_monney').innerHTML = ``
+
+                        letPhanTramConLai = 0
+                    }
+                    else {
+                        S('.doanhThuconLai_monney').innerHTML = (`(<span >${addCommas(MoneyConLai)} đ</span> / <span  class="PTMONEY">${Number.parseFloat(letPhanTramConLai.toFixed(2))}%</span>)`)
+                    }
+
+                    var partPTconLai = Number.parseFloat(letPhanTramConLai.toFixed(2))
+                    var partPTMAX = Number.parseFloat(PhanTramMAX.toFixed(2))
+                    var partPTMIN = Number.parseFloat(PhanTramMIN.toFixed(2))
+
+                    loadchart(partPTMAX, partPTMIN, partPTconLai)
+
+                    console.log('sum= ', partPTconLai + partPTMAX + partPTMIN)
+                }
+
+            });
+    }
+    function LoadOptionLoaiSan() {
+        fetch('/adminLayout/LoadoptionLOAISAN')
+            .then(reponseve => reponseve.json())
+            .then(({ ListLOAISAN }) => {
+                var LISTOPION = ListLOAISAN.map(item => ` <option value="${item.MA_LOAI}">${item.TEN_LOAI}</option>`)
+                S('#LISTLOAI-TT_THONGKE').insertAdjacentHTML('beforeend', LISTOPION.join(''))
+
+            })
+    }
+    function LoadOptionSAN() {
+        fetch('/adminLayout/DsListSan', {
+            method: 'POST',
+            body: JSON.stringify({
+
+            }),
+            headers: {
+                'Content-type': 'application/json; charset=UTF-8',
+            },
+        })
+            .then((response) => response.json())
+            .then(({ ListSan }) => {
+                var LISTOPION1 = ListSan.map(item => ` <option value="${item.MA_SAN}">${item.TEN_SAN}</option>`)
+                S('#LISTSAN-TT_THONGKE').insertAdjacentHTML('beforeend', LISTOPION1.join(''))
+            });
+    }
+    function loadTongDoanhThu(date_TK, LOAI_SAN, NGAY_BD, NGAY_KT, MA_SAN) {
+        fetch(`/adminLayout/LoadCTSAN_THONGKE`, {
+            method: 'POST',
+            body: JSON.stringify({
+                date_TK: date_TK,
+                LOAI_SAN: LOAI_SAN,
+                NGAY_BD: NGAY_BD,
+                NGAY_KT: NGAY_KT,
+                MA_SAN: MA_SAN,
+            }),
+            headers: {
+                'Content-type': 'application/json; charset=UTF-8',
+            },
+        })
+            .then(response => response.json())
+            .then(({ ListThongKe }) => {
+                /* console.log(ListThongKe)*/
+                if (ListThongKe == undefined || ListThongKe.length == 0) {
+                    /* S('#box_item_ThongKe').innerHTML = '<div style ="text-align:center;color:red"> Không Có Dữ Liệu ! </div>'*/
+                    S('.DOANHTHU_ALL .doanhThu').innerHTML = `<span style="color:red">Không có dữ liệu !</span>`
+                }
+                else {
+                    let SUM_MONEY = ListThongKe.reduce((ltru, item) => ltru + item.TONG_TIEN, 0)
+                    S('.DOANHTHU_ALL .doanhThu').innerHTML = `${addCommas(SUM_MONEY)} đ`
+                    
+                }
+
+            })
+    }
+    function IsArray(Array_filter) {
+        let array_MA_SAN = Array_filter.reduce((ltru, item) => {
+            let kq = ltru.push(item.MA_SAN)
+            return ltru
+        }, [])
+        let isArray = new Set(array_MA_SAN)
+        return isArray
+    }
+    function arrayTheoMaSan(isArray, ArrayLOC) {
+        let arraynew1 = isArray.reduce((lutru, IsItem, indexIS) => {
+            lutru.push({ ListCT_DON: [] })
+            ArrayLOC.forEach((item) => {
+                if (IsItem == item.MA_SAN) {
+                    lutru[indexIS].id = item.MA_SAN
+                    lutru[indexIS].ListCT_DON.push(item)
+                }
+            })
+
+            let sum = lutru[indexIS].ListCT_DON.reduce((lutru2, item2) => lutru2 + item2.TONG_TIEN, 0)
+            lutru[indexIS].SumMoney = sum
+
+            return lutru
+        }, [])
+        return arraynew1
+    }
+    function TimMAX(ListDON_THEO_MA) {
+        let max = ListDON_THEO_MA[0].SumMoney
+        ListDON_THEO_MA.forEach(item => {
+            if (item.SumMoney > max) {
+                max = item.SumMoney
+            }
+        })
+        return max
+    }
+    function TimMIN(ListDON_THEO_MA) {
+        let min = ListDON_THEO_MA[0].SumMoney
+        ListDON_THEO_MA.forEach(item => {
+            if (item.SumMoney < min) {
+                min = item.SumMoney
+            }
+        })
+        return min
+    }
+
+    //Tim Kiem
+    S('#search_THong_KE_date').oninput = () => {
+        date_TK = S('#search_THong_KE_date').value
+        loadTongDoanhThu(date_TK, LOAI_SAN, NGAY_BD, NGAY_KT, MA_SAN)
+        LoadDoanhThu_MIN_MAX(NGAY_BD, NGAY_KT, LOAI_SAN, date_TK)
+    }
+    S('#LISTLOAI-TT_THONGKE').oninput = () => {
+        LOAI_SAN = S('#LISTLOAI-TT_THONGKE').value
+        loadTongDoanhThu(date_TK, LOAI_SAN, NGAY_BD, NGAY_KT, MA_SAN)
+        LoadDoanhThu_MIN_MAX(NGAY_BD, NGAY_KT, LOAI_SAN, date_TK)
+    }
+    S('#search_THong_KE_date_start').oninput = () => {
+        if (
+            S('#search_THong_KE_date_start').value != "" && S('#search_THong_KE_date_end').value == "" ||
+            S('#search_THong_KE_date_end').value != "" && S('#search_THong_KE_date_start').value == ""
+        ) {
+
+            S('#search_THong_KE_date_start').style.border = " solid 2px red"
+            S('.startTime_error').innerHTML = "Nhập Ngày Kết Thúc"
+            console.log("sai")
+        }
+        else {
+
+            S('#search_THong_KE_date_start').style.border = "none"
+            S('.startTime_error').innerHTML = ""
+            S('#search_THong_KE_date_end').style.border = "none"
+            S('.endTime_error').innerHTML = ""
+            console.log("dung")
+        }
+        NGAY_BD = S('#search_THong_KE_date_start').value
+        loadTongDoanhThu(date_TK, LOAI_SAN, NGAY_BD, NGAY_KT, MA_SAN)
+        LoadDoanhThu_MIN_MAX(NGAY_BD, NGAY_KT, LOAI_SAN, date_TK)
+        loadListctdonCOT(NGAY_BD, NGAY_KT)
+    }
+    S('#search_THong_KE_date_end').oninput = () => {
+
+        if (S('#search_THong_KE_date_end').value != "" && S('#search_THong_KE_date_start').value == "" ||
+            S('#search_THong_KE_date_start').value != "" && S('#search_THong_KE_date_end').value == ""
+        ) {
+            S('#search_THong_KE_date_end').style.border = " solid 2px red"
+            S('.endTime_error').innerHTML = "Nhập Ngày Băt Đầu"
+            console.log("sai")
+        }
+        else {
+
+            S('#search_THong_KE_date_start').style.border = "none"
+            S('.startTime_error').innerHTML = ""
+            S('#search_THong_KE_date_end').style.border = "none"
+            S('.endTime_error').innerHTML = ""
+            console.log("dung")
+        }
+        NGAY_KT = S('#search_THong_KE_date_end').value
+        loadTongDoanhThu(date_TK, LOAI_SAN, NGAY_BD, NGAY_KT, MA_SAN)
+        LoadDoanhThu_MIN_MAX(NGAY_BD, NGAY_KT, LOAI_SAN, date_TK)
+        loadListctdonCOT(NGAY_BD, NGAY_KT)
+    }
+    S('#LISTSAN-TT_THONGKE').oninput = () => {
+        MA_SAN = S('#LISTSAN-TT_THONGKE').value
+        loadTongDoanhThu(date_TK, LOAI_SAN, NGAY_BD, NGAY_KT, MA_SAN)
+    }
+
+
+    //format dateTime
+    const addCommas = value => {
+        const stringFormat = `${value}`;
+        const x = stringFormat.split('.');
+        let x1 = x[0];
+        const x2 = x.length > 1 ? `.${x[1]}` : '';
+        const regex = /(\d+)(\d{3})/;
+        while (regex.test(x1)) {
+            x1 = x1.replace(regex, '$1,$2');
+        }
+        return x1 + x2;
+    };
+    function cutDATE(cut) {
+        var cutstring = cut.slice(6, 19)
+        var date2 = parseInt(cutstring)
+        var date = new Date(date2)
+        return date
+    }
+    function formatTime(timefomat) {
+        var time
+        if (timefomat.getMinutes() < 10 && timefomat.getHours() < 10) {
+            time = `0${timefomat.getHours()}:0${timefomat.getMinutes()}`
+        }
+        else if (timefomat.getMinutes() < 10) {
+
+            time = `${timefomat.getHours()}:0${timefomat.getMinutes()}`
+
+        }
+        else if (timefomat.getHours() < 10) {
+
+            time = `0${timefomat.getHours()}:${timefomat.getMinutes()}`
+        }
+        else {
+            time = `${timefomat.getHours()}:${timefomat.getMinutes()}`
+        }
+        return time
+    }
+    function formatDate(dateformar) {
+        var date = dateformar.getDate() + '/' + (dateformar.getMonth() + 1) + '/' + dateformar.getFullYear();
+        return date
+    }
+    function formatNewDate(dateformar) {
+        var date = dateformar.getFullYear() + '-' + (dateformar.getMonth() + 1) + '-' + dateformar.getDate();
+        return date
+    }
+    function random_rgba() {
+        var o = Math.round, r = Math.random, s = 255;
+        let one = o(r() * s)
+        let two = o(r() * s)
+        let three = o(r() * s)
+        return {
+            rgba: 'rgba(' + one + ',' + two + ',' + three + ',' + 0.2 + ')',
+            rgb: 'rgb(' + one + ',' + two + ',' + three + ')',
+        };
+    }
+    function cutrba(value) {
+        arrS = value.slice(5, 15)
+        return arrS
+    }
+</script>
+<style>
+    .boxcharjs_parent.edit{
+        margin-top:10px;
+    }
+    #boxcharjsCOT {
+    }
+    .SUMMONEY_parent {
+        border: 2px #f5f5f9 solid;
+        border-radius: 8px;
+        padding: 0 4px;
+        height: 100%;
+        margin-left: 5px;
+        margin-right: 5px;
+        box-shadow: 0px 5px 10px rgb(0 0 0 / 20%);
+    }
+    #myChart {
+        margin: 8px 0;
+    }
+    .boxcharjs_parent {
+        border: 2px #f5f5f9 solid;
+        border-radius: 8px;
+        margin-right: 5px;
+        margin-left: 5px;
+        box-shadow: 0px 5px 10px rgb(0 0 0 / 20%);
+        
+    }
+    .data_end {
+        margin-right: 0;
+    }
+    .row.edit3 {
+        margin-top: 10px;
+    }
+    .PTMONEY {
+        color: #04b0ce;
+    }
+
+    #boxcharjs {
+        width: 64%;
+        margin: 0 auto;
+    }
+
+    .DOANHTHU_ALL .PTMONEY {
+        font-size: 16px;
+    }
+
+    .form_main_search {
+        align-items: flex-start;
+    }
+
+    .errormsg {
+        color: red;
+        font-size: 16px;
+        margin-left: 85px;
+        margin-top: 5px;
+    }
+
+    .formTkStyle input[type=date] {
+        border-radius: 7px;
+    }
+
+    .row2edit {
+        margin-top: 60px;
+    }
+
+    .doanhthuMinMax {
+        margin-left: 10px;
+    }
+
+    .DOANHTHU_ALL .title {
+        margin-bottom: 16px;
+        color: #519259;
+        font-size: 20px;
+    }
+
+    .select_all {
+        width: 224px;
+    }
+
+    .TongDoanhThu span:last-child {
+        margin-left: 6px;
+    }
+
+    .formTkStyle label {
+        text-align: center;
+        color: #FD841F;
+        margin-right: 6px
+    }
+
+    .DOANHTHU_ALL {
+        display: flex;
+        align-items: center;
+        margin-top: 30px;
+        justify-content: space-around;
+    }
+
+    .csschung {
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .DOANHTHU_ALL span {
+        font-size: 18px;
+    }
+
+    .TongDoanhThu {
+        display: flex;
+        align-items: center;
+    }
+
+    #box_item_ThongKe {
+        overflow: auto;
+        height: 380px;
+        overflow: auto;
+        overflow: -moz-scrollbars-none;
+        -ms-overflow-style: none;
+    }
+
+    #box_item_ThongKe::-webkit-scrollbar {
+            width: 0 !important;
+            display: none;
+        }
+
+    .form_main_search_block1 {
+        display: flex;
+        align-items: center;
+        flex-grow: 1;
+    }
+</style>
