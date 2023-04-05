@@ -244,6 +244,7 @@
     <Content Include="Views\adminLayout\ViewSan.cshtml" />
     <Content Include="Views\adminLayout\THONGKE.cshtml" />
     <Content Include="Views\adminLayout\ThongTinDH.cshtml" />
+    <Content Include="Views\adminLayout\View.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
