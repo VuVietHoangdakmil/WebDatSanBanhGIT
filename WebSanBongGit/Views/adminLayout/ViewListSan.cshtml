@@ -1,0 +1,398 @@
+﻿
+@{
+    ViewBag.Title = "ViewListSan";
+    Layout = "~/Views/Shared/_LayoutADMIN.cshtml";
+}
+<div id="ISList_SAN10"></div>
+<div class="table-main List_SAN">
+    <div class="table-title"> DANH SÁCH SÂN BÓNG</div>
+    <div class="table_user">
+
+        <div class="grid wide5">
+
+            <div class="form_main_search">
+                <div class="formTkStyle form_tk_name_user">
+                    <input type="text" placeholder="Tên Sân" id="search_nameUserSAN">
+                    <button>
+                        <i class="fas fa-search"></i>
+                    </button>
+                </div>
+                
+            </div>
+            <a class="BTN_ADD add-LISTSAN">
+                <i class="fas fa-plus"></i>
+            </a>
+            <div class="row no-gutters table-user-title">
+                <div class="col l-3">
+                    <div class="table-col-user">
+                        Tên Loại
+                    </div>
+                </div>
+                <div class="col l-3">
+                    <div class="table-col-user">
+                        Tên Sân
+                    </div>
+                </div>
+                <div class="col l-3">
+                    <div class="table-col-user">
+                        Giá Sân
+                    </div>
+                </div>
+                <div class="col l-3">
+                    <div class="table-col-user">
+                        Công Cụ
+                    </div>
+                </div>
+
+
+            </div>
+
+            <div id="box_ListSan">
+             
+            </div>
+          
+
+            <div class="PTCHA">
+                <div class="PTCHATong">
+                    <span>Trang</span>
+                    <div class="TongSoTrang"></div>
+                </div>
+                <div class="PhanTrang">
+                    <div class="Giam"><i class="fas fa-chevron-left"></i></div>
+                    <ul class="ul-Trang">
+                    </ul>
+                    <div class="Tang">
+                        <i class="fas fa-chevron-right"></i><div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    const modal_edit = document.querySelector(".modal-edit.TT_LISTSAN");
+    const modal_edit_context = document.querySelector(".TT_LISTSAN .modal-edit-context")
+    const S = document.querySelector.bind(document)
+    const SS = document.querySelectorAll.bind(document)
+    var Trang = 1;
+    var TENSAN = "";
+    var id
+
+    loadListSan(Trang,TENSAN)
+    loadOpionLoaiSan()
+    function loadListSan(Trang,TENSAN) {
+        fetch(`/adminLayout/LoadListSan`, {
+            method: 'POST',
+            body: JSON.stringify({
+                Trang: Trang,
+                TENSAN: TENSAN,
+            }),
+            headers: {
+                'Content-type': 'application/json; charset=UTF-8',
+            },
+        })
+            .then((response) => response.json())
+            .then(({ dsListSanPT, soTrang }) => {
+              var ListSan = dsListSanPT.map(item => `<div class="row no-gutters table-user-content">
+                    <div class="col l-3">
+                        <div class="table-col-user" >
+                            ${item.TEN_LOAI}
+                        </div>
+                    </div>
+                    <div class="col l-3">
+                        <div class="table-col-user" >
+                           ${item.TEN_SAN}
+                        </div>
+                    </div>
+                    <div class="col l-3">
+                        <div class="table-col-user">
+                               ${addCommas(item.GIA_SAN)} đ
+                        </div>
+                    </div>
+
+                    <div class="col l-3">
+                        <div class="table-col-user">
+                            <div class="table-col-user-setting">
+
+                                <a>
+                                    <i class="fas fa-trash-alt"  onclick=hiendetail(${item.MA_SAN},${Trang},'DELETE')></i>
+                                </a>
+                                <a>
+                                    <i class="fas fa-edit" onclick=hiendetail(${item.MA_SAN},${Trang},'edit') ></i>
+                                </a>
+                                <a>
+                                    <i class="far fa-file-alt " onclick=hiendetail(${item.MA_SAN},${Trang},'DETAIL')></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>`)
+
+                S('#box_ListSan').innerHTML = ListSan.join('')
+
+                
+                //load ui TRANG
+                S(".ul-Trang").innerHTML = "";
+                let item = ""
+                for (var i = 1; i <= soTrang; i++) {
+                    item += `<li>
+                                        <span>${i}</span>
+                                </li>`
+                }
+                S(".ul-Trang").innerHTML = item
+                S(".TongSoTrang").innerHTML = `${Trang} / ${soTrang}`
+                
+                // Phan Trang
+                SS(".PhanTrang ul li")[Trang - 1].classList.add('active')
+                SS(".ul-Trang li").forEach((item, index) => {
+
+                    item.onclick = () => {
+                        Trang = index + 1;
+                        loadListSan(Trang, TENSAN)
+                    }
+                })
+            });
+
+        
+
+    }
+    // hien hien thong tin cap nhạt
+    function hiendetail(id, trang, isKT) {
+        S('.modal-edit.TT_LISTSAN').style.display = "block";
+        if (isKT == 'edit') {
+            S('.TT_LISTSAN .editTT_USER').style.display = "block";
+           
+        }
+        if (isKT =='DELETE') {
+            S('.TT_LISTSAN .deleteTT_USER').style.display = "block";
+          
+        }
+       
+        if (isKT == 'DETAIL' || isKT == 'DELETE') {
+            S('#TEN_SAN-TT_LISTSAN').setAttribute("readonly", "readonly")
+            S('#LISTLOAI-TT_LISTSAN').setAttribute("disabled", "disabled")
+
+        }
+        else {
+            S('#TEN_SAN-TT_LISTSAN').removeAttribute("readonly")
+            S('#LISTLOAI-TT_LISTSAN').removeAttribute("disabled")
+        }
+        fetch(`/adminLayout/LoadListSanDetail/${id}`)
+            .then((response) => response.json())
+            .then(({ SanDetail }) => { 
+                    S('#LISTLOAI-TT_LISTSAN').value = SanDetail.MA_LOAI
+                    S('#GIA_SAN-TT_LISTSAN').value = SanDetail.GIA_SAN
+                    S('#TEN_SAN-TT_LISTSAN').value = SanDetail.TEN_SAN.trim()
+                }
+        );
+
+        //edit
+        S('.TT_LISTSAN .editTT_USER').onclick = () => {
+            if (S('#TEN_SAN-TT_LISTSAN').value.trim() == "") {
+                S('#TEN_SAN-TT_LISTSAN').style.border = "solid 2px red"
+                S('.text-error.TEN_SAN-TT_LISTSAN').innerText = 'Vui Lòng Nhập Dữ Liệu'
+            }
+            else if (S('#TEN_SAN-TT_LISTSAN').value.trim().length > 20) {
+                e.target.style.border = "solid 2px red"
+                S('.text-error.TEN_SAN-TT_LISTSAN').innerText = 'Vui Lòng Không Nhập Quá 20 ký tự'
+            }
+            else {
+                if (confirm('Bạn Có Muốn Cập Nhật')) {
+                    fetch(`/adminLayout/EditListSan/${id}`, {
+                        method: 'POST',
+                        body: JSON.stringify({
+                            MA_LOAI: S('#LISTLOAI-TT_LISTSAN').value,
+                            GIA_SAN: S('#GIA_SAN-TT_LISTSAN').value,
+                            TEN_SAN: S('#TEN_SAN-TT_LISTSAN').value,
+                        }),
+                        headers: {
+                            'Content-type': 'application/json; charset=UTF-8',
+                        },
+                    })
+                        .then((json) => json.json())
+                        .then((data) => {
+                            loadListSan(trang, TENSAN)
+                            alert('Cập nhật thành Công')
+                            S('#TEN_SAN-TT_LISTSAN').focus()
+                        })
+                }
+            }
+        }
+
+        //DELETE
+        S('.TT_LISTSAN .deleteTT_USER').onclick = () => {
+            if (confirm('Bạn có muốn xóa sân này')) {
+                fetch('/adminLayout/DELETESAN', {
+                    method: 'POST',
+                    body: JSON.stringify({
+                        id: id
+                    }),
+                    headers: {
+                        'Content-type': 'application/json; charset=UTF-8',
+                    },
+                })
+                    .then((response) => response.json())
+                    .then((json) => {
+
+                        loadListSan(trang, TENSAN)
+                        alert('xóa dữ liệu thành công')
+                        modal_edit.click()
+                    });
+            }
+        }
+        
+       
+    }
+
+    // edit san
+   
+    //TKTENSAN 
+    S("#search_nameUserSAN").oninput = () => {
+        TENSAN = S("#search_nameUserSAN").value
+        loadListSan(Trang, TENSAN)
+    }
+    //add sân
+    S('.add-LISTSAN').onclick = () => {
+
+        S('.modal-edit.TT_LISTSAN').style.display = "block";
+        S('.TT_LISTSAN .addTT_USER').style.display = "block";
+        S('#TEN_SAN-TT_LISTSAN').removeAttribute("readonly")
+        S('#LISTLOAI-TT_LISTSAN').removeAttribute("disabled")
+        id = S('#LISTLOAI-TT_LISTSAN').value
+        S('#TEN_SAN-TT_LISTSAN').focus()
+        hienGia(id)
+    }
+
+    S('.TT_LISTSAN .addTT_USER').onclick = () => {
+        if (S('#TEN_SAN-TT_LISTSAN').value.trim() == "") {
+            S('#TEN_SAN-TT_LISTSAN').style.border = "solid 2px red"
+            S('.text-error.TEN_SAN-TT_LISTSAN').innerText = 'Vui Lòng Nhập Dữ Liệu'
+        }
+        else if (S('#TEN_SAN-TT_LISTSAN').value.trim().length > 20) {
+            e.target.style.border = "solid 2px red"
+            S('.text-error.TEN_SAN-TT_LISTSAN').innerText = 'Vui Lòng Không Nhập Quá 20 ký tự'
+        }
+        else {
+                if (confirm("Bạn có muốn thêm dữ liệu nhày")) {
+                    fetch('/adminLayout/ADDSAN', {
+                        method: 'POST',
+                        body: JSON.stringify({
+                            MA_LOAI: S('#LISTLOAI-TT_LISTSAN').value,
+                            GIA_SAN: S('#GIA_SAN-TT_LISTSAN').value,
+                            TEN_SAN: S('#TEN_SAN-TT_LISTSAN').value,
+                        }),
+                        headers: {
+                            'Content-type': 'application/json; charset=UTF-8',
+                        },
+                    })
+                        .then(json => {
+                            S('#TEN_SAN-TT_LISTSAN').value = "".trim()
+                            S('#TEN_SAN-TT_LISTSAN').focus()
+                            loadListSan(Trang, TENSAN)
+                            alert("Thêm Sân Thành Công")
+                        })
+                }
+        }
+    }
+    // nhap text thi huy bo erro
+    S('#TEN_SAN-TT_LISTSAN').oninput = (e) => {
+        if (S('#TEN_SAN-TT_LISTSAN').value.trim().length > 20) {
+            e.target.style.border = "solid 2px red"
+            S('.text-error.TEN_SAN-TT_LISTSAN').innerText = 'Vui Lòng Không Nhập Quá 20 ký tự'
+        }
+        else if (e.target.value.trim() != "") {
+            e.target.style.border = "none"
+            S('.text-error.TEN_SAN-TT_LISTSAN').innerText = ''
+        }
+        else {
+            e.target.style.border = "solid 2px red"
+            S('.text-error.TEN_SAN-TT_LISTSAN').innerText = 'Vui Lòng Nhập Dữ Liệu'
+        }
+        
+    }
+
+    //hienGia
+    S('#LISTLOAI-TT_LISTSAN').oninput = () => {
+         id = S('#LISTLOAI-TT_LISTSAN').value
+        hienGia(id)
+    }
+   
+
+    // hide modal
+    modal_edit.onclick = (e) => {
+        modal_edit.style.display = "none";
+        S('.TT_LISTSAN .editTT_cha .editTT.addTT_USER').style.display = "none";
+        S('.TT_LISTSAN .editTT_cha .editTT.editTT_USER').style.display = "none";
+        S('.TT_LISTSAN .editTT_cha .editTT.deleteTT_USER').style.display = "none";
+        S('#TEN_SAN-TT_LISTSAN').style.border = "none"
+        S('#TEN_SAN-TT_LISTSAN').value = "";
+        S('.text-error.TEN_SAN-TT_LISTSAN').innerText = ''
+    }
+    // dung noi bot
+    modal_edit_context.addEventListener("click", (e) => {
+        e.stopPropagation();
+    })
+
+
+    const addCommas = value => {
+        const stringFormat = `${value}`;
+        const x = stringFormat.split('.');
+        let x1 = x[0];
+        const x2 = x.length > 1 ? `.${x[1]}` : '';
+        const regex = /(\d+)(\d{3})/;
+        while (regex.test(x1)) {
+            x1 = x1.replace(regex, '$1,$2');
+        }
+        return x1 + x2;
+    };
+    function loadOpionLoaiSan() {
+        if (S("#LISTLOAI-TT_LISTSAN")) {
+            fetch('/adminLayout/LoadoptionLOAISAN')
+                .then(reponsive => reponsive.json())
+                .then(({ ListLOAISAN }) => {
+                    var kq = ListLOAISAN.map(item => `<option value="${item.MA_LOAI}">${item.TEN_LOAI}</option>`)
+                    S("#LISTLOAI-TT_LISTSAN").innerHTML = kq.join('')
+                })
+            console.log(S('#LISTLOAI-TT_LISTSAN'))
+        }
+    }
+    
+    function hienGia(id) {
+        fetch(`/adminLayout/HIENGIASAN/${id}`)
+            .then(reponsive => reponsive.json())
+            .then(({ ListLOAISAN }) => {
+                S('#GIA_SAN-TT_LISTSAN').value =ListLOAISAN.GIA_SAN
+               
+            })
+    }
+</script>
+
+<style>
+    .text-error {
+        margin-left: 142px;
+        color: red;
+        font-size: 14px;
+    }
+    .table-col-user {
+        font-size: 19px
+    }
+    .select_all {
+        margin-right: 20px;
+        width: 100%; 
+        height: 35px;
+        padding-left: 10px;
+        width: 70%;
+        margin-right: 20px;
+        border-radius: 6px;
+        outline: none;
+        border: none;
+        background-color: #f5f5f9;
+    }
+    .TT_LISTSAN .editTT{
+        display:none;
+    }
+    #LISTLOAI-TT_LISTSAN{
+        font-size:19px;
+    }
+</style>
