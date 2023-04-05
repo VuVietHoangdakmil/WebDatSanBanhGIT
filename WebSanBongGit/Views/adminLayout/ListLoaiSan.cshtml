@@ -1,0 +1,369 @@
+﻿
+@{
+    ViewBag.Title = "ListLoaiSan";
+    Layout = "~/Views/Shared/_LayoutADMIN.cshtml";
+}
+<div id="IsListLoaiSan"></div>
+<div class="table-main ListLọaSan">
+    <div class="table-title">QUẢN LÝ LOẠI SÂN</div>
+    <div class="table_user">
+
+        <div class="grid wide5">
+
+            <div class="form_main_search">
+                <div class="formTkStyle form_tk_name_user">
+                    <input type="text" placeholder="Name" id="Name_LOAI_SAN" name="search_nameUser">
+                    <button>
+                        <i class="fas fa-search"></i>
+                    </button>
+                </div>
+                <div class="formTkStyle form_tk_SDT_user">
+
+                    <input type="number" placeholder="Name" id="GIA_LOAI_SAN" name="search_nameUser">
+                    <button>
+                        <i class="fas fa-search"></i>
+                    </button>
+                </div>
+            </div>
+            <a class="BTN_ADD add-LISTLOAISAN">
+                <i class="fas fa-plus"></i>
+            </a>
+            <div class="row no-gutters table-user-title">
+                <div class="col l-3">
+                    <div class="table-col-user">
+                        Mã Loại
+                    </div>
+                </div>
+                <div class="col l-3">
+                    <div class="table-col-user">
+                        Tên Loại
+                    </div>
+                </div>
+                <div class="col l-3">
+                    <div class="table-col-user">
+                        Giá Loại
+                    </div>
+                </div>
+               
+                <div class="col l-3">
+                    <div class="table-col-user">
+                        Công Cụ
+                    </div>
+                </div>
+
+
+            </div>
+
+            <div id="box_item-ListLoaiSan">
+            
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script>
+    const S = document.querySelector.bind(document)
+    const HienFormAdd = S('.BTN_ADD.add-LISTLOAISAN')
+    const addL = S('.TT_LISTLOAISAN .add')
+    const deleteL = S('.TT_LISTLOAISAN .delete')
+    const editL = S('.TT_LISTLOAISAN .editTT.edit')
+    const modalTT_LISTLOAISAN = S('.modal-edit.TT_LISTLOAISAN')
+    const modal_edit_context = S('.TT_LISTLOAISAN .modal-edit-context')
+    const inputTenLoai = S('#TEN_LOAI-TT_LISTLOAISAN')
+    const inputGiaLoai = S('#GIA_LOAI-TT_LISTLOAISAN')
+
+    var TenLoai = ""
+    var GiaLoai = ""
+
+    
+    app()
+
+    function app() {
+        LoadListLoaiSan()
+        handlerADD()
+        TK()
+    }
+    function TK() {
+        S('#Name_LOAI_SAN').oninput = () => {
+            TenLoai = S('#Name_LOAI_SAN').value.trim()
+            LoadListLoaiSan(TenLoai, GiaLoai)
+        }
+        S('#GIA_LOAI_SAN').oninput = () => {
+            GiaLoai = S('#GIA_LOAI_SAN').value.trim()
+            LoadListLoaiSan(TenLoai, GiaLoai)
+        }
+    }
+    function LoadListLoaiSan(TenLoai ="", GiaLoai="") {
+        fetch('/adminLayout/ListLoaiSan', {
+            method: 'POST',
+            body: JSON.stringify({
+                TenLoai,
+                GiaLoai
+            }),
+            headers: {
+                'Content-type': 'application/json; charset=UTF-8',
+            },
+        })
+            .then((response) => response.json())
+            .then(({ ListLoaiSan }) => {
+                const htmlItem = ListLoaiSan.map(item=> `<div class="row no-gutters table-user-content">
+                    <div class="col l-3">
+                        <div class="table-col-user">
+                            ${item.MA_LOAI}
+                        </div>
+                    </div>
+                    <div class="col l-3">
+                        <div class="table-col-user">
+                          ${item.TEN_LOAI}
+                        </div>
+                    </div>
+                    <div class="col l-3">
+                        <div class="table-col-user">
+                           ${addCommas(item.GIA_LOAI)}đ
+                        </div>
+                    </div>
+                    <div class="col l-3">
+                        <div class="table-col-user">
+                            <div class="table-col-user-setting">
+                                <a onclick="LoadDteail(${item.MA_LOAI}, 'delete')">
+                                    <i class="fas fa-trash-alt"></i>
+                                </a>
+                                <a onclick="LoadDteail(${item.MA_LOAI}, 'edit')">
+                                    <i class="fas fa-edit"></i>
+                                </a>
+                                <a onclick="LoadDteail(${item.MA_LOAI}, 'detail')">
+                                    <i class="far fa-file-alt"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>`).join('')
+               
+              S("#box_item-ListLoaiSan").innerHTML = htmlItem
+            });
+    }
+    function handlerADD() {
+        HienFormAdd.onclick = () => {
+            modalTT_LISTLOAISAN.style.display = "block";
+            hideBTN(deleteL, editL, addL)
+            readonly(false, inputTenLoai, inputGiaLoai)
+            focus(inputTenLoai)
+        }
+
+        addL.onclick = () => {
+            if (inputTenLoai.value.trim() == "") {
+
+                alert("Vui Lòng Nhập Tên Loại")
+                focus(inputTenLoai)
+            }
+            else if (inputGiaLoai.value == "") {
+
+                alert("Vui Lòng Nhập Giá Loại")
+                focus(inputGiaLoai)
+            }
+            else if (inputTenLoai.value.length >= 20) {
+                alert("Vui Nhập Tên Không Quá 20 ký tự")
+                focus(inputTenLoai)
+            }
+            else if (parseInt(inputGiaLoai.value) < 0) {
+
+                alert("Giá Không Hợp Lệ")
+                focus(inputGiaLoai)
+            }
+            else {
+                addLoai()
+                resetinput(inputTenLoai,inputGiaLoai)
+            }
+        }
+    }
+    function LoadDteail(id, type) {
+        fetch('/adminLayout/LOAI_DETAIL', {
+            method: 'POST',
+            body: JSON.stringify({
+                id
+            }),
+            headers: {
+                'Content-type': 'application/json; charset=UTF-8',
+            },
+        })
+            .then((response) => response.json())
+            .then(({ LOAI_DETAIL }) => {
+                modalTT_LISTLOAISAN.style.display = "block";
+                loaddataInput(LOAI_DETAIL)
+                switch (type) {
+                    case "detail":
+                        hideBTN(addL, deleteL, editL, "detail")
+                        readonly(true, inputTenLoai, inputGiaLoai)
+                        break;
+                    case "delete":
+                        hideBTN(addL, editL, deleteL)
+                        readonly(true, inputTenLoai, inputGiaLoai)
+                        break;
+                    case 'edit':
+                        hideBTN(addL, deleteL, editL)
+                        readonly(false, inputTenLoai, inputGiaLoai)
+                        break;
+                    default:
+                        alert("ko co kq")
+                }
+            })
+            .then(() => {
+                //click edit
+                editL.onclick = () => {
+                    if (inputTenLoai.value.trim() == "") {
+
+                        alert("Vui Lòng Nhập Tên Loại")
+                        focus(inputTenLoai)
+                    }
+                    else if (inputGiaLoai.value == "") {
+
+                        alert("Vui Lòng Nhập Giá Loại")
+                        focus(inputGiaLoai)
+                    }
+                    else if (inputTenLoai.value.length >= 20) {
+                        alert("Vui Nhập Tên Không Quá 20 ký tự")
+                        focus(inputTenLoai)
+                    }
+                    else if (parseInt(inputGiaLoai.value) < 0) {
+
+                        alert("Giá Không Hợp Lệ")
+                        focus(inputGiaLoai)
+                    }
+                    else {
+                        editloai(id)
+                        
+                    }
+                }
+
+                //// click delte
+                deleteL.onclick = () => {
+                    if (confirm("Bạn Có Thật Sự Muốn Xóa Dữ Liệu Này")) {
+                        deleteLoai(id);
+                        modalTT_LISTLOAISAN.click()
+                    }
+                }
+            })
+
+
+    }
+    const addCommas = value => {
+        const stringFormat = `${value}`;
+        const x = stringFormat.split('.');
+        let x1 = x[0];
+        const x2 = x.length > 1 ? `.${x[1]}` : '';
+        const regex = /(\d+)(\d{3})/;
+        while (regex.test(x1)) {
+            x1 = x1.replace(regex, '$1,$2');
+        }
+        return x1 + x2;
+    };
+    function editloai(id) {
+        fetch('/adminLayout/edit_loai_san', {
+            method: 'POST',
+            body: JSON.stringify({
+                id,
+                TEN_LOAI: inputTenLoai.value.trim(),
+                GIA_LOAI: inputGiaLoai.value.trim()
+            }),
+            headers: {
+                'Content-type': 'application/json; charset=UTF-8',
+            },
+        })
+            .then((response) => {
+                alert("Cập Nhật Thành Công")
+                LoadListLoaiSan(TenLoai, GiaLoai)
+                focus(inputTenLoai)
+            })
+    }
+    function deleteLoai(id) {
+        fetch('/adminLayout/delete_LOAI_SAN', {
+            method: 'POST',
+            body: JSON.stringify({
+                id
+            }),
+            headers: {
+                'Content-type': 'application/json; charset=UTF-8',
+            },
+        })
+            .then((response) => response.json())
+            .then((data) => {
+                if (data.code != 500) {
+                    alert("Xóa Thành Công")
+                    LoadListLoaiSan(TenLoai, GiaLoai)
+                    focus(inputTenLoai)
+                }
+                else
+                {
+                    alert('Dữ Liệu này Không Thể Xóa !')
+                }
+            })
+    }
+    function loaddataInput(data) {
+        inputTenLoai.value = data.TEN_LOAI
+        inputGiaLoai.value = data.GIA_LOAI
+    }
+    function addLoai() {
+        fetch('/adminLayout/ADD_LOAI_SAN', {
+            method: 'POST',
+            body: JSON.stringify({
+                TEN_LOAI: inputTenLoai.value.trim(),
+                GIA_LOAI: inputGiaLoai.value.trim()
+            }),
+            headers: {
+                'Content-type': 'application/json; charset=UTF-8',
+            },
+        })
+            .then((response) => {
+                alert("Thêm Thành Công")
+                LoadListLoaiSan()
+            })
+            
+    }
+    function hideBTN(btnHIDE, btn2HIDE, btnHIEN, type = "") {
+        btn2HIDE.style.display = "none"
+        btnHIDE.style.display = "none"
+        btnHIEN.style.display = "block"
+        if (type == "detail") {
+            btnHIEN.style.display = "none"
+        }
+
+    }
+    function readonly(isReadonly, ...element) {
+        if (isReadonly) {
+            element.forEach(item => {
+                item.setAttribute('readonly', 'readonly')
+            })
+            
+        } else {
+            element.forEach(item => {
+                item.removeAttribute('readonly')
+            })
+            
+        }
+        
+    }
+    modalTT_LISTLOAISAN.onclick = () => {
+        modalTT_LISTLOAISAN.style.display = "none";
+        resetinput(inputTenLoai, inputGiaLoai)
+    }
+    modal_edit_context.onclick = (e) => {
+        e.stopPropagation()
+    }
+    function focus(element) {
+        element.focus()
+    }
+    function resetinput(...element) {
+        element.forEach(item => {
+            item.value = ""
+        })
+        element[0].focus()
+    }
+</script>
+<style>
+    #box_item-ListLoaiSan{
+        height:300px;
+        overflow-y :scroll;
+    }
+</style>
+
