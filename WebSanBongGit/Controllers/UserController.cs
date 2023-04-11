@@ -8,6 +8,7 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Web;
 using System.Web.Mvc;
+using mvcDangNhap.common;
 
 namespace WebSanBongGit.Controllers
 {
@@ -198,7 +199,7 @@ namespace WebSanBongGit.Controllers
                     string content = System.IO.File.ReadAllText(Server.MapPath("~/content/temlate/mailquenmk.html"));
                     content = content.Replace("{{SDT}}", SDT);
                     content = content.Replace("{{MK_NEW}}", mkrandom);
-                    //new MailHelper().SendMail(EMAIL, "Thay đổi mật khẩu thành công từ Sân Bóng AE", content);
+                    new MailHelper().SendMail(EMAIL, "Thay đổi mật khẩu thành công từ Sân Bóng AE", content);
 
                 }
                 else
